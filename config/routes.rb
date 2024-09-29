@@ -1,4 +1,7 @@
 Rails.application.routes.draw do
+  
+  # get "login/index"
+  # resources :admins
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -11,4 +14,15 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+
+root 'login#index'
+get 'login/index', to: 'login#index', as: 'login'
+get '/admins/:id', to: 'admins#show', as: 'admin'
+
+get '/logout', to: 'sessions#logout', as: 'logout'
+get '/auth/google_oauth2/callback', to: 'sessions#omniauth'
+
+get 'welcome/index', to: 'welcome#index', as: 'welcome'
+get "sessions/logout"
+get "sessions/omniauth"
 end

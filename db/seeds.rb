@@ -7,3 +7,14 @@
 #   ["Action", "Comedy", "Drama", "Horror"].each do |genre_name|
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
+
+admins = [
+    { email: 'toanvpk@tamu.edu',
+      uin: '321004222',
+      first_name: 'Toan',
+      last_name: 'Vu' }
+]
+
+admins.each do |admin|
+    Admin.create!(admin)
+end
