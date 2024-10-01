@@ -1,0 +1,2 @@
+# Gemfile.local
+gem 'activerecord-postgresql-adapter'
