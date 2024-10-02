@@ -15,7 +15,7 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
 
-root 'login#index'
+root to: redirect('login/index')
 get 'login/index', to: 'login#index', as: 'login'
 get '/admins/:id', to: 'admins#show', as: 'admin'
 
