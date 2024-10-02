@@ -1,0 +1,24 @@
+<h2>Howdy <%= @current_admin.first_name %>!</h2>
+<div id="admin-details">
+  <p>
+    <strong>Email:</strong>
+    <%= @current_admin.email %>
+  </p>
+
+  <p>
+    <strong>UIN:</strong>
+    <%= @current_admin.uin %>
+  </p>
+
+  <p>
+    <strong>First name:</strong>
+    <%= @current_admin.first_name %>
+  </p>
+
+  <p>
+    <strong>Last name:</strong>
+    <%= @current_admin.last_name %>
+  </p>
+
+  <%= link_to "Logout", logout_path %>
+</div>
