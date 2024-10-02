@@ -34,3 +34,5 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 .vscode/launch.json
+Gemfile.lock
+config/credentials.yml.enc
