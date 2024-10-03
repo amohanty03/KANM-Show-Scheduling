@@ -1,0 +1,236 @@
+{
+  "RSpec": {
+    "coverage": {
+      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/app/helpers/admins_helper.rb": {
+        "lines": [
+          1,
+          null
+        ]
+      },
+      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/app/helpers/application_helper.rb": {
+        "lines": [
+          1,
+          null
+        ]
+      },
+      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/app/mailers/application_mailer.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          null
+        ]
+      },
+      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/app/controllers/admins_controller.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          null,
+          1,
+          2,
+          null,
+          null,
+          null,
+          1,
+          1,
+          null,
+          null,
+          null,
+          1,
+          1,
+          null,
+          null,
+          null,
+          1,
+          null,
+          null,
+          null,
+          1,
+          4,
+          null,
+          4,
+          4,
+          4,
+          2,
+          null,
+          4,
+          2,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          4,
+          4,
+          4,
+          2,
+          null,
+          4,
+          2,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          2,
+          null,
+          2,
+          4,
+          2,
+          null,
+          null,
+          null,
+          1,
+          null,
+          1,
+          8,
+          null,
+          null,
+          null,
+          1,
+          8,
+          null,
+          null
+        ]
+      },
+      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/app/controllers/application_controller.rb": {
+        "lines": [
+          1,
+          null,
+          null,
+          1,
+          null,
+          1,
+          null,
+          1,
+          null,
+          null,
+          null,
+          3,
+          null,
+          null,
+          1,
+          null,
+          null,
+          19,
+          null,
+          null,
+          1,
+          null,
+          18,
+          2,
+          null,
+          null,
+          null
+        ]
+      },
+      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/app/controllers/login_controller.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          1,
+          1,
+          0,
+          null,
+          null,
+          null
+        ]
+      },
+      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/app/controllers/sessions_controller.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          null,
+          null,
+          null,
+          1,
+          1,
+          1,
+          0,
+          0,
+          0,
+          null,
+          null,
+          1,
+          1,
+          1,
+          1,
+          null,
+          0,
+          0,
+          null,
+          null,
+          null
+        ]
+      },
+      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/app/controllers/welcome_controller.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          null
+        ]
+      },
+      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/app/models/admin.rb": {
+        "lines": [
+          1,
+          1,
+          null
+        ]
+      },
+      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/app/models/application_record.rb": {
+        "lines": [
+          1,
+          1,
+          null
+        ]
+      },
+      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/app/channels/application_cable/channel.rb": {
+        "lines": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "branches": {
+        }
+      },
+      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/app/channels/application_cable/connection.rb": {
+        "lines": [
+          null,
+          null,
+          null,
+          null
+        ],
+        "branches": {
+        }
+      },
+      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/app/jobs/application_job.rb": {
+        "lines": [
+          null,
+          null,
+          null,
+          null,
+          null,
+          null,
+          null
+        ],
+        "branches": {
+        }
+      }
+    },
+    "timestamp": 1727939618
+  }
+}

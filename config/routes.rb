@@ -25,4 +25,7 @@ get '/auth/google_oauth2/callback', to: 'sessions#omniauth'
 get 'welcome/index', to: 'welcome#index', as: 'welcome'
 get "sessions/logout"
 get "sessions/omniauth"
+
+resources :admins
+
 end
