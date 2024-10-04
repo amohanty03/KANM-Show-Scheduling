@@ -49,7 +49,6 @@ RSpec.describe SessionsController, type: :controller do
 end
 
 describe 'GET #omniauth' do
-
   context 'when the admin exists' do
     before do
       mock_user_sign_in
@@ -62,8 +61,5 @@ describe 'GET #omniauth' do
       expect(response).to redirect_to(welcome_path)
     end
   end
-
 end
-
-
 end
