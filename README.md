@@ -37,6 +37,7 @@
 - Once renamed, run `EDITOR=nano rails credentials:edit`. Paste the shared credentials into this file.
 - A `master.key` and `credentials.yml.enc` will be generated.
 - Apply migrations via `rails db:migrate`.
+- Seed the DB via `rails db:seed`.
 - Finally start the server via `rails server`.
 
 
