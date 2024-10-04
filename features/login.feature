@@ -1,37 +1,30 @@
 Feature: Login
  People can login as admin
  
- Scenario: Login with username and password
-  Given I am not logged in and I have a person with username "test1@tamu.edu" and password "password"
-  When I enter my username as "test1@tamu.edu"
-  And I enter my username as "password"
-  When I click the login button
-  Then I should see "admin"
+ Scenario: Successful login with a tamu.edu email
+  Given I am on the login page
+  When I click the 'Login with TAMU Gmail' button
+  And I select a tamu.edu email
+  Then I should be redirected to the welcome page
+  And I should see a welcome message
+
+ Scenario: Unsuccessful login with a non-registered tamu.edu email
+  Given I am on the login page
+  When I click the 'Login with TAMU Gmail' button
+  And I select a tamu.edu email that is not registered
+  Then I shoul stay on the login page
+  And I should see an error message
  
- Scenario: Login with incorrect password
-  Given I am not logged in and I have a person with username "test1@tamu.edu" and password "password" 
-  When I enter my username as "test1@tamu.edu"
-  And I enter my password as "dasworp"
-  When I click the login button 
-  Then I should see "access denied: incorrect username or password"
- 
- Scenario: Login with only username
-  Given I am not logged in and I have a person with username "test1@tamu.edu" and password "password"
-  When I enter my username as "test1@tamu.edu"
-  And I enter my password as "" 
+
+ Scenario: Unsuccessful login with a non-tamu.edu email
+  Given I am on the login page
   When I click the login button
-  Then I should see "access denied: incorrect username or password"
- 
- Scenario: Login with an empty username
-  Given I am not logged in and I have a person with username "test1@tamu.edu" and password "password" 
-  When I enter my username as ""
-  And I enter my password as "password"
+  And I select a nontamu.edu email
+  Then I should stay on the login page
+  And I should see an error message
+
+ Scenario: Check if the tamu.edu email is in the database
+  Given I am on the login page
   When I click the login button
-  Then I should see "acess denied: incorrect usernameername or password"
- 
- Scenario: Login with wrong username or password
-  Given I am not logged in and I have a person with username "test1@tamu.edu" and password "password"
-  When I enter my username as "wronguser"
-  And I enter my password as "wrongpassword"
-  When I click the login button
-  Then I should see "access denied: incorrect username or password"
+  And I select a tamu.edu email
+  Then I check if the email is in the database
