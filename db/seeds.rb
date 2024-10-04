@@ -44,5 +44,5 @@ admins = [
 ]
 
 admins.each do |admin|
-    Admin.find_or_create_by(admin)
+    Admin.find_or_create_by!(admin)
 end
