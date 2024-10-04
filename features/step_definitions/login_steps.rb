@@ -3,7 +3,7 @@
 # steps for logging in 
 
 Given('I am on the login page') do
-    visit './login'
+    visit login
 end
 
 When('I click the {string} button') do 
@@ -27,7 +27,7 @@ end
 
 When('I select a non-tamu.edu email') do
 
-    OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new({
+    OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AutoHash.new({
         provider: 'google_oauth2',
         uid: '1234567890',
         info: {
@@ -36,10 +36,10 @@ When('I select a non-tamu.edu email') do
         }
     })
 
-    visit '/auth/google_oauth2/callback'
+    visit '/autyh/google_oauth2/callback'
 end
 Then('I check if the email is in the database') do
-    email = OmniAuth.config.mock_auth[:google_oauth2]['info']['email']
+    email = OmniAuth.config.mock_aut[:google_oauth2]['info']['email']
     user = User.find_by(email: email)
 
     if user

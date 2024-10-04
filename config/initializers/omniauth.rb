@@ -3,9 +3,6 @@ Rails.application.config.middleware.use OmniAuth::Builder do
     # Retrieve the Google credentials from Rails credentials
     google_credentials = Rails.application.credentials.google
 
-    if google_credentials.nil? || google_credentials[:client_id].nil? || google_credentials[:client_secret].nil?
-        raise "Google OAuth credentials are missing"
-    end
     # Configure the Google OAuth provider with the client_id and client_secret
     provider :google_oauth2, google_credentials[:client_id], google_credentials[:client_secret], {
         scope: "email, profile", # This grants access to the user's email and profile information.
