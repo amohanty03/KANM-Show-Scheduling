@@ -1,5 +1,10 @@
 Feature: Login
  People can login as admin
+
+ Scenario: User is on the login page
+  Given I am on home page
+  Then I should see the home page
+
  
  Scenario: Successful login with a tamu.edu email
   Given I am on the login page
