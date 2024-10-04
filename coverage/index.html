@@ -13,7 +13,7 @@
       <img src="./assets/0.13.1/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" class="hide">
-      <div class="timestamp">Generated <abbr class="timeago" title="2024-10-04T12:57:26-05:00">2024-10-04T12:57:26-05:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2024-10-04T13:14:53-05:00">2024-10-04T13:14:53-05:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -810,7 +810,7 @@
 
             
 
-            <code class="ruby">#module ApplicationCable</code>
+            <code class="ruby"># module ApplicationCable</code>
           </li>
         </div>
       
@@ -840,7 +840,7 @@
 
             
 
-            <code class="ruby">#end</code>
+            <code class="ruby"># end</code>
           </li>
         </div>
       
@@ -881,7 +881,7 @@
 
             
 
-            <code class="ruby">#module ApplicationCable</code>
+            <code class="ruby"># module ApplicationCable</code>
           </li>
         </div>
       
@@ -911,7 +911,7 @@
 
             
 
-            <code class="ruby">#end</code>
+            <code class="ruby"># end</code>
           </li>
         </div>
       
@@ -2011,7 +2011,7 @@
 
             
 
-            <code class="ruby">      redirect_to login_path, alert: &#39;You must be logged in to access this section.&#39;</code>
+            <code class="ruby">      redirect_to login_path, alert: &quot;You must be logged in to access this section.&quot;</code>
           </li>
         </div>
       
@@ -2096,7 +2096,7 @@
 
             
 
-            <code class="ruby">  skip_before_action :require_login, only: [:index]</code>
+            <code class="ruby">  skip_before_action :require_login, only: [ :index ]</code>
           </li>
         </div>
       
@@ -2140,7 +2140,7 @@
 
             
 
-            <code class="ruby">      redirect_to admin_path(@current_admin), notice: &#39;Welcome, back!&#39;</code>
+            <code class="ruby">      redirect_to admin_path(@current_admin), notice: &quot;Welcome, back!&quot;</code>
           </li>
         </div>
       
@@ -2225,7 +2225,7 @@
 
             
 
-            <code class="ruby">  skip_before_action :require_login, only: [:omniauth]</code>
+            <code class="ruby">  skip_before_action :require_login, only: [ :omniauth ]</code>
           </li>
         </div>
       
@@ -2281,7 +2281,7 @@
 
             
 
-            <code class="ruby">    redirect_to login_path, notice: &#39;You are logged out.&#39;</code>
+            <code class="ruby">    redirect_to login_path, notice: &quot;You are logged out.&quot;</code>
           </li>
         </div>
       
@@ -2367,7 +2367,7 @@
 
             
 
-            <code class="ruby">    auth = request.env[&#39;omniauth.auth&#39;][&#39;info&#39;]</code>
+            <code class="ruby">    auth = request.env[&quot;omniauth.auth&quot;][&quot;info&quot;]</code>
           </li>
         </div>
       
@@ -2379,7 +2379,7 @@
 
             
 
-            <code class="ruby">    @admin = Admin.find_by(email: auth[&#39;email&#39;]) do |a|</code>
+            <code class="ruby">    @admin = Admin.find_by(email: auth[&quot;email&quot;]) do |a|</code>
           </li>
         </div>
       
@@ -2389,7 +2389,7 @@
 
             
 
-            <code class="ruby">      a.email = auth[&#39;email&#39;]</code>
+            <code class="ruby">      a.email = auth[&quot;email&quot;]</code>
           </li>
         </div>
       
@@ -2399,7 +2399,7 @@
 
             
 
-            <code class="ruby">      a.first_name = auth[&#39;first_name&#39;]</code>
+            <code class="ruby">      a.first_name = auth[&quot;first_name&quot;]</code>
           </li>
         </div>
       
@@ -2409,7 +2409,7 @@
 
             
 
-            <code class="ruby">      a.last_name = auth[&#39;last_name&#39;]</code>
+            <code class="ruby">      a.last_name = auth[&quot;last_name&quot;]</code>
           </li>
         </div>
       
@@ -2759,7 +2759,7 @@
 
             
 
-            <code class="ruby">#class ApplicationJob &lt; ActiveJob::Base</code>
+            <code class="ruby"># class ApplicationJob &lt; ActiveJob::Base</code>
           </li>
         </div>
       
@@ -2769,7 +2769,7 @@
 
             
 
-            <code class="ruby">  # Automatically retry jobs that encountered a deadlock</code>
+            <code class="ruby"># Automatically retry jobs that encountered a deadlock</code>
           </li>
         </div>
       
@@ -2779,7 +2779,7 @@
 
             
 
-            <code class="ruby">  # retry_on ActiveRecord::Deadlocked</code>
+            <code class="ruby"># retry_on ActiveRecord::Deadlocked</code>
           </li>
         </div>
       
@@ -2799,7 +2799,7 @@
 
             
 
-            <code class="ruby">  # Most jobs are safe to ignore if the underlying records are no longer available</code>
+            <code class="ruby"># Most jobs are safe to ignore if the underlying records are no longer available</code>
           </li>
         </div>
       
@@ -2809,7 +2809,7 @@
 
             
 
-            <code class="ruby">  # discard_on ActiveJob::DeserializationError</code>
+            <code class="ruby"># discard_on ActiveJob::DeserializationError</code>
           </li>
         </div>
       
@@ -2819,7 +2819,7 @@
 
             
 
-            <code class="ruby">#end</code>
+            <code class="ruby"># end</code>
           </li>
         </div>
       

@@ -59,7 +59,7 @@ RSpec.describe AdminsController, type: :controller do
   end
 
   describe 'POST #create' do
-    before do 
+    before do
       mock_user_sign_in
     end
 
@@ -71,7 +71,7 @@ RSpec.describe AdminsController, type: :controller do
         last_name: 'Doe'
       }
     end
-  
+
     let(:invalid_attributes) do
       {
         email: '',
@@ -93,9 +93,8 @@ RSpec.describe AdminsController, type: :controller do
         expect(response).to redirect_to(Admin.last)
         expect(flash[:notice]).to eq('Admin was successfully created.')
       end
-
     end
-  
+
     context 'with invalid attributes' do
       it 'does not create a new Admin' do
         expect {
@@ -108,15 +107,14 @@ RSpec.describe AdminsController, type: :controller do
         expect(response).to render_template(:new)
         expect(response).to have_http_status(:unprocessable_entity)
       end
-
     end
   end
 
   describe 'PATCH/PUT #update' do
-    before do 
+    before do
       mock_user_sign_in
     end
-    
+
     let(:valid_attributes) do
       {
         email: 'updated_admin@example.com',
@@ -169,7 +167,7 @@ RSpec.describe AdminsController, type: :controller do
   end
 
   describe 'DELETE #destroy' do
-    before do 
+    before do
       mock_user_sign_in
     end
 
@@ -187,7 +185,6 @@ RSpec.describe AdminsController, type: :controller do
         expect(response).to redirect_to(admins_path)
         expect(flash[:notice]).to eq('Admin was successfully destroyed.')
       end
-
     end
 
     context 'with an invalid admin id' do
@@ -200,7 +197,7 @@ RSpec.describe AdminsController, type: :controller do
   end
 
   describe 'GET #new' do
-  before do 
+  before do
     mock_user_sign_in
   end
     it 'initializes a new Admin' do
@@ -210,7 +207,7 @@ RSpec.describe AdminsController, type: :controller do
   end
 
   describe 'GET #index' do
-    before do 
+    before do
       mock_user_sign_in
     end
 
@@ -228,5 +225,4 @@ RSpec.describe AdminsController, type: :controller do
       expect(response).to have_http_status(:success)
     end
   end
-
 end
