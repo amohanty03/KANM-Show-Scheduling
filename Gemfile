@@ -66,14 +66,14 @@ end
 
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
-  gem 'capybara'
-  gem 'cucumber-rails', require: false
-  gem 'database_cleaner'
-  gem 'rails-controller-testing'
-  gem 'rspec-rails'
-  gem 'selenium-webdriver'
-  gem 'simplecov', require: false
-  gem 'ZenTest'
+  gem "capybara"
+  gem "cucumber-rails", require: false
+  gem "database_cleaner"
+  gem "rails-controller-testing"
+  gem "rspec-rails"
+  gem "selenium-webdriver"
+  gem "simplecov", require: false
+  gem "ZenTest"
 end
 
 group :production do

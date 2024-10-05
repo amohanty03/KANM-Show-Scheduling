@@ -1,0 +1,24 @@
+TEAM WORKING AGREEMENT
+
+1) Document your norms and values.
+   • Each teammate should actively respond to queries and discussions posted in the Slack channel, particularly if it is directed at an individual.
+   • We would try to complete code check-ins for a particular sprint before the client meetings
+   • In case of any disagreements, we shall finalize the decision based on a majority vote.
+   • Testing is to be done by the same individual who develops the code
+   • Scrum master / PO roles would be switched every 2 weeks after the client meeting 
+
+2) Define roles for retrospectives
+   • Retrospectives would be team discussions, and the scrum master would take the lead if needed.
+   • All teammates shall participate in the sprint retrospective and should let the team know if they may not be able to attend a particular session.
+   • Individuals missing multiple retrospective meetings without prior notification, would not be given priority in choosing tasks in the upcoming sprints and would be left out of the loop as part of the later discussions.
+
+3) Define how to handle conflict.
+   • Conflicts can be handled as a team, if any individual is unable to complete the assigned tasks due to a genuine reason, the team shall discuss and cover for that individual.
+   • If an individual is repeatedly missing deadlines, warnings will be given during team discussions and if such behavior continues, tasks will not be assigned to that individual.
+   • In case of a conflict of ideas, the final decision will be taken based on a vote majority.
+
+4) Create "Definition of Done". Every retrospective should have some concrete actions to take.
+   • Apart from finishing assigned tasks, the definition of done lies in the fact whether the whole team is in equilibrium.
+
+5) Ensure flexibility. Revisit your working agreement at each retrospective. 
+   • Initial draft of the team working agreement - 10/02/2024

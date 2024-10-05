@@ -37,7 +37,6 @@ RSpec.describe LoginController, type: :controller do
   end
 
   describe 'GET #index' do
-
     context 'when the user is not logged in' do
      it 'renders the index template' do
        get :index
@@ -46,5 +45,4 @@ RSpec.describe LoginController, type: :controller do
      end
    end
   end
-
 end
