@@ -1,3 +1,4 @@
+
 if Rails.application.credentials.google
 Rails.application.config.middleware.use OmniAuth::Builder do
     # Retrieve the Google credentials from Rails credentials

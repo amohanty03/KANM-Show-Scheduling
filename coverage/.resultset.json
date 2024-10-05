@@ -1,19 +1,19 @@
 {
   "RSpec": {
     "coverage": {
-      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/app/helpers/admins_helper.rb": {
+      "/mnt/c/Users/haridher/Desktop/MS/TAMU Finalized/Courses/606 Software Engineering/KANM/Codebase/KANM-Show-Scheduling/app/helpers/admins_helper.rb": {
         "lines": [
           1,
           null
         ]
       },
-      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/app/helpers/application_helper.rb": {
+      "/mnt/c/Users/haridher/Desktop/MS/TAMU Finalized/Courses/606 Software Engineering/KANM/Codebase/KANM-Show-Scheduling/app/helpers/application_helper.rb": {
         "lines": [
           1,
           null
         ]
       },
-      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/app/mailers/application_mailer.rb": {
+      "/mnt/c/Users/haridher/Desktop/MS/TAMU Finalized/Courses/606 Software Engineering/KANM/Codebase/KANM-Show-Scheduling/app/mailers/application_mailer.rb": {
         "lines": [
           1,
           1,
@@ -21,7 +21,7 @@
           null
         ]
       },
-      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/app/controllers/admins_controller.rb": {
+      "/mnt/c/Users/haridher/Desktop/MS/TAMU Finalized/Courses/606 Software Engineering/KANM/Codebase/KANM-Show-Scheduling/app/controllers/admins_controller.rb": {
         "lines": [
           1,
           1,
@@ -96,7 +96,7 @@
           null
         ]
       },
-      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/app/controllers/application_controller.rb": {
+      "/mnt/c/Users/haridher/Desktop/MS/TAMU Finalized/Courses/606 Software Engineering/KANM/Codebase/KANM-Show-Scheduling/app/controllers/application_controller.rb": {
         "lines": [
           1,
           null,
@@ -127,7 +127,7 @@
           null
         ]
       },
-      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/app/controllers/login_controller.rb": {
+      "/mnt/c/Users/haridher/Desktop/MS/TAMU Finalized/Courses/606 Software Engineering/KANM/Codebase/KANM-Show-Scheduling/app/controllers/login_controller.rb": {
         "lines": [
           1,
           1,
@@ -140,7 +140,7 @@
           null
         ]
       },
-      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/app/controllers/sessions_controller.rb": {
+      "/mnt/c/Users/haridher/Desktop/MS/TAMU Finalized/Courses/606 Software Engineering/KANM/Codebase/KANM-Show-Scheduling/app/controllers/sessions_controller.rb": {
         "lines": [
           1,
           1,
@@ -175,7 +175,7 @@
           null
         ]
       },
-      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/app/controllers/welcome_controller.rb": {
+      "/mnt/c/Users/haridher/Desktop/MS/TAMU Finalized/Courses/606 Software Engineering/KANM/Codebase/KANM-Show-Scheduling/app/controllers/welcome_controller.rb": {
         "lines": [
           1,
           1,
@@ -183,21 +183,21 @@
           null
         ]
       },
-      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/app/models/admin.rb": {
+      "/mnt/c/Users/haridher/Desktop/MS/TAMU Finalized/Courses/606 Software Engineering/KANM/Codebase/KANM-Show-Scheduling/app/models/admin.rb": {
         "lines": [
           1,
           1,
           null
         ]
       },
-      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/app/models/application_record.rb": {
+      "/mnt/c/Users/haridher/Desktop/MS/TAMU Finalized/Courses/606 Software Engineering/KANM/Codebase/KANM-Show-Scheduling/app/models/application_record.rb": {
         "lines": [
           1,
           1,
           null
         ]
       },
-      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/app/channels/application_cable/channel.rb": {
+      "/mnt/c/Users/haridher/Desktop/MS/TAMU Finalized/Courses/606 Software Engineering/KANM/Codebase/KANM-Show-Scheduling/app/channels/application_cable/channel.rb": {
         "lines": [
           null,
           null,
@@ -207,7 +207,7 @@
         "branches": {
         }
       },
-      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/app/channels/application_cable/connection.rb": {
+      "/mnt/c/Users/haridher/Desktop/MS/TAMU Finalized/Courses/606 Software Engineering/KANM/Codebase/KANM-Show-Scheduling/app/channels/application_cable/connection.rb": {
         "lines": [
           null,
           null,
@@ -217,7 +217,7 @@
         "branches": {
         }
       },
-      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/app/jobs/application_job.rb": {
+      "/mnt/c/Users/haridher/Desktop/MS/TAMU Finalized/Courses/606 Software Engineering/KANM/Codebase/KANM-Show-Scheduling/app/jobs/application_job.rb": {
         "lines": [
           null,
           null,
@@ -231,6 +231,6 @@
         }
       }
     },
-    "timestamp": 1727939618
+    "timestamp": 1728065693
   }
 }
