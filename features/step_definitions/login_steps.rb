@@ -1,19 +1,22 @@
 # frozen_string_literal: true
 
-
-
-# Steps for logging in 
-
-# Given('I am on login page') do
-#     visit (login_path)
-#   end
 Given('I am on home page') do
-    visit login
-  end
+  visit login_path
+end
   
 Then('I should see the home page') do
-    expect(page).to have_content(login)
-end 
+  expect(page).to have_content('login')
+end
+
+Given('I am on the login page') do
+  visit login_path
+end
+
+When('I click the {string} button') do |login|
+  click_link(login)
+end
+
+
 
 # Then('I am on the login page') do
 #     expect(page).to have_current_path(login)
