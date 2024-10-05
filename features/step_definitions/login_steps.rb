@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 Given('I am on home page') do
-  visit login_path
+    visit login_path
 end
   
 Then('I should see the home page') do
@@ -51,6 +51,17 @@ Then('I should stay on the login page') do
   expect(page).to have_content('Welcome to the KANM Radio Show Scheduler')
 end
 
+
+Then('I check if the email is in the database') do
+    email = OmniAuth.config.mock_auth[:google_oauth2]['info']['email'] 
+    user = Admin.find_by(email: email)
+
+    if user
+        puts "Email #{email} exists in the database."
+    else
+        puts "Email #{email} does not exist in the database"
+    end
+end
 # When('I select a non-tamu.edu email') do
 #     OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new({
 #         provider: 'google_oauth2',
@@ -64,16 +75,7 @@ end
 #     visit '/auth/google_oauth2/callback'  
 # end
 
-# Then('I check if the email is in the database') do
-#     email = OmniAuth.config.mock_auth[:google_oauth2]['info']['email'] 
-#     user = User.find_by(email: email)
 
-#     if user
-#         puts "Email #{email} exists in the database."
-#     else
-#         puts "Email #{email} does not exist in the database"
-#     end
-# end
 
 
 
