@@ -3,7 +3,7 @@
 Given('I am on home page') do
     visit login_path
 end
-  
+
 Then('I should see the home page') do
   expect(page).to have_current_path(login_path)
   expect(page).to have_content('Welcome to the KANM Radio Show Scheduler')
@@ -20,7 +20,7 @@ When('I click the {string} button as {string} with name {string} {string}') do |
     info: {
       email: email,
       first_name: first_name,
-      last_name: last_name,
+      last_name: last_name
     }
   })
   click_button(login)
@@ -31,10 +31,10 @@ When('I select a {string} email with name {string} {string}') do |email, first_n
     OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new({
         provider: 'google_oauth2',
         uid: '1234567890',
-        info:{
+        info: {
             email: email,
             first_name: first_name,
-            last_name: last_name,
+            last_name: last_name
         }
     })
     visit '/auth/google_oauth2/callback'
@@ -53,7 +53,7 @@ end
 
 
 Then('I check if the email is in the database') do
-    email = OmniAuth.config.mock_auth[:google_oauth2]['info']['email'] 
+    email = OmniAuth.config.mock_auth[:google_oauth2]['info']['email']
     user = Admin.find_by(email: email)
 
     if user
@@ -72,7 +72,7 @@ end
 #             last_name: 'User'
 #         }
 #     })
-#     visit '/auth/google_oauth2/callback'  
+#     visit '/auth/google_oauth2/callback'
 # end
 
 

@@ -19,7 +19,7 @@
 
 require "simplecov"
 
-SimpleCov.start do 
+SimpleCov.start do
   add_filter "/channels/"
   add_filter "/jobs/"
 end
