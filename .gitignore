@@ -35,3 +35,4 @@
 /config/master.key
 .vscode/launch.json
 Gemfile.lock
+config/credentials.ymllocal.enc
