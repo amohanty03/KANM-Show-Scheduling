@@ -5,7 +5,7 @@ Given('I am on home page') do
 end
   
 Then('I should see the home page') do
-  expect(page).to have_content('login')
+  expect(page).to have_content('Welcome to the KANM Radio Show Scheduler')
 end
 
 Given('I am on the login page') do
@@ -13,31 +13,40 @@ Given('I am on the login page') do
 end
 
 When('I click the {string} button') do |login|
-  click_link(login)
+  OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new({
+    provider: 'google_oauth2',
+    uid: '1234567890',
+    info: {
+      email: 'student@tamu.edu',
+      first_name: 'Test',
+      last_name: 'Student',
+    }
+  })
+  click_button(login)
 end
 
 
+When('I select a tamu.edu email') do
+    OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new({
+        provider: 'google_oauth2',
+        uid: '1234567890',
+        info:{
+            email: 'student@tamu.edu',
+            first_name: 'Test',
+            last_name: 'Student',
+        }
+    })
+    visit '/auth/google_oauth2/callback'
+end
+
+
+Then('I should be redirected to the welcome page') do
+  expect(page).to have_current_path(welcome_path)
+  expect(page).to have_content('Please upload your RJ Preferences Spreadsheet below')
+end
 
 # Then('I am on the login page') do
 #     expect(page).to have_current_path(login)
-# end
-
-# When('I click the {string} button') do 
-#     click_link('Login with TAMU Gmail')
-# end
-
-# When('I select a tamu.edu email') do
-#     OmniAuth.config.test_mode = true
-#     OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new({
-#         provider: 'google_oauth2',
-#         uid: '1234567890',
-#         info:{
-#             email: 'student@tamu.edu',
-#             name: 'Test student'
-#         }
-#     })
-
-#     visit '/auth/google_oauth2/callback'
 # end
 
 # When('I select a non-tamu.edu email') do
@@ -62,14 +71,6 @@ end
 #     else
 #         puts "Email #{email} does not exist in the database"
 #     end
-# end
-
-# Then('I should be redirected to the welcome page') do
-#     expect(page).to have_current_path(welcome)
-# end
-
-# Then('I should see a welcome page') do
-#     expect(page).to have_current_path(welcome)
 # end
 
 # Then('I should stay on the login page') do

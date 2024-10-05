@@ -74,6 +74,7 @@ group :test do
   gem "selenium-webdriver"
   gem "simplecov", require: false
   gem "ZenTest"
+  gem "omniauth-test"
 end
 
 group :production do
