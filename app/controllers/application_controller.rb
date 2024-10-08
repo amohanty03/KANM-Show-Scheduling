@@ -21,7 +21,7 @@ class ApplicationController < ActionController::Base
   def require_login
     # redirect to the login page unless user is logged in
     unless logged_in?
-      redirect_to login_path, alert: 'You must be logged in to access this section.'
+      redirect_to login_path, alert: "You must be logged in to access this section."
     end
   end
 end

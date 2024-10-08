@@ -1,6 +1,8 @@
 source "https://rubygems.org"
 
 ruby "3.3.4"
+
+gem "sqlite3"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.2.1"
 # The original asset pipeline for Rails [https://github.com/rails/sprockets-rails]
@@ -35,9 +37,9 @@ gem "bootsnap", require: false
 # gem "image_processing", "~> 1.2"
 
 # omniauth for google login
-gem 'omniauth'
-gem 'omniauth-google-oauth2'
-gem 'omniauth-rails_csrf_protection'
+gem "omniauth"
+gem "omniauth-google-oauth2"
+gem "omniauth-rails_csrf_protection"
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
@@ -50,7 +52,11 @@ group :development, :test do
   gem "rubocop-rails-omakase", require: false
 
   # Use sqlite3 as the database for Active Record
-  gem "sqlite3"
+  # gem "sqlite3"
+
+  gem "cucumber-rails", require: false
+  gem "capybara"
+  gem "selenium-webdriver"
 end
 
 group :development do
@@ -61,9 +67,16 @@ end
 group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
+  gem "cucumber-rails", require: false
+  gem "database_cleaner"
+  gem "rails-controller-testing"
+  gem "rspec-rails"
   gem "selenium-webdriver"
+  gem "simplecov", require: false
+  gem "ZenTest"
+  gem "omniauth-test"
 end
 
 group :production do
-  gem 'pg' # for Heroku deployment
+  gem "pg" # for Heroku deployment
 end

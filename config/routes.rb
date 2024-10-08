@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  
   # get "login/index"
   # resources :admins
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
@@ -12,17 +11,19 @@ Rails.application.routes.draw do
   get "service-worker" => "rails/pwa#service_worker", as: :pwa_service_worker
   get "manifest" => "rails/pwa#manifest", as: :pwa_manifest
 
-  # Defines the root path route ("/")
-  # root "posts#index"
+# Defines the root path route ("/")
+# root "posts#index"
 
-root to: redirect('login/index')
-get 'login/index', to: 'login#index', as: 'login'
-get '/admins/:id', to: 'admins#show', as: 'admin'
+root to: redirect("login/index")
+get "login/index", to: "login#index", as: "login"
+get "/admins/:id", to: "admins#show", as: "admin"
 
-get '/logout', to: 'sessions#logout', as: 'logout'
-get '/auth/google_oauth2/callback', to: 'sessions#omniauth'
+get "/logout", to: "sessions#logout", as: "logout"
+get "/auth/google_oauth2/callback", to: "sessions#omniauth"
 
-get 'welcome/index', to: 'welcome#index', as: 'welcome'
+get "welcome/index", to: "welcome#index", as: "welcome"
 get "sessions/logout"
 get "sessions/omniauth"
+
+resources :admins
 end
