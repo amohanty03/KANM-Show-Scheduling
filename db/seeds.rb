@@ -52,5 +52,11 @@ admins = [ # Devs
 ]
 
 admins.each do |admin|
-    Admin.find_or_create_by!(admin)
+  found_admin = Admin.find_by(email: admin[:email])
+
+  if found_admin
+    found_admin.update!(admin)
+  else
+    Admin.create!(admin)
+  end
 end
