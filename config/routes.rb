@@ -11,7 +11,7 @@ Rails.application.routes.draw do
 
   root to: redirect("login/index")
   get "login/index", to: "login#index", as: "login"
-  get "/logout", to: "sessions#logout", as: "logout"
+  post "/logout", to: "sessions#logout", as: "logout"
   get "/auth/google_oauth2/callback", to: "sessions#omniauth"
   get "sessions/logout"
   get "sessions/omniauth"
