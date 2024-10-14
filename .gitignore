@@ -38,4 +38,3 @@ Gemfile.lock
 config/credentials.ymllocal.enc
 
 /config/njcredentials.yml.enc
-/config/credentials.yml.enc
