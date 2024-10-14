@@ -1,121 +1,78 @@
-<html>
-  <head>
-    <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
-    <link
-      rel="stylesheet"
-      as="style"
-      onload="this.rel='stylesheet'"
-      href="https://fonts.googleapis.com/css2?display=swap&amp;family=Newsreader%3Awght%40400%3B500%3B700%3B800&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900"
-    />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-  </head>
-  <body>
-    <div class="relative flex size-full min-h-screen flex-col bg-white group/design-root overflow-x-hidden" style='font-family: Newsreader, "Noto Sans", sans-serif;'>
-      <div class="layout-container flex h-full grow flex-col">
-        <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f0f2f4] px-10 py-3">
-          <div class="flex items-center gap-4 text-[#111418]">
-            <div class="size-4">
-              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M24 4C25.7818 14.2173 33.7827 22.2182 44 24C33.7827 25.7818 25.7818 33.7827 24 44C22.2182 33.7827 14.2173 25.7818 4 24C14.2173 22.2182 22.2182 14.2173 24 4Z"
-                  fill="currentColor"
-                ></path>
-              </svg>
-            </div>
-            <h2 class="text-[#111418] text-lg font-bold leading-tight tracking-[-0.015em]">KANM Radio Show Scheduler</h2>
-          </div>
-          <div class="flex flex-1 justify-end gap-8">
-            <div class="flex gap-2">
-              <div class="dropdown">
-                <i class="fa fa-user-o" aria-hidden="true">
-                  <div class="dropdown-content">
-                    <%= button_to "Logout", logout_path %>
-                  </div>
-                </i>
-              </div>
-            </div>
-          </div>
-        </header>
-        <div class="px-40 flex flex-1 justify-center py-5">
-          <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
-            <div class="@container">
-              <div class="flex flex-col gap-6 px-4 py-10 @[480px]:gap-8 @[864px]:flex-row">
-                <div
-                  class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl @[480px]:h-auto @[480px]:min-w-[400px] @[864px]:w-full"
-                  style='background-image: url("https://cdn.usegalileo.ai/sdxl10/e03a8f4f-289a-4a48-b9e0-6d541ef47390.png");'
-                ></div>
-                <div class="flex flex-col gap-6 @[480px]:min-w-[400px] @[480px]:gap-8 @[864px]:justify-center">
-                  <div class="flex flex-col gap-2 text-left">
-                    <h1
-                      class="text-[#111418] text-4xl font-black leading-tight tracking-[-0.033em] @[480px]:text-5xl @[480px]:font-black @[480px]:leading-tight @[480px]:tracking-[-0.033em]"
-                    >
-                       Hi there!
-                    </h1>
-                    <h4 
-                    >
-                      Please upload your RJ Preferences Spreadsheet below.
-                    </h4>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            <div class="flex flex-col p-4">
-              <div class="flex flex-col items-center gap-6 rounded-xl border-2 border-dashed border-[#dce0e5] px-6 py-14">
-              
-                <!-- Check if CSV files are present -->
-                <% if @csv_files.empty? %>
-                  <p class="text-[#111418] text-lg font-bold leading-tight tracking-[-0.015em] max-w-[480px] text-center">
-                    No files are present
-                  </p>
-                <% else %>
-                  <!-- Displaying CSV files -->
-                  <div class="w-full max-w-lg max-h-60 overflow-y-auto border border-gray-300 rounded-lg p-4">
-                    <ul>
-                      <% @csv_files.each do |file| %>
-                        <li class="text-sm text-[#111418] mb-2 flex items-center">
-                          <input type="checkbox" class="mr-2" value="<%= File.basename(file) %>" name="selected_files[]">
-                          <%= File.basename(file) %>
-                        </li>
-                      <% end %>
-                    </ul>
-                  </div>
-                  
-                  <!-- Can be deleted later -->
-                  <button id="display-selected" class="mt-4 flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#f0f2f4] text-[#111418] text-sm font-bold leading-normal tracking-[0.015em]">
-                    <span class="truncate">Display Selected</span>
-                  </button>
-                  
-                  <!-- Can be deleted later -->
-                  <div id="selected-files" class="mt-4 text-[#111418] text-sm font-bold"></div>
-                  
-                  <script>
-                    document.getElementById('display-selected').addEventListener('click', function() {
-                      
-                      const checkboxes = document.querySelectorAll('input[name="selected_files[]"]:checked');
-                      
-                      const selectedFiles = Array.from(checkboxes).map(checkbox => checkbox.value);
-                      
-                      /* Can be deleted later */
-                      const selectedFilesDiv = document.getElementById('selected-files');
-                      selectedFilesDiv.innerHTML = selectedFiles.length > 0 ? 'Selected Files: ' + selectedFiles.join(', ') : 'No files selected.';
-                    });
-                  </script>
-                <% end %>
-
-                <p class="text-[#111418] text-lg font-bold leading-tight tracking-[-0.015em] max-w-[480px] text-center">Upload your spreadsheet</p>
-                <button
-                  class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#f0f2f4] text-[#111418] text-sm font-bold leading-normal tracking-[0.015em]"
-                >
-                  <span class="truncate">Upload</span>
-                </button>
-              </div>
-            </div>
+<div class="px-40 flex flex-1 justify-center py-5">
+  <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
+    <div class="@container">
+      <div class="flex flex-col gap-6 px-4 py-10 @[480px]:gap-8 @[864px]:flex-row">
+        <div
+          class="w-full bg-center bg-no-repeat aspect-video bg-cover rounded-xl @[480px]:h-auto @[480px]:min-w-[400px] @[864px]:w-full"
+          style='background-image: url("https://cdn.usegalileo.ai/sdxl10/e03a8f4f-289a-4a48-b9e0-6d541ef47390.png");'
+        ></div>
+        <div class="flex flex-col gap-6 @[480px]:min-w-[400px] @[480px]:gap-8 @[864px]:justify-center">
+          <div class="flex flex-col gap-2 text-left">
+            <h1
+              class="text-[#111418] text-4xl font-black leading-tight tracking-[-0.033em] @[480px]:text-5xl @[480px]:font-black @[480px]:leading-tight @[480px]:tracking-[-0.033em]"
+            >
+                Hi there!
+            </h1>
+            <h4 
+            >
+              Please upload your RJ Preferences Spreadsheet below.
+            </h4>
           </div>
         </div>
       </div>
     </div>
-  </body>
-</html>
+
+    <div class="flex flex-col p-4">
+      <div class="flex flex-col items-center gap-6 rounded-xl border-2 border-dashed border-[#dce0e5] px-6 py-14">
+
+        <!-- Check if CSV files are present -->
+        <% if @csv_files.empty? %>
+          <p class="text-[#111418] text-lg font-bold leading-tight tracking-[-0.015em] max-w-[480px] text-center">
+            No files are present
+          </p>
+        <% else %>
+          <!-- Displaying CSV files -->
+          <div class="w-full max-w-lg max-h-60 overflow-y-auto border border-gray-300 rounded-lg p-4">
+            <ul>
+              <% @csv_files.each do |file| %>
+                <li class="text-sm text-[#111418] mb-2 flex items-center">
+                  <input type="checkbox" class="mr-2" value="<%= File.basename(file) %>" name="selected_files[]">
+                  <%= File.basename(file) %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+
+          <!-- Can be deleted later -->
+          <button id="display-selected" class="mt-4 flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#f0f2f4] text-[#111418] text-sm font-bold leading-normal tracking-[0.015em]">
+            <span class="truncate">Display Selected</span>
+          </button>
+
+          <!-- Can be deleted later -->
+          <div id="selected-files" class="mt-4 text-[#111418] text-sm font-bold"></div>
+
+          <script>
+            document.getElementById('display-selected').addEventListener('click', function() {
+
+              const checkboxes = document.querySelectorAll('input[name="selected_files[]"]:checked');
+
+              const selectedFiles = Array.from(checkboxes).map(checkbox => checkbox.value);
+
+              /* Can be deleted later */
+              const selectedFilesDiv = document.getElementById('selected-files');
+              selectedFilesDiv.innerHTML = selectedFiles.length > 0 ? 'Selected Files: ' + selectedFiles.join(', ') : 'No files selected.';
+            });
+          </script>
+        <% end %>
+
+        <p class="text-[#111418] text-lg font-bold leading-tight tracking-[-0.015em] max-w-[480px] text-center">Upload your spreadsheet</p>
+        <button
+          class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#f0f2f4] text-[#111418] text-sm font-bold leading-normal tracking-[0.015em]"
+        >
+          <span class="truncate">Upload</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

@@ -19,17 +19,15 @@
     <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="" />
     <link rel="stylesheet" as="style" onload="this.rel='stylesheet'" href="https://fonts.googleapis.com/css2?display=swap&amp;family=Newsreader%3Awght%40400%3B500%3B700%3B800&amp;family=Noto+Sans%3Awght%40400%3B500%3B700%3B900"/>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-    <!-- If certain CSS might not be getting inherited right, try checking it once by disabling tailwind-->
   </head>
 
-  <body>
+  <body class="admin-body">
     <div class="relative flex size-full min-h-screen flex-col bg-white group/design-root overflow-x-hidden" style='font-family: Newsreader, "Noto Sans", sans-serif;'>
       <div class="layout-container flex h-full grow flex-col">
 
-        <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f0f2f4] px-10 py-3">
-          <div class="flex items-center gap-4 text-[#111418]" style="margin-top: -1px;">
-            <div class="size-4" style="margin-top: -4px;">
+        <header class="admin-nav-bar">
+          <div class="admin-nav-bar-div-1 text-[#111418]">
+            <div class="size-4">
               <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
                 <path
                   d="M24 4C25.7818 14.2173 33.7827 22.2182 44 24C33.7827 25.7818 25.7818 33.7827 24 44C22.2182 33.7827 14.2173 25.7818 4 24C14.2173 22.2182 22.2182 14.2173 24 4Z"
@@ -38,10 +36,10 @@
               </svg>
             </div>
 
-            <h2 class="text-[#111418] text-lg font-bold leading-tight tracking-[-0.015em]">KANM Radio Show Scheduler</h2>
+            <h2 class="admin-nav-bar-h2">KANM Radio Show Scheduler</h2>
           </div>
 
-          <div class="flex flex-1 justify-end gap-8">
+          <div class="admin-nav-bar-div-2">
             <div class="flex gap-2">
               <div class="dropdown">
                 <i class="fa fa-user-o" aria-hidden="true">
