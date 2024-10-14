@@ -207,124 +207,6 @@
   },
   "Cucumber Features": {
     "coverage": {
-      "/mnt/c/Users/julian/Documents/software_engineering_606/Project/code/KANM-Show-Scheduling/app/models/admin.rb": {
-        "lines": [
-          1,
-          1,
-          null
-        ]
-      },
-      "/mnt/c/Users/julian/Documents/software_engineering_606/Project/code/KANM-Show-Scheduling/app/models/application_record.rb": {
-        "lines": [
-          1,
-          1,
-          null
-        ]
-      },
-      "/mnt/c/Users/julian/Documents/software_engineering_606/Project/code/KANM-Show-Scheduling/app/controllers/login_controller.rb": {
-        "lines": [
-          1,
-          1,
-          null,
-          1,
-          13,
-          0,
-          null,
-          null,
-          null
-        ]
-      },
-      "/mnt/c/Users/julian/Documents/software_engineering_606/Project/code/KANM-Show-Scheduling/app/controllers/application_controller.rb": {
-        "lines": [
-          1,
-          null,
-          null,
-          1,
-          null,
-          1,
-          null,
-          1,
-          null,
-          null,
-          null,
-          27,
-          null,
-          null,
-          1,
-          null,
-          null,
-          27,
-          null,
-          null,
-          1,
-          null,
-          14,
-          0,
-          null,
-          null,
-          null
-        ]
-      },
-      "/mnt/c/Users/julian/Documents/software_engineering_606/Project/code/KANM-Show-Scheduling/app/helpers/application_helper.rb": {
-        "lines": [
-          1,
-          null
-        ]
-      },
-      "/mnt/c/Users/julian/Documents/software_engineering_606/Project/code/KANM-Show-Scheduling/app/helpers/admins_helper.rb": {
-        "lines": [
-          1,
-          null
-        ]
-      },
-      "/mnt/c/Users/julian/Documents/software_engineering_606/Project/code/KANM-Show-Scheduling/app/controllers/sessions_controller.rb": {
-        "lines": [
-          1,
-          1,
-          null,
-          null,
-          1,
-          0,
-          0,
-          null,
-          null,
-          1,
-          null,
-          null,
-          null,
-          1,
-          16,
-          16,
-          0,
-          0,
-          0,
-          null,
-          null,
-          16,
-          12,
-          12,
-          12,
-          null,
-          4,
-          4,
-          null,
-          null,
-          null
-        ]
-      },
-      "/mnt/c/Users/julian/Documents/software_engineering_606/Project/code/KANM-Show-Scheduling/app/controllers/welcome_controller.rb": {
-        "lines": [
-          1,
-          1,
-          null,
-          14,
-          null,
-          null,
-          14,
-          null,
-          null
-        ]
-      },
       "/mnt/c/Users/julian/Documents/software_engineering_606/Project/code/KANM-Show-Scheduling/app/channels/application_cable/channel.rb": {
         "lines": [
           0,
@@ -422,6 +304,122 @@
         "branches": {
         }
       },
+      "/mnt/c/Users/julian/Documents/software_engineering_606/Project/code/KANM-Show-Scheduling/app/controllers/application_controller.rb": {
+        "lines": [
+          0,
+          null,
+          null,
+          0,
+          null,
+          0,
+          null,
+          0,
+          null,
+          null,
+          null,
+          0,
+          0,
+          null,
+          0,
+          null,
+          null,
+          0,
+          0,
+          null,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/mnt/c/Users/julian/Documents/software_engineering_606/Project/code/KANM-Show-Scheduling/app/controllers/login_controller.rb": {
+        "lines": [
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/mnt/c/Users/julian/Documents/software_engineering_606/Project/code/KANM-Show-Scheduling/app/controllers/sessions_controller.rb": {
+        "lines": [
+          0,
+          0,
+          null,
+          null,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          null,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          null,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/mnt/c/Users/julian/Documents/software_engineering_606/Project/code/KANM-Show-Scheduling/app/controllers/welcome_controller.rb": {
+        "lines": [
+          0,
+          0,
+          null,
+          0,
+          null,
+          null,
+          0,
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/mnt/c/Users/julian/Documents/software_engineering_606/Project/code/KANM-Show-Scheduling/app/helpers/admins_helper.rb": {
+        "lines": [
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/mnt/c/Users/julian/Documents/software_engineering_606/Project/code/KANM-Show-Scheduling/app/helpers/application_helper.rb": {
+        "lines": [
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
       "/mnt/c/Users/julian/Documents/software_engineering_606/Project/code/KANM-Show-Scheduling/app/jobs/application_job.rb": {
         "lines": [
           0,
@@ -444,8 +442,26 @@
         ],
         "branches": {
         }
+      },
+      "/mnt/c/Users/julian/Documents/software_engineering_606/Project/code/KANM-Show-Scheduling/app/models/admin.rb": {
+        "lines": [
+          0,
+          0,
+          0
+        ],
+        "branches": {
+        }
+      },
+      "/mnt/c/Users/julian/Documents/software_engineering_606/Project/code/KANM-Show-Scheduling/app/models/application_record.rb": {
+        "lines": [
+          0,
+          0,
+          0
+        ],
+        "branches": {
+        }
       }
     },
-    "timestamp": 1728865413
+    "timestamp": 1728870669
   }
 }

@@ -48,7 +48,7 @@ RSpec.describe WelcomeController, type: :controller do
   context 'when no files are present' do
     before do
       test_upload_path = "#{Rails.root}/tmp/test_uploads"
-      FileUtils.mkdir_p(test_upload_path) 
+      FileUtils.mkdir_p(test_upload_path)
       FileUtils.rm_rf(Dir.glob("#{test_upload_path}/*"))
 
       get :index
@@ -62,7 +62,7 @@ RSpec.describe WelcomeController, type: :controller do
     context 'when files are present' do
       before do
         test_upload_path = "#{Rails.root}/tmp/test_uploads"
-        FileUtils.mkdir_p(test_upload_path) 
+        FileUtils.mkdir_p(test_upload_path)
         File.write("#{test_upload_path}/test1.csv", "sample data")
         File.write("#{test_upload_path}/test2.csv", "sample data")
       end
@@ -73,7 +73,7 @@ RSpec.describe WelcomeController, type: :controller do
       end
 
       it 'selecting a file marks it as selected' do
-        selected_files = ['test1.csv']
+        selected_files = [ 'test1.csv' ]
         allow(controller).to receive(:params).and_return({ selected_files: selected_files })
 
         get :index
