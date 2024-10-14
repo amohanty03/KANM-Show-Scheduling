@@ -28,11 +28,13 @@
           </div>
           <div class="flex flex-1 justify-end gap-8">
             <div class="flex gap-2">
-              <button
-                class="flex h-12 w-12 cursor-pointer items-center justify-center overflow-hidden rounded-full bg-[#f0f2f4] text-[#111418] text-sm font-bold leading-normal"
-              >
-                <i class="fa fa-user-o" aria-hidden="true"></i>
-              </button>
+              <div class="dropdown">
+                <i class="fa fa-user-o" aria-hidden="true">
+                  <div class="dropdown-content">
+                    <%= button_to "Logout", logout_path %>
+                  </div>
+                </i>
+              </div>
             </div>
           </div>
         </header>
