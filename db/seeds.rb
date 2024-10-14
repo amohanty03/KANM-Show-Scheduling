@@ -8,41 +8,49 @@
 #     MovieGenre.find_or_create_by!(name: genre_name)
 #   end
 
-admins = [
+admins = [ # Devs
     { email: 'toanvpk@tamu.edu',
       uin: '321004222',
       first_name: 'Toan',
-      last_name: 'Vu' },
+      last_name: 'Vu',
+      role: 1 },
     { email: 'amohanty03@tamu.edu',
       uin: '',
       first_name: 'Ankit',
-      last_name: 'Mohanty' },
+      last_name: 'Mohanty',
+      role: 1 },
     { email: 'njulian@tamu.edu',
       uin: '',
       first_name: 'Neeraj',
-      last_name: 'Julian' },
+      last_name: 'Julian',
+      role: 1 },
     { email: 'haridher@tamu.edu',
       uin: '',
       first_name: 'Haridher',
-      last_name: 'Pandiyan' },
+      last_name: 'Pandiyan',
+      role: 1 },
     { email: 'sarkriti@tamu.edu',
       uin: '',
       first_name: 'Kriti',
-      last_name: 'Sarker' },
+      last_name: 'Sarker',
+      role: 1 },
     { email: 'davis.beilue@tamu.edu',
       uin: '',
       first_name: 'Davis',
-      last_name: 'Beilue' },
+      last_name: 'Beilue',
+      role: 1 },
     { email: 'jnojek13@tamu.edu',
       uin: '',
       first_name: 'James',
-      last_name: 'Nojek' },
+      last_name: 'Nojek',
+      role: 1 },
     { email: 'aln170001@tamu.edu',
       uin: '',
       first_name: 'Ali',
-      last_name: 'Nablan' }
+      last_name: 'Nablan',
+      role: 1 }
 ]
 
 admins.each do |admin|
-    Admin.create!(admin)
+    Admin.find_or_create_by!(admin)
 end
