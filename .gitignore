@@ -36,3 +36,5 @@
 .vscode/launch.json
 Gemfile.lock
 config/credentials.ymllocal.enc
+
+/config/njcredentials.yml.enc
