@@ -18,7 +18,7 @@ root to: redirect("login/index")
 get "login/index", to: "login#index", as: "login"
 get "/admins/:id", to: "admins#show", as: "admin"
 
-get "/logout", to: "sessions#logout", as: "logout"
+post "/logout", to: "sessions#logout", as: "logout"
 get "/auth/google_oauth2/callback", to: "sessions#omniauth"
 
 get "welcome/index", to: "welcome#index", as: "welcome"

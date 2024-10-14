@@ -39,3 +39,7 @@ config/credentials.ymllocal.enc
 
 /config/njcredentials.yml.enc
 /config/credentials.yml.enc
+coverage/.resultset.json
+coverage/index.html
+coverage/.resultset.json
+coverage/index.html
