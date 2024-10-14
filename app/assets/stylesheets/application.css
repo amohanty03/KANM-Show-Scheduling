@@ -29,6 +29,7 @@
   min-width: 160px;
   box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
   z-index: 1;
+  right: 0;
 }
 
 /* Links inside the dropdown */
@@ -39,11 +40,13 @@
   display: block;
 }
 
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
 /* Change color of dropdown links on hover
 .dropdown-content a:hover {background-color: #ddd;} */
-
-/* Show the dropdown menu on hover */
-.dropdown:hover .dropdown-content {display: block;}
 
 /* Change the background color of the dropdown button when the dropdown content is shown
 .dropdown:hover .dropbtn {background-color: #3e8e41;} */
@@ -89,4 +92,20 @@
   justify-content: flex-end;
   flex: 1 1 0%;
   display: flex;
+}
+
+.admin-button {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  font: normal normal normal 14px / 1 FontAwesome;
+  font-size: inherit;
+  border: 0;
+  width: 100%;
+  text-align: left;
+}
+
+.admin-button:hover {
+  background-color: #d8e8e9;
 }
