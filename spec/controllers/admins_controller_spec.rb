@@ -58,6 +58,28 @@ RSpec.describe AdminsController, type: :controller do
         expect(response).to redirect_to(:login)
       end
     end
+
+    context 'when logged-in admin is not a superuser' do
+      before do
+        # Create a non-superuser admin
+        non_superuser_admin = Admin.create!(
+          email: 'nonsuperuser@tamu.edu',
+          first_name: 'Non',
+          last_name: 'Superuser',
+          uin: '987654321',
+          role: 0 # Assuming 0 is for regular users
+        )
+        session[:admin_id] = non_superuser_admin.id
+        allow(controller).to receive(:current_logged_in_admin).and_return(non_superuser_admin)
+      end
+
+      it 'redirects to the welcome page with an alert' do
+        get :index
+        expect(response).to redirect_to(welcome_path)
+        expect(flash[:alert]).to eq('You do not have permission to access this page.')
+      end
+    end
+
   end
 
   describe 'POST #create' do

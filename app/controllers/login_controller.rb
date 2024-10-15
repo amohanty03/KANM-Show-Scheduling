@@ -3,7 +3,7 @@ class LoginController < ApplicationController
 
   def index
     if logged_in?
-      redirect_to admin_path(@current_logged_in_admin), notice: "Welcome, back!"
+      redirect_to welcome_path
     end
   end
 end

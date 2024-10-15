@@ -48,18 +48,43 @@ RSpec.describe SessionsController, type: :controller do
   end
 end
 
-describe 'GET #omniauth' do
-  context 'when the admin exists' do
-    before do
-      mock_user_sign_in
-    end
+  describe 'GET #omniauth' do
+    context 'when the admin exists' do
+      before do
+        mock_user_sign_in
+      end
 
-    it 'logs in the admin and redirects to the welcome page' do
-      get :omniauth
-      expect(session[:admin_id]).to eq(Admin.find_by(uin: '123456789').id)
-      expect(flash[:notice]).to eq('You are logged in.')
-      expect(response).to redirect_to(welcome_path)
+      it 'logs in the admin and redirects to the welcome page' do
+        get :omniauth
+        expect(session[:admin_id]).to eq(Admin.find_by(uin: '123456789').id)
+        expect(flash[:notice]).to eq('You are logged in.')
+        expect(response).to redirect_to(welcome_path)
+      end
     end
   end
-end
+
+  describe 'GET #omniauth' do
+    context 'when the admin does not exist' do
+      it 'does not log in and redirects to login page with a notice' do
+        request.env['omniauth.auth'] = OmniAuth::AuthHash.new({
+          provider: 'google_oauth2',
+          uid: '987654',
+          info: {
+            email: 'nonexistent@tamu.edu',
+            name: 'Non Existent'
+          },
+          credentials: {
+            token: 'mock_token',
+            refresh_token: 'mock_refresh_token'
+          }
+        })
+
+        get :omniauth
+
+        expect(session[:admin_id]).to be_nil
+        expect(flash[:notice]).to eq('Login failed.')
+        expect(response).to redirect_to(login_path)
+      end
+    end
+  end
 end

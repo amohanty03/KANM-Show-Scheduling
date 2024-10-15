@@ -45,4 +45,15 @@ RSpec.describe LoginController, type: :controller do
      end
    end
   end
+
+  context 'when the user is logged in already' do
+    before do
+      mock_user_sign_in
+    end
+
+    it 'redirects to the welcome page' do
+      get :index
+      expect(response).to redirect_to(welcome_path)
+    end
+  end
 end
