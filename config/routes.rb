@@ -16,6 +16,8 @@ Rails.application.routes.draw do
   get "sessions/logout"
   get "sessions/omniauth"
 
-  resources :admins
+  #Route for deleting CSV
+delete "welcome/delete_csv_files", to: "welcome#delete_csv_files", as: "delete_csv_files"
+
   get "welcome/index", to: "welcome#index", as: "welcome"
 end
