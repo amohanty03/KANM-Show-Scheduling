@@ -20,7 +20,7 @@ Background: Successful login with a tamu.edu email
     When I visit the welcome page
     Then I should see the uploaded files listed
 
-Scenario: Select files and verify the tick mark appears
-    Given there are some CSV files in the test uploads directory
-    And I select the file "test1.csv"
-    Then the file "test1.csv" should be marked as selected
+  Scenario: Select files and verify the tick mark appears
+      Given there are some CSV files in the test uploads directory
+      And I select the file "test1.csv"
+      Then the file "test1.csv" should be marked as selected

@@ -106,11 +106,20 @@
                 <% end %>
 
                 <p class="text-[#111418] text-lg font-bold leading-tight tracking-[-0.015em] max-w-[480px] text-center">Upload your spreadsheet</p>
-                <button
-                  class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#f0f2f4] text-[#111418] text-sm font-bold leading-normal tracking-[0.015em]"
-                >
-                  <span class="truncate">Upload</span>
-                </button>
+
+                <%= form_with(url: uploads_path, local: true, multipart: true) do |form| %>
+                  <div class="field flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#f0f2f4] text-[#111418] text-sm font-bold leading-normal tracking-[0.015em]">
+                    <%= form.file_field :csv_file, name: 'upload[csv_file]', accept: '.csv' %>
+                  </div>
+                  <div class="actions flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#f0f2f4] text-[#111418] text-sm font-bold leading-normal tracking-[0.015em]">
+                    <%= form.submit "Upload" %>
+                  </div>
+                <% end %>
+
+                <% if flash[:alert] %>
+                  <p style="color: red;"><%= flash[:alert] %></p>
+                <% end %>
+
                 </button>
                 <button
                 class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#f0f2f4] text-[#111418] text-sm font-bold leading-normal tracking-[0.015em]"

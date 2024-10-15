@@ -1,19 +1,25 @@
 {
   "RSpec": {
     "coverage": {
-      "/mnt/c/Users/julian/Documents/software_engineering_606/Project/code/KANM-Show-Scheduling/app/helpers/admins_helper.rb": {
+      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/KANM-Show-Scheduling/app/helpers/admins_helper.rb": {
         "lines": [
           1,
           null
         ]
       },
-      "/mnt/c/Users/julian/Documents/software_engineering_606/Project/code/KANM-Show-Scheduling/app/helpers/application_helper.rb": {
+      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/KANM-Show-Scheduling/app/helpers/application_helper.rb": {
         "lines": [
           1,
           null
         ]
       },
-      "/mnt/c/Users/julian/Documents/software_engineering_606/Project/code/KANM-Show-Scheduling/app/mailers/application_mailer.rb": {
+      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/KANM-Show-Scheduling/app/helpers/uploads_helper.rb": {
+        "lines": [
+          1,
+          null
+        ]
+      },
+      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/KANM-Show-Scheduling/app/mailers/application_mailer.rb": {
         "lines": [
           1,
           1,
@@ -21,7 +27,7 @@
           null
         ]
       },
-      "/mnt/c/Users/julian/Documents/software_engineering_606/Project/code/KANM-Show-Scheduling/app/controllers/admins_controller.rb": {
+      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/KANM-Show-Scheduling/app/controllers/admins_controller.rb": {
         "lines": [
           1,
           1,
@@ -96,7 +102,7 @@
           null
         ]
       },
-      "/mnt/c/Users/julian/Documents/software_engineering_606/Project/code/KANM-Show-Scheduling/app/controllers/application_controller.rb": {
+      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/KANM-Show-Scheduling/app/controllers/application_controller.rb": {
         "lines": [
           1,
           null,
@@ -115,19 +121,19 @@
           1,
           null,
           null,
-          25,
+          27,
           null,
           null,
           1,
           null,
-          24,
+          26,
           1,
           null,
           null,
           null
         ]
       },
-      "/mnt/c/Users/julian/Documents/software_engineering_606/Project/code/KANM-Show-Scheduling/app/controllers/login_controller.rb": {
+      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/KANM-Show-Scheduling/app/controllers/login_controller.rb": {
         "lines": [
           1,
           1,
@@ -140,7 +146,7 @@
           null
         ]
       },
-      "/mnt/c/Users/julian/Documents/software_engineering_606/Project/code/KANM-Show-Scheduling/app/controllers/sessions_controller.rb": {
+      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/KANM-Show-Scheduling/app/controllers/sessions_controller.rb": {
         "lines": [
           1,
           1,
@@ -175,7 +181,29 @@
           null
         ]
       },
-      "/mnt/c/Users/julian/Documents/software_engineering_606/Project/code/KANM-Show-Scheduling/app/controllers/welcome_controller.rb": {
+      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/KANM-Show-Scheduling/app/controllers/uploads_controller.rb": {
+        "lines": [
+          1,
+          1,
+          2,
+          2,
+          null,
+          2,
+          null,
+          2,
+          null,
+          2,
+          2,
+          null,
+          null,
+          null,
+          2,
+          null,
+          null,
+          null
+        ]
+      },
+      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/KANM-Show-Scheduling/app/controllers/welcome_controller.rb": {
         "lines": [
           1,
           1,
@@ -188,14 +216,14 @@
           null
         ]
       },
-      "/mnt/c/Users/julian/Documents/software_engineering_606/Project/code/KANM-Show-Scheduling/app/models/admin.rb": {
+      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/KANM-Show-Scheduling/app/models/admin.rb": {
         "lines": [
           1,
           1,
           null
         ]
       },
-      "/mnt/c/Users/julian/Documents/software_engineering_606/Project/code/KANM-Show-Scheduling/app/models/application_record.rb": {
+      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/KANM-Show-Scheduling/app/models/application_record.rb": {
         "lines": [
           1,
           1,
@@ -203,265 +231,162 @@
         ]
       }
     },
-    "timestamp": 1728865447
+    "timestamp": 1728965908
   },
   "Cucumber Features": {
     "coverage": {
-      "/mnt/c/Users/julian/Documents/software_engineering_606/Project/code/KANM-Show-Scheduling/app/channels/application_cable/channel.rb": {
+      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/KANM-Show-Scheduling/app/models/admin.rb": {
         "lines": [
-          0,
-          0,
-          0,
-          0
-        ],
-        "branches": {
-        }
+          1,
+          1,
+          null
+        ]
       },
-      "/mnt/c/Users/julian/Documents/software_engineering_606/Project/code/KANM-Show-Scheduling/app/channels/application_cable/connection.rb": {
+      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/KANM-Show-Scheduling/app/models/application_record.rb": {
         "lines": [
-          0,
-          0,
-          0,
-          0
-        ],
-        "branches": {
-        }
+          1,
+          1,
+          null
+        ]
       },
-      "/mnt/c/Users/julian/Documents/software_engineering_606/Project/code/KANM-Show-Scheduling/app/controllers/admins_controller.rb": {
+      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/KANM-Show-Scheduling/app/controllers/login_controller.rb": {
         "lines": [
-          0,
-          0,
+          1,
+          1,
+          null,
+          1,
+          15,
+          1,
           null,
           null,
-          0,
-          0,
-          0,
-          null,
-          null,
-          0,
-          0,
-          0,
-          null,
-          null,
-          0,
-          0,
-          0,
-          null,
-          null,
-          0,
-          0,
-          null,
-          null,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          null,
-          null,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          null,
-          null,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0,
-          0,
-          null,
-          0,
-          null,
-          0,
-          0,
-          0,
-          null,
-          null,
-          0,
-          0,
-          0,
-          0
-        ],
-        "branches": {
-        }
+          null
+        ]
       },
-      "/mnt/c/Users/julian/Documents/software_engineering_606/Project/code/KANM-Show-Scheduling/app/controllers/application_controller.rb": {
+      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/KANM-Show-Scheduling/app/controllers/application_controller.rb": {
         "lines": [
+          1,
+          null,
+          null,
+          1,
+          null,
+          1,
+          null,
+          1,
+          null,
+          null,
+          null,
+          36,
+          null,
+          null,
+          1,
+          null,
+          null,
+          36,
+          null,
+          null,
+          1,
+          null,
+          21,
           0,
           null,
           null,
-          0,
-          null,
-          0,
-          null,
-          0,
-          null,
-          null,
-          null,
-          0,
-          0,
-          null,
-          0,
-          null,
-          null,
-          0,
-          0,
-          null,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0,
-          0
-        ],
-        "branches": {
-        }
+          null
+        ]
       },
-      "/mnt/c/Users/julian/Documents/software_engineering_606/Project/code/KANM-Show-Scheduling/app/controllers/login_controller.rb": {
+      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/KANM-Show-Scheduling/app/helpers/application_helper.rb": {
         "lines": [
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0
-        ],
-        "branches": {
-        }
+          1,
+          null
+        ]
       },
-      "/mnt/c/Users/julian/Documents/software_engineering_606/Project/code/KANM-Show-Scheduling/app/controllers/sessions_controller.rb": {
+      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/KANM-Show-Scheduling/app/helpers/admins_helper.rb": {
         "lines": [
-          0,
-          0,
-          null,
-          null,
-          0,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          null,
-          null,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          null,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0,
-          0
-        ],
-        "branches": {
-        }
+          1,
+          null
+        ]
       },
-      "/mnt/c/Users/julian/Documents/software_engineering_606/Project/code/KANM-Show-Scheduling/app/controllers/welcome_controller.rb": {
+      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/KANM-Show-Scheduling/app/helpers/uploads_helper.rb": {
         "lines": [
+          1,
+          null
+        ]
+      },
+      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/KANM-Show-Scheduling/app/controllers/sessions_controller.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          null,
+          1,
           0,
           0,
           null,
+          null,
+          1,
+          null,
+          null,
+          null,
+          1,
+          18,
+          18,
+          0,
+          0,
           0,
           null,
           null,
-          0,
-          0,
-          0
-        ],
-        "branches": {
-        }
-      },
-      "/mnt/c/Users/julian/Documents/software_engineering_606/Project/code/KANM-Show-Scheduling/app/helpers/admins_helper.rb": {
-        "lines": [
-          0,
-          0
-        ],
-        "branches": {
-        }
-      },
-      "/mnt/c/Users/julian/Documents/software_engineering_606/Project/code/KANM-Show-Scheduling/app/helpers/application_helper.rb": {
-        "lines": [
-          0,
-          0
-        ],
-        "branches": {
-        }
-      },
-      "/mnt/c/Users/julian/Documents/software_engineering_606/Project/code/KANM-Show-Scheduling/app/jobs/application_job.rb": {
-        "lines": [
-          0,
+          18,
+          14,
+          14,
+          14,
           null,
-          0,
+          4,
+          4,
           null,
           null,
-          0,
-          0
-        ],
-        "branches": {
-        }
+          null
+        ]
       },
-      "/mnt/c/Users/julian/Documents/software_engineering_606/Project/code/KANM-Show-Scheduling/app/mailers/application_mailer.rb": {
+      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/KANM-Show-Scheduling/app/controllers/welcome_controller.rb": {
         "lines": [
-          0,
-          0,
-          0,
-          0
-        ],
-        "branches": {
-        }
+          1,
+          1,
+          null,
+          19,
+          null,
+          null,
+          19,
+          null,
+          null
+        ]
       },
-      "/mnt/c/Users/julian/Documents/software_engineering_606/Project/code/KANM-Show-Scheduling/app/models/admin.rb": {
+      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/KANM-Show-Scheduling/app/controllers/uploads_controller.rb": {
         "lines": [
+          1,
+          1,
           0,
-          0,
-          0
-        ],
-        "branches": {
-        }
-      },
-      "/mnt/c/Users/julian/Documents/software_engineering_606/Project/code/KANM-Show-Scheduling/app/models/application_record.rb": {
-        "lines": [
-          0,
-          0,
-          0
-        ],
-        "branches": {
-        }
+          null,
+          null,
+          1,
+          1,
+          1,
+          null,
+          1,
+          null,
+          1,
+          null,
+          1,
+          1,
+          null,
+          null,
+          null,
+          1,
+          null,
+          null,
+          null,
+          null
+        ]
       }
     },
-    "timestamp": 1728870669
+    "timestamp": 1728969325
   }
 }

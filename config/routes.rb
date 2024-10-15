@@ -26,4 +26,6 @@ get "sessions/logout"
 get "sessions/omniauth"
 
 resources :admins
+resources :uploads, only: [:new, :create]
+
 end
