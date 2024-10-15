@@ -15,7 +15,7 @@ RSpec.describe LoginController, type: :controller do
       provider: 'google_oauth2',
       uid: '123456',
       info: {
-        email: 'user@example.com',
+        email: 'user@tamu.edu',
         name: 'Test User'
       },
       credentials: {
@@ -28,12 +28,12 @@ RSpec.describe LoginController, type: :controller do
   def mock_user_sign_in
     request.env['omniauth.auth'] = valid_auth_hash
     admin = Admin.create!(
-      email: 'user@example.com',
+      email: 'user@tamu.edu',
       first_name: 'Test',
       last_name: 'User',
       uin: '123456789'
     )
-    allow(controller).to receive(:current_admin).and_return(admin)
+    allow(controller).to receive(:current_logged_in_admin).and_return(admin)
   end
 
   describe 'GET #index' do

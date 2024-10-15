@@ -106,6 +106,10 @@
   text-align: left;
 }
 
+.admin-button-link {
+  width: 8rem;
+}
+
 .admin-button:hover {
   background-color: #d8e8e9;
 }

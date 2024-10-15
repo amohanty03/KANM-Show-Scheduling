@@ -45,8 +45,8 @@
                 <i class="fa fa-user-o" aria-hidden="true">
                   <div class="dropdown-content">
                     <%= button_to "Logout", logout_path, class: "admin-button"%>
-                    <% if @current_admin.super_user? %>
-                        <%= link_to "Manage Admins", admins_path, class: "admin-button" %>
+                    <% if @current_logged_in_admin.super_user? %>
+                        <%= link_to "Manage Admins", admins_path, class: "admin-button admin-button-link" %>
                     <% end %>
                   </div>
                 </i>
