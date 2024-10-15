@@ -1,4 +1,6 @@
 class AdminsController < ApplicationController
+  before_action :set_current_logged_in_admin
+  before_action :require_superuser
   before_action :set_admin, only: %i[ show edit update destroy ]
 
   # GET /admins or /admins.json
@@ -66,6 +68,17 @@ class AdminsController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def admin_params
-      params.require(:admin).permit(:email, :uin, :first_name, :last_name)
+      params.require(:admin).permit(:email, :uin, :first_name, :last_name, :role)
+    end
+
+    def set_current_logged_in_admin
+      @current_logged_in_admin = Admin.find(session[:admin_id]) if session[:admin_id]
+    end
+
+    def require_superuser
+      unless @current_logged_in_admin.super_user?
+        flash[:alert] = "You do not have permission to access this page."
+        redirect_to welcome_path
+      end
     end
 end

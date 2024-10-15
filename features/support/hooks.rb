@@ -8,4 +8,11 @@ Before do
     first_name: 'Test',
     last_name: 'Student'
   )
+
+  Admin.create!(
+    email: 'superuser@tamu.edu',
+    first_name: 'Test',
+    last_name: 'Student',
+    role: 1
+  )
 end

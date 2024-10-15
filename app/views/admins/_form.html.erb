@@ -31,6 +31,11 @@
     <%= form.text_field :last_name %>
   </div>
 
+  <div class="field">
+    <%= form.label :role %>
+    <%= form.select :role, Admin.human_readable_roles, prompt: "Select Admin Role" %>
+  </div>
+
   <div>
     <%= form.submit %>
   </div>
