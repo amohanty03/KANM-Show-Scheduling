@@ -79,7 +79,6 @@ RSpec.describe AdminsController, type: :controller do
         expect(flash[:alert]).to eq('You do not have permission to access this page.')
       end
     end
-
   end
 
   describe 'POST #create' do

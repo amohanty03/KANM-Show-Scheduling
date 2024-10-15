@@ -12,7 +12,7 @@ class Admin < ApplicationRecord
     # Class method for getting the different roles in the human readable form
     def self.human_readable_roles
         roles.keys.map do |role|
-          [I18n.t("activerecord.attributes.admin.roles.#{role}"), role]
+          [ I18n.t("activerecord.attributes.admin.roles.#{role}"), role ]
         end
     end
 

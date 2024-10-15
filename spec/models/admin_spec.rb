@@ -12,7 +12,7 @@ RSpec.describe Admin, type: :model do
   describe '.human_readable_roles' do
     it 'returns all roles in human-readable form' do
       expected_roles = Admin.roles.keys.map do |role|
-        [I18n.t("activerecord.attributes.admin.roles.#{role}"), role]
+        [ I18n.t("activerecord.attributes.admin.roles.#{role}"), role ]
       end
       expect(Admin.human_readable_roles).to match_array(expected_roles)
     end

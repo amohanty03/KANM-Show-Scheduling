@@ -18,5 +18,4 @@ Rails.application.routes.draw do
 
   resources :admins
   get "welcome/index", to: "welcome#index", as: "welcome"
-
 end
