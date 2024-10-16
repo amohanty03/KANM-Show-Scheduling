@@ -15,8 +15,8 @@ Rails.application.routes.draw do
   get "/auth/google_oauth2/callback", to: "sessions#omniauth"
   get "sessions/logout"
   get "sessions/omniauth"
-  get "download", to: "download#download"
 
   resources :admins
   get "welcome/index", to: "welcome#index", as: "welcome"
+  get "welcome/download", to: "download#download", as: "download"
 end
