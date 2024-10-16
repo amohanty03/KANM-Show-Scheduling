@@ -106,6 +106,7 @@
   text-align: left;
 }
 
+/* Below class is applied to that Manage Admins button only for pages that utilize tailwind */
 .admin-button-link {
   width: 8rem;
 }
