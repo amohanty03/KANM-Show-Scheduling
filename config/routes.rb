@@ -19,5 +19,18 @@ Rails.application.routes.draw do
   #Route for deleting CSV
 delete "welcome/delete_csv_files", to: "welcome#delete_csv_files", as: "delete_csv_files"
 
+post "/logout", to: "sessions#logout", as: "logout"
+get "/auth/google_oauth2/callback", to: "sessions#omniauth"
+
+get "welcome/index", to: "welcome#index", as: "welcome"
+get "sessions/logout"
+get "sessions/omniauth"
+
+#Route for deleting CSV
+delete "welcome/delete_csv_files", to: "welcome#delete_csv_files", as: "delete_csv_files"
+
+  #Route for deleting CSV
+delete "welcome/delete_csv_files", to: "welcome#delete_csv_files", as: "delete_csv_files"
+
   get "welcome/index", to: "welcome#index", as: "welcome"
 end
