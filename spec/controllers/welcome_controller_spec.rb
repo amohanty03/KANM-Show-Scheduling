@@ -81,4 +81,47 @@ RSpec.describe WelcomeController, type: :controller do
       end
     end
   end
+
+  describe 'DELETE #delete_csv_files' do
+
+    before {mock_user_sign_in}
+    
+    context 'when files are selected for deletion' do
+      before do
+        test_upload_path = "#{Rails.root}/tmp/test_uploads"
+        FileUtils.mkdir_p(test_upload_path)
+        File.write("#{test_upload_path}/test1.csv","sample data")
+        File.write("#{test_upload_path}/test2.csv","sample data")
+      end
+
+      it 'deletes the selected files' do
+        expect {
+          delete :delete_csv_files, params: {selected_files:['test1.csv','test2.csv']}
+      }.to change {Dir.glob("#{Rails.root}/tmp/test_uploads/*").size}.by(-2) #expect two files to be deleted
+      end
+      
+      it 'sets a flash notice message' do 
+        delete :delete_csv_files, params: {selected_files:['test1.csv','test2.csv']}
+        expect(flash[:notice]).to eq("Selected files have been deleted.")
+      end
+    end
+
+    context 'when no files are selected for deletion' do
+      it 'does not delete any files and sets an alert message' do
+        test_upload_path = "#{Rails.root}/tmp/test_uploads"
+        FileUtils.mkdir_p(test_upload_path)
+        File.write("#{test_upload_path}/test1.csv", "sample data")
+        expect {
+          delete :delete_csv_files, params: {selected_files: []}
+        }.not_to change {Dir.glob("#{Rails.root}/tmp/test_uploads/*").size}
+
+        expect(flash[:alert]).to be_nil
+      end
+    end
+
+   
+  end
+
+    
+
 end
