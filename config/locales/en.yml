@@ -29,3 +29,10 @@
 
 en:
   hello: "Hello world"
+  en:
+  activerecord:
+    attributes:
+      admin:
+        roles:
+          regular_user: "Regular User"
+          super_user: "Super User"
