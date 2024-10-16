@@ -48,7 +48,7 @@
                   <div class="dropdown-content">
                     <%= button_to "Logout", logout_path, class: "admin-button"%>
                     <% if @current_logged_in_admin.super_user? %>
-                      <%= link_to "Manage Admins", admins_path, class: "admin-button admin-button-link" %>
+                      <%= link_to "Manage Admins", admins_path, class: "admin-button" %>
                     <% end %>
                   </div>
                 </i>
