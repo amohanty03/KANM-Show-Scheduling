@@ -21,12 +21,10 @@ class WelcomeController < ApplicationController
         if File.exist?(file_path)
           File.delete(file_path)
         else
-          flash[:alert] = "#{file_name} does not exist."
+          logger.warn("#{file_name} does not exist.")
         end
       end
       flash[:notice] = "Selected files have been deleted."
-    else
-      flash[:alert] = "No files selected for deletion."
     end
     redirect_to welcome_path
   end 
