@@ -1,4 +1,8 @@
 class DownloadController < ApplicationController
+    def index
+      @csv_files = Dir.entries(Rails.root.join('public', 'uploads')).select { |f| f.ends_with?('.csv') }
+    end
+      
     def download
       selected_csv_files = params[:selected_files]
       if selected_csv_files && selected_csv_files.any?
