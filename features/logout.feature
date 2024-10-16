@@ -13,3 +13,10 @@ Scenario: Admin logout from welcome page
   Then  I should see the Logout button
   When  I click "Logout"
   Then  I should go back to the login page
+
+Scenario: Admin logout from admins page
+  Given I am on admins page
+  Then  I should see "KANM Radio Show Scheduler"
+  And   I should see the Logout button
+  When  I click "Logout"
+  Then  I should go back to the login page
