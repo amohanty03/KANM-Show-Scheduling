@@ -59,6 +59,8 @@
                    <span class="truncate">Delete</span>
                   </button>
 
+                    <!-- Flash message for delete -->
+                    <div id="delete-warning" style="color: red; margin-top: 10px;"></div>
                   
                   <% end %>
 
@@ -73,6 +75,19 @@
                       const selectedFilesDiv = document.getElementById('selected-files');
                       selectedFilesDiv.innerHTML = selectedFiles.length > 0 ? 'Selected Files: ' + selectedFiles.join(', ') : 'No files selected.';
                     });
+
+                    document.getElementById('delete').addEventListener('click', function(event){
+                      const checkboxes = document.querySelectorAll('input[name="selected_files[]"]:checked');
+
+                      const selectedFiles = Array.from(checkboxes).map(checkbox => checkbox.value);
+
+                      if(selectedFiles.length === 0){
+                        event.preventDefault();
+                        document.getElementById('delete-warning').innerHTML = 'No files selected for deletion!';
+                      } else {
+                        document.getElementById('delete-warning').innerHTML = '';
+                      }
+                    }); 
                   </script>
                 <% end %>
 
