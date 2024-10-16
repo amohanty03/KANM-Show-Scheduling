@@ -25,5 +25,7 @@ get "welcome/index", to: "welcome#index", as: "welcome"
 get "sessions/logout"
 get "sessions/omniauth"
 
+get "download", to: "download#download"
+
 resources :admins
 end
