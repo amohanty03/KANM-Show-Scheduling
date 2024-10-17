@@ -18,6 +18,7 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_15_034228) do
     t.string "last_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "role", default: 0
   end
 
   create_table "uploads", force: :cascade do |t|

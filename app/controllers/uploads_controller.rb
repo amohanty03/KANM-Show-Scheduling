@@ -1,23 +1,28 @@
 class UploadsController < ApplicationController
-  def new
-    @upload = Upload.new
-  end
-
   def create
     Rails.logger.info(params.inspect)
     uploaded_file = params[:upload][:csv_file]
 
-      upload_path = Rails.env.test? ? "#{Rails.root}/tmp/test_uploads" : "#{Rails.root}/public/uploads"
-      
-      FileUtils.mkdir_p(upload_path) unless Dir.exist?(upload_path)
+    # Validate that the uploaded file is a CSV
+    unless valid_csv?(uploaded_file)
+      redirect_to welcome_path, alert: 'Invalid file type. Please upload a CSV file.' and return
+    end
 
-      File.open(File.join(upload_path, uploaded_file.original_filename), 'wb') do |file|
-        file.write(uploaded_file.read)
+    upload_path = Rails.env.test? ? Rails.root.join('tmp', 'test_uploads') : Rails.root.join('public', 'uploads')
 
-      end
+    FileUtils.mkdir_p(upload_path) unless Dir.exist?(upload_path)
 
-      redirect_to welcome_path, notice: 'File uploaded successfully.'
+    File.open(File.join(upload_path, uploaded_file.original_filename), 'wb') do |file|
+      file.write(uploaded_file.read)
+    end
 
+    redirect_to welcome_path, alert: 'File uploaded successfully.'
   end
 
+  private
+
+  def valid_csv?(file)
+    file.present? && file.content_type == 'text/csv' && File.extname(file.original_filename) == '.csv'
+  end
 end
+

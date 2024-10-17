@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe AdminsController, type: :controller do
   before(:all) do
     Admin.destroy_all
-    Admin.create(email: 'jnojek13@tamu.edu', uin: '226005385', first_name: 'Jamie', last_name: 'Nojek')
+    Admin.create(email: 'jnojek13@tamu.edu', uin: '226005385', first_name: 'Jamie', last_name: 'Nojek', role: 1)
     OmniAuth.config.test_mode = true
   end
 
@@ -15,7 +15,7 @@ RSpec.describe AdminsController, type: :controller do
       provider: 'google_oauth2',
       uid: '123456',
       info: {
-        email: 'user@example.com',
+        email: 'user@tamu.edu',
         name: 'Test User'
       },
       credentials: {
@@ -28,12 +28,14 @@ RSpec.describe AdminsController, type: :controller do
   def mock_user_sign_in
     request.env['omniauth.auth'] = valid_auth_hash
     admin = Admin.create!(
-      email: 'user@example.com',
+      email: 'user@tamu.edu',
       first_name: 'Test',
       last_name: 'User',
-      uin: '123456789'
+      uin: '123456789',
+      role: 1
     )
-    allow(controller).to receive(:current_admin).and_return(admin)
+    session[:admin_id] = admin.id
+    allow(controller).to receive(:current_logged_in_admin).and_return(admin)
   end
 
   describe 'GET #show' do
@@ -56,6 +58,27 @@ RSpec.describe AdminsController, type: :controller do
         expect(response).to redirect_to(:login)
       end
     end
+
+    context 'when logged-in admin is not a superuser' do
+      before do
+        # Create a non-superuser admin
+        non_superuser_admin = Admin.create!(
+          email: 'nonsuperuser@tamu.edu',
+          first_name: 'Non',
+          last_name: 'Superuser',
+          uin: '987654321',
+          role: 0 # Assuming 0 is for regular users
+        )
+        session[:admin_id] = non_superuser_admin.id
+        allow(controller).to receive(:current_logged_in_admin).and_return(non_superuser_admin)
+      end
+
+      it 'redirects to the welcome page with an alert' do
+        get :index
+        expect(response).to redirect_to(welcome_path)
+        expect(flash[:alert]).to eq('You do not have permission to access this page.')
+      end
+    end
   end
 
   describe 'POST #create' do
@@ -65,7 +88,7 @@ RSpec.describe AdminsController, type: :controller do
 
     let(:valid_attributes) do
       {
-        email: 'admin@example.com',
+        email: 'admin@tamu.edu',
         uin: '123456',
         first_name: 'John',
         last_name: 'Doe'
@@ -117,7 +140,7 @@ RSpec.describe AdminsController, type: :controller do
 
     let(:valid_attributes) do
       {
-        email: 'updated_admin@example.com',
+        email: 'updated_admin@tamu.edu',
         uin: '654321',
         first_name: 'Jane',
         last_name: 'Smith'
@@ -135,14 +158,14 @@ RSpec.describe AdminsController, type: :controller do
 
     context 'with valid attributes' do
       it 'updates the requested admin' do
-        admin = Admin.create(email: 'admin@example.com', uin: '123456', first_name: 'John', last_name: 'Doe')
+        admin = Admin.create(email: 'admin@tamu.edu', uin: '123456', first_name: 'John', last_name: 'Doe')
         patch :update, params: { id: admin.id, admin: valid_attributes }
         admin.reload
-        expect(admin.email).to eq('updated_admin@example.com')
+        expect(admin.email).to eq('updated_admin@tamu.edu')
       end
 
       it 'redirects to the updated admin' do
-        admin = Admin.create(email: 'admin@example.com', uin: '123456', first_name: 'John', last_name: 'Doe')
+        admin = Admin.create(email: 'admin@tamu.edu', uin: '123456', first_name: 'John', last_name: 'Doe')
         patch :update, params: { id: admin.id, admin: valid_attributes }
         expect(response).to redirect_to(admin)
         expect(flash[:notice]).to eq('Admin was successfully updated.')
@@ -151,14 +174,14 @@ RSpec.describe AdminsController, type: :controller do
 
     context 'with invalid attributes' do
       it 'does not update the admin' do
-        admin = Admin.create(email: 'admin@example.com', uin: '123456', first_name: 'John', last_name: 'Doe')
+        admin = Admin.create(email: 'admin@tamu.edu', uin: '123456', first_name: 'John', last_name: 'Doe')
         patch :update, params: { id: admin.id, admin: invalid_attributes }
         admin.reload
-        expect(admin.email).to eq('admin@example.com')  # Ensure the email hasn't changed
+        expect(admin.email).to eq('admin@tamu.edu')  # Ensure the email hasn't changed
       end
 
       it 'renders the edit template' do
-        admin = Admin.create(email: 'admin@example.com', uin: '123456', first_name: 'John', last_name: 'Doe')
+        admin = Admin.create(email: 'admin@tamu.edu', uin: '123456', first_name: 'John', last_name: 'Doe')
         patch :update, params: { id: admin.id, admin: invalid_attributes }
         expect(response).to render_template(:edit)
         expect(response).to have_http_status(:unprocessable_entity)
@@ -173,14 +196,14 @@ RSpec.describe AdminsController, type: :controller do
 
     context 'with a valid admin id' do
       it 'destroys the requested admin' do
-        admin = Admin.create(email: 'admin@example.com', uin: '123456', first_name: 'John', last_name: 'Doe')
+        admin = Admin.create(email: 'admin@tamu.edu', uin: '123456', first_name: 'John', last_name: 'Doe')
         expect {
           delete :destroy, params: { id: admin.id }
         }.to change(Admin, :count).by(-1)
       end
 
       it 'redirects to the admins list' do
-        admin = Admin.create(email: 'admin@example.com', uin: '123456', first_name: 'John', last_name: 'Doe')
+        admin = Admin.create(email: 'admin@tamu.edu', uin: '123456', first_name: 'John', last_name: 'Doe')
         delete :destroy, params: { id: admin.id }
         expect(response).to redirect_to(admins_path)
         expect(flash[:notice]).to eq('Admin was successfully destroyed.')
@@ -211,8 +234,8 @@ RSpec.describe AdminsController, type: :controller do
       mock_user_sign_in
     end
 
-    let!(:admin1) { Admin.create(email: 'admin1@example.com', uin: '123456', first_name: 'John', last_name: 'Doe') }
-    let!(:admin2) { Admin.create(email: 'admin2@example.com', uin: '654321', first_name: 'Jane', last_name: 'Smith') }
+    let!(:admin1) { Admin.create(email: 'admin1@tamu.edu', uin: '123456', first_name: 'John', last_name: 'Doe') }
+    let!(:admin2) { Admin.create(email: 'admin2@tamu.edu', uin: '654321', first_name: 'Jane', last_name: 'Smith') }
 
     it 'assigns all admins to @admins' do
       get :index

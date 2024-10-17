@@ -1,4 +1,272 @@
 {
+  "Cucumber Features": {
+    "coverage": {
+      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/KANM-Show-Scheduling/app/models/admin.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          20,
+          null,
+          null,
+          null,
+          1,
+          7,
+          14,
+          null,
+          null,
+          null,
+          1,
+          75,
+          2,
+          null,
+          null,
+          null,
+          1,
+          null,
+          null,
+          1,
+          75,
+          null,
+          null
+        ]
+      },
+      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/KANM-Show-Scheduling/app/models/application_record.rb": {
+        "lines": [
+          1,
+          1,
+          null
+        ]
+      },
+      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/KANM-Show-Scheduling/app/controllers/login_controller.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          1,
+          28,
+          2,
+          null,
+          null,
+          null
+        ]
+      },
+      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/KANM-Show-Scheduling/app/controllers/application_controller.rb": {
+        "lines": [
+          1,
+          null,
+          null,
+          1,
+          null,
+          1,
+          null,
+          1,
+          null,
+          null,
+          null,
+          99,
+          null,
+          null,
+          1,
+          null,
+          null,
+          99,
+          null,
+          null,
+          1,
+          null,
+          71,
+          1,
+          null,
+          null,
+          null
+        ]
+      },
+      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/KANM-Show-Scheduling/app/helpers/application_helper.rb": {
+        "lines": [
+          1,
+          null
+        ]
+      },
+      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/KANM-Show-Scheduling/app/helpers/admins_helper.rb": {
+        "lines": [
+          1,
+          null
+        ]
+      },
+      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/KANM-Show-Scheduling/app/helpers/uploads_helper.rb": {
+        "lines": [
+          1,
+          null
+        ]
+      },
+      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/KANM-Show-Scheduling/app/controllers/sessions_controller.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          null,
+          1,
+          2,
+          2,
+          null,
+          null,
+          1,
+          null,
+          null,
+          null,
+          1,
+          36,
+          36,
+          null,
+          36,
+          32,
+          32,
+          32,
+          null,
+          4,
+          4,
+          null,
+          null,
+          null
+        ]
+      },
+      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/KANM-Show-Scheduling/app/controllers/welcome_controller.rb": {
+        "lines": [
+          1,
+          1,
+          null,
+          42,
+          null,
+          null,
+          42,
+          null,
+          null
+        ]
+      },
+      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/KANM-Show-Scheduling/app/controllers/admins_controller.rb": {
+        "lines": [
+          1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          7,
+          null,
+          null,
+          null,
+          1,
+          5,
+          null,
+          null,
+          null,
+          1,
+          3,
+          null,
+          null,
+          null,
+          1,
+          null,
+          null,
+          null,
+          1,
+          3,
+          null,
+          3,
+          3,
+          4,
+          2,
+          null,
+          2,
+          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          2,
+          2,
+          2,
+          1,
+          null,
+          2,
+          1,
+          null,
+          null,
+          null,
+          null,
+          null,
+          1,
+          1,
+          null,
+          1,
+          2,
+          1,
+          null,
+          null,
+          null,
+          1,
+          null,
+          1,
+          10,
+          null,
+          null,
+          null,
+          1,
+          5,
+          null,
+          null,
+          1,
+          25,
+          null,
+          null,
+          1,
+          25,
+          2,
+          2,
+          null,
+          null,
+          null
+        ]
+      },
+      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/KANM-Show-Scheduling/app/controllers/uploads_controller.rb": {
+        "lines": [
+          1,
+          1,
+          0,
+          null,
+          null,
+          1,
+          1,
+          1,
+          null,
+          1,
+          null,
+          1,
+          null,
+          1,
+          1,
+          null,
+          null,
+          null,
+          1,
+          null,
+          null,
+          null,
+          null
+        ]
+      }
+    },
+    "timestamp": 1729133287
+  },
   "RSpec": {
     "coverage": {
       "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/KANM-Show-Scheduling/app/helpers/admins_helper.rb": {
@@ -19,18 +287,12 @@
           null
         ]
       },
-      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/KANM-Show-Scheduling/app/mailers/application_mailer.rb": {
-        "lines": [
-          1,
-          1,
-          1,
-          null
-        ]
-      },
       "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/KANM-Show-Scheduling/app/controllers/admins_controller.rb": {
         "lines": [
           1,
           1,
+          1,
+          1,
           null,
           null,
           1,
@@ -98,6 +360,17 @@
           null,
           1,
           8,
+          null,
+          null,
+          1,
+          16,
+          null,
+          null,
+          1,
+          16,
+          1,
+          1,
+          null,
           null,
           null
         ]
@@ -115,19 +388,19 @@
           null,
           null,
           null,
-          2,
+          4,
           null,
           null,
           1,
           null,
+          null,
+          29,
+          null,
+          null,
+          1,
           null,
           27,
-          null,
-          null,
-          1,
-          null,
-          26,
-          1,
+          3,
           null,
           null,
           null
@@ -139,8 +412,8 @@
           1,
           null,
           1,
+          2,
           1,
-          0,
           null,
           null,
           null
@@ -162,20 +435,16 @@
           null,
           null,
           1,
-          1,
-          1,
-          0,
-          0,
-          0,
+          2,
+          2,
           null,
-          null,
-          1,
+          2,
           1,
           1,
           1,
           null,
-          0,
-          0,
+          1,
+          1,
           null,
           null,
           null
@@ -185,19 +454,29 @@
         "lines": [
           1,
           1,
-          2,
-          2,
-          null,
-          2,
-          null,
-          2,
-          null,
-          2,
-          2,
+          0,
+          0,
           null,
           null,
+          0,
+          0,
           null,
-          2,
+          null,
+          0,
+          null,
+          0,
+          null,
+          0,
+          0,
+          null,
+          null,
+          0,
+          null,
+          null,
+          1,
+          null,
+          1,
+          0,
           null,
           null,
           null
@@ -220,6 +499,34 @@
         "lines": [
           1,
           1,
+          1,
+          1,
+          1,
+          null,
+          null,
+          1,
+          1,
+          null,
+          null,
+          null,
+          1,
+          1,
+          2,
+          null,
+          null,
+          null,
+          1,
+          47,
+          4,
+          null,
+          null,
+          null,
+          1,
+          null,
+          null,
+          1,
+          47,
+          null,
           null
         ]
       },
@@ -231,162 +538,6 @@
         ]
       }
     },
-    "timestamp": 1728965908
-  },
-  "Cucumber Features": {
-    "coverage": {
-      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/KANM-Show-Scheduling/app/models/admin.rb": {
-        "lines": [
-          1,
-          1,
-          null
-        ]
-      },
-      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/KANM-Show-Scheduling/app/models/application_record.rb": {
-        "lines": [
-          1,
-          1,
-          null
-        ]
-      },
-      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/KANM-Show-Scheduling/app/controllers/login_controller.rb": {
-        "lines": [
-          1,
-          1,
-          null,
-          1,
-          15,
-          1,
-          null,
-          null,
-          null
-        ]
-      },
-      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/KANM-Show-Scheduling/app/controllers/application_controller.rb": {
-        "lines": [
-          1,
-          null,
-          null,
-          1,
-          null,
-          1,
-          null,
-          1,
-          null,
-          null,
-          null,
-          36,
-          null,
-          null,
-          1,
-          null,
-          null,
-          36,
-          null,
-          null,
-          1,
-          null,
-          21,
-          0,
-          null,
-          null,
-          null
-        ]
-      },
-      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/KANM-Show-Scheduling/app/helpers/application_helper.rb": {
-        "lines": [
-          1,
-          null
-        ]
-      },
-      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/KANM-Show-Scheduling/app/helpers/admins_helper.rb": {
-        "lines": [
-          1,
-          null
-        ]
-      },
-      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/KANM-Show-Scheduling/app/helpers/uploads_helper.rb": {
-        "lines": [
-          1,
-          null
-        ]
-      },
-      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/KANM-Show-Scheduling/app/controllers/sessions_controller.rb": {
-        "lines": [
-          1,
-          1,
-          null,
-          null,
-          1,
-          0,
-          0,
-          null,
-          null,
-          1,
-          null,
-          null,
-          null,
-          1,
-          18,
-          18,
-          0,
-          0,
-          0,
-          null,
-          null,
-          18,
-          14,
-          14,
-          14,
-          null,
-          4,
-          4,
-          null,
-          null,
-          null
-        ]
-      },
-      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/KANM-Show-Scheduling/app/controllers/welcome_controller.rb": {
-        "lines": [
-          1,
-          1,
-          null,
-          19,
-          null,
-          null,
-          19,
-          null,
-          null
-        ]
-      },
-      "/mnt/c/Users/Jamie Nojek/.vscode/CSCE 606/KANM-Project/KANM-Show-Scheduling/app/controllers/uploads_controller.rb": {
-        "lines": [
-          1,
-          1,
-          0,
-          null,
-          null,
-          1,
-          1,
-          1,
-          null,
-          1,
-          null,
-          1,
-          null,
-          1,
-          1,
-          null,
-          null,
-          null,
-          1,
-          null,
-          null,
-          null,
-          null
-        ]
-      }
-    },
-    "timestamp": 1728969325
+    "timestamp": 1729138300
   }
 }
