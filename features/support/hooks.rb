@@ -1,3 +1,5 @@
+require 'fileutils'
+
 Before do
   # Ensure the test database is clean and set up with necessary data
   Admin.delete_all
@@ -15,4 +17,13 @@ Before do
     first_name: 'Test',
     last_name: 'Student'
   )
+
+  # Define the path to the test uploads directory
+  upload_path = Rails.root.join('tmp', 'test_uploads')
+
+  # Remove the directory and all its contents if it exists
+  FileUtils.rm_rf(upload_path) if Dir.exist?(upload_path)
+
+  # Recreate the directory
+  FileUtils.mkdir_p(upload_path)
 end

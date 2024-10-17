@@ -32,6 +32,7 @@ Then('I should see the uploaded files listed') do
 end
 
 When('I select the file {string}') do |filename|
+  visit welcome_path
   checkbox = find("input[type='checkbox'][value='#{filename}']")
   checkbox.check unless checkbox.checked?
 end
