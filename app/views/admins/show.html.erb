@@ -20,5 +20,19 @@
     <%= @current_admin.last_name %>
   </p>
 
-  <%= button_to "Logout", logout_path %>
+  <p>
+    <strong>Admin Role:</strong>
+    <%= @current_admin.human_role_name %>
+  </p>
+
+  <div style="margin-bottom: 10px;">
+    <%= link_to "Edit this Admin", edit_admin_path(@current_admin) %>
+  </div>
+  <div style="margin-bottom: 10px;">
+    <%= link_to "Back to Admin List", admins_path %>
+  </div>
+  <div style="margin-bottom: 10px;">
+    <%= button_to "Delete this Admin", @current_admin, method: :delete %>
+  </div>
+
 </div>

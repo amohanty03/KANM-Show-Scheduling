@@ -13,6 +13,16 @@ Given('I am on the login page') do
   visit login_path
 end
 
+Given('I try to revisit the login page as a logged in user') do
+  visit login_path
+  expect(page).to have_current_path(welcome_path)
+end
+
+Given('I try to revisit the welcome page without logging in') do
+  visit welcome_path
+  expect(page).to have_current_path(login_path)
+end
+
 When('I click the {string} button as {string} with name {string} {string}') do |login, email, first_name, last_name|
   OmniAuth.config.mock_auth[:google_oauth2] = OmniAuth::AuthHash.new({
     provider: 'google_oauth2',
