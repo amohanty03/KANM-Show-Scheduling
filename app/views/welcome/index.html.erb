@@ -1,3 +1,4 @@
+
 <div class="px-40 flex flex-1 justify-center py-5">
   <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
     <div class="@container">
@@ -21,103 +22,107 @@
         </div>
       </div>
     </div>
-            <div class="flex flex-col p-4">
-              <div class="flex flex-col items-center gap-6 rounded-xl border-2 border-dashed border-[#dce0e5] px-6 py-14">
-              <% if flash[:notice] %>
-                <div class="alert alert-success">
-                  <%= flash[:notice] %>
-                </div>
+
+    <div class="flex flex-col p-4">
+      <div class="flex flex-col items-center gap-6 rounded-xl border-2 border-dashed border-[#dce0e5] px-6 py-14">
+
+        <!-- Check if CSV files are present -->
+        <% if @csv_files.empty? %>
+          <p class="text-[#111418] text-lg font-bold leading-tight tracking-[-0.015em] max-w-[480px] text-center">
+            No files are present
+          </p>
+        <% else %>
+          <!-- Displaying CSV files -->
+          <div class="w-full max-w-lg max-h-60 overflow-y-auto border border-gray-300 rounded-lg p-4">
+            <ul>
+              <% @csv_files.each do |file| %>
+                <li class="text-sm text-[#111418] mb-2 flex items-center">
+                  <input type="checkbox" class="mr-2" value="<%= File.basename(file) %>" name="selected_files[]">
+                  <%= File.basename(file) %>
+                </li>
               <% end %>
-              <% if flash[:alert] %>
-                <div class="alert alert-warning">
-                  <%= flash[:alert] %>
-                </div>
-              <% end %>
-              
-                <!-- Check if CSV files are present -->
-                <% if @csv_files.empty? %>
-                  <p class="text-[#111418] text-lg font-bold leading-tight tracking-[-0.015em] max-w-[480px] text-center">
-                    No files are present
-                  </p>
-                <% else %>
-                  <!-- Displaying CSV files -->
-                  <div class="w-full max-w-lg max-h-60 overflow-y-auto border border-gray-300 rounded-lg p-4">
-                    <ul>
-                      <% @csv_files.each do |file| %>
-                        <li class="text-sm text-[#111418] mb-2 flex items-center">
-                          <input type="checkbox" class="mr-2" value="<%= File.basename(file) %>" name="selected_files[]">
-                          <%= File.basename(file) %>
-                        </li>
-                      <% end %>
-                    </ul>
+            </ul>
+          </div>
+
+          <!-- Can be deleted later -->
+          <button id="display-selected" class="mt-4 flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#f0f2f4] text-[#111418] text-sm font-bold leading-normal tracking-[0.015em]">
+            <span class="truncate">Display Selected</span>
+          </button>
+
+          <!-- Can be deleted later -->
+          <div id="selected-files" class="mt-4 text-[#111418] text-sm font-bold"></div>
+
+          <script>
+            document.getElementById('display-selected').addEventListener('click', function() {
+
+              const checkboxes = document.querySelectorAll('input[name="selected_files[]"]:checked');
+
+              const selectedFiles = Array.from(checkboxes).map(checkbox => checkbox.value);
+
+              /* Can be deleted later */
+              const selectedFilesDiv = document.getElementById('selected-files');
+              selectedFilesDiv.innerHTML = selectedFiles.length > 0 ? 'Selected Files: ' + selectedFiles.join(', ') : 'No files selected.';
+            });  
+          </script>
+        <% end %>
+                <p class="text-[#111418] text-lg font-bold leading-tight tracking-[-0.015em] max-w-[480px] text-center">Upload your spreadsheet</p>
+
+                <%= form_with(url: uploads_path, local: true, multipart: true) do |form| %>
+                  <div class="field flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#f0f2f4] text-[#111418] text-sm font-bold leading-normal tracking-[0.015em]">
+                    <%= form.file_field :csv_file, name: 'upload[csv_file]', accept: '.csv' %>
                   </div>
-                  
-                  <!-- Can be deleted later -->
-                  <button id="display-selected" class="mt-4 flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#f0f2f4] text-[#111418] text-sm font-bold leading-normal tracking-[0.015em]">
-                    <span class="truncate">Display Selected</span>
-                  </button>
-                  
-                  <div id="selected-files" class="mt-4 text-[#111418] text-sm font-bold"></div>
-                  <p class="text-[#111418] text-lg font-bold leading-tight tracking-[-0.015em] max-w-[480px] text-center">Upload your spreadsheet</p>
-                  <button
-                    class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#f0f2f4] text-[#111418] text-sm font-bold leading-normal tracking-[0.015em]"
-                  >
-                    <span class="truncate">Upload</span>
-                  </button>
-                  <%= form_for :download, method: :get, url: download_path, id: 'download-form' do %>
-                    <%= submit_tag 'Download', style: 'display:none;' %>
-                  <% end %>
-                  <button
-                    id="download-selected" class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#f0f2f4] text-[#111418] text-sm font-bold leading-normal tracking-[0.015em]"
-                  >
-                    <span class="truncate">Download</span>
-                  </button>
-                  <div id="selected-files"></div>
-
-                  
-                  <script>
-                    document.getElementById('display-selected').addEventListener('click', function() {
-                      
-                      const checkboxes = document.querySelectorAll('input[name="selected_files[]"]:checked');
-                      
-                      const selectedFiles = Array.from(checkboxes).map(checkbox => checkbox.value);
-                      
-                      /* Can be deleted later */
-                      const selectedFilesDiv = document.getElementById('selected-files');
-                      selectedFilesDiv.innerHTML = selectedFiles.length > 0 ? 'Selected Files: ' + selectedFiles.join(', ') : 'No files selected.';
-                    });
-                    document.getElementById('download-selected').addEventListener('click', function() {
-                      const checkboxes = document.querySelectorAll('input[name="selected_files[]"]:checked');
-                      const selectedFiles = Array.from(checkboxes).map(checkbox => checkbox.value);
-
-                      const form = document.getElementById('download-form');
-
-                      // Clear existing form data
-                      // Also needed to make sure download does not error out due to duplicate filenames
-                      // Otherwise, you may end up trying to download the same file twice
-                      while (form.firstChild) {
-                        form.removeChild(form.firstChild);
-                      }
-                    
-                      // Add selected files to the form
-                      selectedFiles.forEach(function(file) {
-                        const hiddenField = document.createElement('input');
-                        hiddenField.type = 'hidden';
-                        hiddenField.name = 'selected_files[]';
-                        hiddenField.value = file;
-                        form.appendChild(hiddenField);
-                      });
-                    
-                      form.submit();
-                    });
-
-                  </script>
+                  <div class="actions flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#f0f2f4] text-[#111418] text-sm font-bold leading-normal tracking-[0.015em]">
+                    <%= form.submit "Upload" %>
+                  </div>
                 <% end %>
+                <%= form_for :download, method: :get, url: download_path, id: 'download-form' do %>
+                  <%= submit_tag 'Download', style: 'display:none;' %>
+                <% end %>
+                <button
+                  id="download-selected" class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#f0f2f4] text-[#111418] text-sm font-bold leading-normal tracking-[0.015em]"
+                >
+                  <span class="truncate">Download</span>
+                </button>
+
+                <script>
+                  document.getElementById('download-selected').addEventListener('click', function() {
+                    const checkboxes = document.querySelectorAll('input[name="selected_files[]"]:checked');
+                    const selectedFiles = Array.from(checkboxes).map(checkbox => checkbox.value);
+                  
+                    const form = document.getElementById('download-form');
+                  
+                    // Clear existing form data
+                    // Also needed to make sure download does not error out due to duplicate filenames
+                    // Otherwise, you may end up trying to download the same file twice
+                    while (form.firstChild) {
+                      form.removeChild(form.firstChild);
+                    }
+                  
+                    // Add selected files to the form
+                    selectedFiles.forEach(function(file) {
+                      const hiddenField = document.createElement('input');
+                      hiddenField.type = 'hidden';
+                      hiddenField.name = 'selected_files[]';
+                      hiddenField.value = file;
+                      form.appendChild(hiddenField);
+                    });
+                  
+                    form.submit();
+                  });          
+                </script>
+
+                <% if flash[:alert] %>
+                  <p style="color: red;"><%= flash[:alert] %></p>
+                <% end %>
+                <% if flash[:notice] %>
+                  <p style="color: green;"><%= flash[:notice] %></p>
+                <% end %>
+
+                </button>
               </div>
             </div>
-          </div>
-        </div>
+
       </div>
     </div>
-  </body>
-</html>
+  </div>
+</div>
