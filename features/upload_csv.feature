@@ -12,5 +12,5 @@ Feature: CSV File Upload
     Scenario: Uploading a valid CSV file
       Given I am on the login page
       When I upload a valid CSV file
-      Then I should see "test.csv"
+      Then I should see "test1.csv"
       And the file should be saved in "tmp/test_uploads"

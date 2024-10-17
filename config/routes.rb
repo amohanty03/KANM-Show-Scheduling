@@ -18,5 +18,5 @@ Rails.application.routes.draw do
 
   resources :admins
   get "welcome/index", to: "welcome#index", as: "welcome"
-  resources :uploads, only: [:new, :create]
+  resources :uploads, only: [ :new, :create ]
 end

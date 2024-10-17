@@ -241,14 +241,15 @@
         "lines": [
           1,
           1,
+          1,
+          1,
+          null,
+          null,
+          1,
           0,
           null,
           null,
           1,
-          1,
-          1,
-          null,
-          1,
           null,
           1,
           null,
@@ -256,16 +257,19 @@
           1,
           null,
           null,
-          null,
           1,
           null,
           null,
+          1,
+          null,
+          1,
+          1,
           null,
           null
         ]
       }
     },
-    "timestamp": 1729133287
+    "timestamp": 1729139423
   },
   "RSpec": {
     "coverage": {
@@ -388,18 +392,18 @@
           null,
           null,
           null,
-          4,
+          6,
           null,
           null,
           1,
           null,
           null,
-          29,
+          33,
           null,
           null,
           1,
           null,
-          27,
+          31,
           3,
           null,
           null,
@@ -454,30 +458,29 @@
         "lines": [
           1,
           1,
-          0,
-          0,
+          2,
+          2,
           null,
           null,
-          0,
-          0,
-          null,
-          null,
-          0,
-          null,
-          0,
-          null,
-          0,
-          0,
-          null,
-          null,
-          0,
+          2,
+          1,
           null,
           null,
           1,
           null,
           1,
-          0,
           null,
+          1,
+          1,
+          null,
+          null,
+          1,
+          null,
+          null,
+          1,
+          null,
+          1,
+          2,
           null,
           null
         ]
@@ -487,10 +490,10 @@
           1,
           1,
           null,
-          7,
+          9,
           null,
           null,
-          7,
+          9,
           null,
           null
         ]
@@ -516,7 +519,7 @@
           null,
           null,
           1,
-          47,
+          49,
           4,
           null,
           null,
@@ -525,7 +528,7 @@
           null,
           null,
           1,
-          47,
+          49,
           null,
           null
         ]
@@ -538,6 +541,6 @@
         ]
       }
     },
-    "timestamp": 1729138300
+    "timestamp": 1729139409
   }
 }

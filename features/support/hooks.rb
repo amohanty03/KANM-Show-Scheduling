@@ -23,7 +23,7 @@ Before do
 
   # Remove the directory and all its contents if it exists
   FileUtils.rm_rf(upload_path) if Dir.exist?(upload_path)
-  
+
   # Recreate the directory
   FileUtils.mkdir_p(upload_path)
 end

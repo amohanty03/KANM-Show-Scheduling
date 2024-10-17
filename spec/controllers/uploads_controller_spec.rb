@@ -41,42 +41,53 @@ RSpec.describe UploadsController, type: :controller do
   end
 
   describe 'POST #create' do
-  # before do
-  #   mock_user_sign_in
-  #   old_controller = @controller
-  #   @controller = WelcomeController.new
-  #   get :index
-  #   @controller = old_controller
-  # end
+
     context 'with valid parameters' do
       it 'uploads a CSV file successfully' do
       old_controller = @controller
       @controller = WelcomeController.new
       get :index
       @controller = old_controller
-      expect(response).to redirect_to(root_path)
-        follow_redirect!
-        expect(response.body).to include("Welcome")
+      expect(response).to redirect_to(login_path)
+      mock_user_sign_in
+      old_controller = @controller
+      @controller = WelcomeController.new
+      get :index
+      @controller = old_controller
+      expect(response).to render_template('welcome/index')
 
-        file = fixture_file_upload('test1.csv', 'text/csv')
+      file = fixture_file_upload('test1.csv', 'text/csv')
 
-        post :create, params: { upload: { csv_file: file } }
+      post :create, params: { upload: { csv_file: file } }
 
-        #expect(response).to redirect_to(welcome_path)
-        #expect(flash[:alert]).to eq('File uploaded successfully.')
+      expect(response).to redirect_to(welcome_path)
+      expect(flash[:alert]).to eq('File uploaded successfully.')
 
-        #expect(File.exist?(Rails.root.join('tmp/test_uploads/test1.csv'))).to be true
+      expect(File.exist?(Rails.root.join('tmp/test_uploads/test1.csv'))).to be true
       end
     end
 
     context 'with invalid parameters' do
       it 'does not upload an invalid file type' do
+        old_controller = @controller
+        @controller = WelcomeController.new
+        get :index
+        @controller = old_controller
+        expect(response).to redirect_to(login_path)
+        mock_user_sign_in
+        old_controller = @controller
+        @controller = WelcomeController.new
+        get :index
+        @controller = old_controller
+        expect(response).to render_template('welcome/index')
         file = fixture_file_upload('test2.txt', 'text/plain')
 
         post :create, params: { upload: { csv_file: file } }
 
+        expect(flash[:alert]).to eq("Invalid file type. Please upload a CSV file.")
         expect(File.exist?(Rails.root.join('tmp/test_uploads/test2.txt'))).to be false
       end
     end
   end
 end
+
