@@ -1,4 +1,4 @@
-require 'zip'
+require "zip"
 
 class DownloadController < ApplicationController
     def download
@@ -20,6 +20,7 @@ class DownloadController < ApplicationController
         Zip::File.open(zipfile_path, create: true) do |zipfile|
           selected_csv_files.each do |csv_file|
             csv_path = Rails.root.join(upload_path, csv_file)
+            # check file exists here?
             zipfile.add(csv_file, csv_path)
           end
         end
