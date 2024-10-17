@@ -12,8 +12,8 @@ When("I upload an invalid file type") do
   click_button 'Upload'
 end
 
-Then("the file should be saved in {string}") do |path|
-  expect(File.exist?(Rails.root.join(path, 'test1.csv'))).to be true
+Then("the file {string} should be saved in {string}") do |filename, path|
+  expect(File.exist?(Rails.root.join(path, filename))).to be true
 end
 
 Then("no files are uploaded") do

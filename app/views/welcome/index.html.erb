@@ -62,7 +62,7 @@
               /* Can be deleted later */
               const selectedFilesDiv = document.getElementById('selected-files');
               selectedFilesDiv.innerHTML = selectedFiles.length > 0 ? 'Selected Files: ' + selectedFiles.join(', ') : 'No files selected.';
-            });
+            });  
           </script>
         <% end %>
                 <p class="text-[#111418] text-lg font-bold leading-tight tracking-[-0.015em] max-w-[480px] text-center">Upload your spreadsheet</p>
@@ -75,17 +75,50 @@
                     <%= form.submit "Upload" %>
                   </div>
                 <% end %>
+                <%= form_for :download, method: :get, url: download_path, id: 'download-form' do %>
+                  <%= submit_tag 'Download', style: 'display:none;' %>
+                <% end %>
+                <button
+                  id="download-selected" class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#f0f2f4] text-[#111418] text-sm font-bold leading-normal tracking-[0.015em]"
+                >
+                  <span class="truncate">Download</span>
+                </button>
+
+                <script>
+                  document.getElementById('download-selected').addEventListener('click', function() {
+                    const checkboxes = document.querySelectorAll('input[name="selected_files[]"]:checked');
+                    const selectedFiles = Array.from(checkboxes).map(checkbox => checkbox.value);
+                  
+                    const form = document.getElementById('download-form');
+                  
+                    // Clear existing form data
+                    // Also needed to make sure download does not error out due to duplicate filenames
+                    // Otherwise, you may end up trying to download the same file twice
+                    while (form.firstChild) {
+                      form.removeChild(form.firstChild);
+                    }
+                  
+                    // Add selected files to the form
+                    selectedFiles.forEach(function(file) {
+                      const hiddenField = document.createElement('input');
+                      hiddenField.type = 'hidden';
+                      hiddenField.name = 'selected_files[]';
+                      hiddenField.value = file;
+                      form.appendChild(hiddenField);
+                    });
+                  
+                    form.submit();
+                  });          
+                </script>
 
                 <% if flash[:alert] %>
                   <p style="color: red;"><%= flash[:alert] %></p>
                 <% end %>
+                <% if flash[:notice] %>
+                  <p style="color: green;"><%= flash[:notice] %></p>
+                <% end %>
 
                 </button>
-                <button
-                class="flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#f0f2f4] text-[#111418] text-sm font-bold leading-normal tracking-[0.015em]"
-              >
-                <span class="truncate">Download</span>
-              </button>
               </div>
             </div>
 
