@@ -408,6 +408,7 @@ GEM
     xpath (3.2.0)
       nokogiri (~> 1.8)
     zeitwerk (2.6.18)
+    zip (2.0.2)
 
 PLATFORMS
   aarch64-linux
@@ -452,6 +453,7 @@ DEPENDENCIES
   stimulus-rails
   tzinfo-data
   web-console
+  zip
 
 RUBY VERSION
    ruby 3.3.4p94
