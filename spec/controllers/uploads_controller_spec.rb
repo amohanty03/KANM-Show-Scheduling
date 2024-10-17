@@ -41,7 +41,6 @@ RSpec.describe UploadsController, type: :controller do
   end
 
   describe 'POST #create' do
-
     context 'with valid parameters' do
       it 'uploads a CSV file successfully' do
       old_controller = @controller
@@ -90,4 +89,3 @@ RSpec.describe UploadsController, type: :controller do
     end
   end
 end
-
