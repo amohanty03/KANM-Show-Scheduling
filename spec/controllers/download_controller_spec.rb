@@ -7,9 +7,9 @@ RSpec.describe DownloadController, type: :controller do
     Admin.destroy_all
     Admin.create(email: 'jnojek13@tamu.edu', uin: '226005385', first_name: 'Jamie', last_name: 'Nojek')
     OmniAuth.config.test_mode = true
-    upload_path = Rails.root.join('tmp', 'test_uploads')
-    FileUtils.rm_rf(upload_path) # Remove the directory and its contents
-    FileUtils.mkdir_p(upload_path) # Recreate the directory
+    download_path = Rails.root.join('tmp', 'test_downloads')
+    FileUtils.rm_rf(download_path) # Remove the directory and its contents
+    FileUtils.mkdir_p(download_path) # Recreate the directory
   end
 
   let(:valid_auth_hash) {

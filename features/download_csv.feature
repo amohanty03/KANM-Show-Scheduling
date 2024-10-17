@@ -13,7 +13,7 @@ Feature: CSV File Download
     Given there are some CSV files in the test uploads directory
     And I select the file "test1.csv"
     When I click the download button
-    Then the file "archived_files.zip" should be saved in "tmp/test_downloads"
+    Then the file "archived_files.zip" should be saved in "public/downloads"
 
   Scenario: Not downloading when no files are selected
     Given there are some CSV files in the test uploads directory
