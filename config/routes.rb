@@ -20,4 +20,7 @@ Rails.application.routes.draw do
   get "welcome/index", to: "welcome#index", as: "welcome"
   get "welcome/download", to: "download#download", as: "download"
   resources :uploads, only: [ :new, :create ]
+
+  # Route for deleting CSV
+  delete "welcome/delete_csv_files", to: "welcome#delete_csv_files", as: "delete_csv_files"
 end

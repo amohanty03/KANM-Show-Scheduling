@@ -1,4 +1,3 @@
-
 <div class="px-40 flex flex-1 justify-center py-5">
   <div class="layout-content-container flex flex-col max-w-[960px] flex-1">
     <div class="@container">
@@ -32,26 +31,51 @@
             No files are present
           </p>
         <% else %>
-          <!-- Displaying CSV files -->
-          <div class="w-full max-w-lg max-h-60 overflow-y-auto border border-gray-300 rounded-lg p-4">
-            <ul>
-              <% @csv_files.each do |file| %>
-                <li class="text-sm text-[#111418] mb-2 flex items-center">
-                  <input type="checkbox" class="mr-2" value="<%= File.basename(file) %>" name="selected_files[]">
-                  <%= File.basename(file) %>
-                </li>
-              <% end %>
-            </ul>
-          </div>
+          <!-- helps for deleteing CSV files -->
+          <%= form_with url: delete_csv_files_path, method: :delete do %>
+            <!-- Displaying CSV files -->
+            <div class="w-full max-w-lg max-h-60 overflow-y-auto border border-gray-300 rounded-lg p-4">
+              <ul>
+                <% @csv_files.each do |file| %>
+                  <li class="text-sm text-[#111418] mb-2 flex items-center">
+                    <input type="checkbox" class="mr-2" value="<%= File.basename(file) %>" name="selected_files[]">
+                    <%= File.basename(file) %>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
 
-          <!-- Can be deleted later -->
-          <button id="display-selected" class="mt-4 flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#f0f2f4] text-[#111418] text-sm font-bold leading-normal tracking-[0.015em]">
-            <span class="truncate">Display Selected</span>
-          </button>
+            <!-- Can be deleted later -->
+            <button id="display-selected" class="mt-4 flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#f0f2f4] text-[#111418] text-sm font-bold leading-normal tracking-[0.015em]">
+              <span class="truncate">Display Selected</span>
+            </button>
 
-          <!-- Can be deleted later -->
-          <div id="selected-files" class="mt-4 text-[#111418] text-sm font-bold"></div>
+            <!-- Can be deleted later -->
+            <div id="selected-files" class="mt-4 text-[#111418] text-sm font-bold"></div>
+            
+            <!-- Delete button for  csv files -->
+            <button id="delete" class="mt-4 flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#f0f2f4] text-[#111418] text-sm font-bold leading-normal tracking-[0.015em]" type="submit">
+             <span class="truncate">Delete</span>
+            </button>
 
+            <!-- Flash message for delete -->
+            <div id="delete-warning" style="color: red; margin-top: 10px;"></div>
+
+          <% end %>
+          <script>
+          document.getElementById('delete').addEventListener('click', function(event){
+            const checkboxes = document.querySelectorAll('input[name="selected_files[]"]:checked');
+
+            const selectedFiles = Array.from(checkboxes).map(checkbox => checkbox.value);
+
+            if(selectedFiles.length === 0){
+              event.preventDefault();
+              document.getElementById('delete-warning').innerHTML = 'No files selected for deletion!';
+            } else {
+              document.getElementById('delete-warning').innerHTML = '';
+            }
+          }); 
+          </script>
           <script>
             document.getElementById('display-selected').addEventListener('click', function() {
 
