@@ -1,5 +1,20 @@
 <h2>Howdy <%= @current_admin.first_name %>!</h2>
 <div id="admin-details">
+<style>
+.admin-border{
+  border: 1px solid lightgray;
+  border-radius: 5px;
+  padding: 5px, 5px, 5px;
+  margin-bottom: 5px;
+}
+.btn-primary {
+  color: black;
+  border: none
+  padding: 5px, 5px, 5px;
+  border-radius: 5px;
+}
+</style>
+<div class="admin-border">
   <p>
     <strong>Email:</strong>
     <%= @current_admin.email %>
@@ -24,15 +39,18 @@
     <strong>Admin Role:</strong>
     <%= @current_admin.human_role_name %>
   </p>
-
+  </div>
+  <div class = "container">
   <div style="margin-bottom: 10px;">
-    <%= link_to "Edit this Admin", edit_admin_path(@current_admin) %>
+    <%= link_to "Edit this Admin", edit_admin_path(@current_admin), :class => 'btn btn-primary' %>
+  
   </div>
   <div style="margin-bottom: 10px;">
-    <%= link_to "Back to Admin List", admins_path %>
+    <%= link_to "Back to Admin List", admins_path, :class => 'btn btn-primary' %>
   </div>
   <div style="margin-bottom: 10px;">
-    <%= button_to "Delete this Admin", @current_admin, method: :delete %>
+    <%= button_to "Delete this Admin", @current_admin, method: :delete, :class => 'btn btn-primary' %>
+  </div>
   </div>
 
 </div>
