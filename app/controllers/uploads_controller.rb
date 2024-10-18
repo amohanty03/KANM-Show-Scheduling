@@ -8,7 +8,7 @@ class UploadsController < ApplicationController
 
     # Validate that the uploaded file is a CSV
     unless valid_csv?(uploaded_file)
-      redirect_to welcome_path, alert: "Invalid file type. Please upload a CSV file." and return
+      redirect_to welcome_path, alert: "Invalid file type. Please choose a CSV file to upload." and return
     end
 
     upload_path = Rails.env.test? ? Rails.root.join("tmp", "test_uploads") : Rails.root.join("public", "uploads")
