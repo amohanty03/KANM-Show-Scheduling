@@ -5,8 +5,6 @@ class WelcomeController < ApplicationController
 
     # Check for CSV and XLSX files in the specified directory
     @csv_files = Dir.glob("#{upload_path}/*.{csv,xlsx}")
-
-  
   end
 
   def delete_csv_files
@@ -27,5 +25,5 @@ class WelcomeController < ApplicationController
       flash[:notice] = "Selected files have been deleted."
     end
     redirect_to welcome_path
-  end 
+  end
 end
