@@ -19,7 +19,7 @@ Before do
   )
 
 
- 
+
 
   # Define the path to the test uploads directory
   upload_path = Rails.root.join('tmp', 'test_uploads')
@@ -30,7 +30,7 @@ Before do
   # Recreate the directory
   FileUtils.mkdir_p(upload_path)
 
-   # create test
+  # create test
   test_upload_path = "#{Rails.root}/tmp/test_uploads"
   FileUtils.mkdir_p(test_upload_path)
   File.write("#{test_upload_path}/test1.csv", "sample data")

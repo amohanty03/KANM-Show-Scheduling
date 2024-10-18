@@ -16,7 +16,6 @@ Then('the file {string} should not be present in the uploads directory') do |fil
 
     puts "Checkign if #{file_path} exists"
     expect(File.exist?(File.join(test_upload_path, filename))).to be false
-    
   end
 
 Then('I should see No files are present') do
