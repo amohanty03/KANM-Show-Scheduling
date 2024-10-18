@@ -31,7 +31,7 @@
             No files are present
           </p>
         <% else %>
-          <!-- helps for deleteing CSV files -->
+          <!-- helps for deleting CSV files -->
           <%= form_with url: delete_csv_files_path, method: :delete do %>
             <!-- Displaying CSV files -->
             <div class="w-full max-w-lg max-h-60 overflow-y-auto border border-gray-300 rounded-lg p-4">
@@ -113,25 +113,25 @@
                     const checkboxes = document.querySelectorAll('input[name="selected_files[]"]:checked');
                     const selectedFiles = Array.from(checkboxes).map(checkbox => checkbox.value);
                   
-                    const form = document.getElementById('download-form');
+                    const downloadForm = document.getElementById('download-form');
                   
-                    // Clear existing form data
-                    // Also needed to make sure download does not error out due to duplicate filenames
+                    // Clear existing form data to make sure download does not error out due to duplicate filenames
                     // Otherwise, you may end up trying to download the same file twice
-                    while (form.firstChild) {
-                      form.removeChild(form.firstChild);
+                    while (downloadForm.hasChildNodes()) {
+                      downloadForm.removeChild(downloadForm.firstChild);
                     }
+                    // Reset does not work here since the form is variable length and thus no default
                   
                     // Add selected files to the form
-                    selectedFiles.forEach(function(file) {
-                      const hiddenField = document.createElement('input');
-                      hiddenField.type = 'hidden';
-                      hiddenField.name = 'selected_files[]';
-                      hiddenField.value = file;
-                      form.appendChild(hiddenField);
-                    });
+                    for (let i = 0; i < selectedFiles.length; i++) {
+                      let curFileInput = document.createElement('input');
+                      curFileInput.type = 'hidden';
+                      curFileInput.name = 'selected_files[]';
+                      curFileInput.value = selectedFiles[i];
+                      downloadForm.appendChild(curFileInput); // Append list of selected files
+                    };
                   
-                    form.submit();
+                    downloadForm.submit(); // Submit selected files to download
                   });          
                 </script>
 
