@@ -34,8 +34,6 @@
                 <% else %>
                   <!-- for the delete function -->
                   <%= form_with url: delete_csv_files_path, method: :delete do %>
-                  <!-- for the delete function -->
-                  <%= form_with url: delete_csv_files_path, method: :delete do %>
                   <!-- Displaying CSV files -->
                   <div class="w-full max-w-lg max-h-60 overflow-y-auto border border-gray-300 rounded-lg p-4">
                     <ul>
@@ -89,21 +87,7 @@
                       const selectedFilesDiv = document.getElementById('selected-files');
                       selectedFilesDiv.innerHTML = selectedFiles.length > 0 ? 'Selected Files: ' + selectedFiles.join(', ') : 'No files selected.';
                     });
-
-                    document.getElementById('delete').addEventListener('click', function(event){
-                      const checkboxes = document.querySelectorAll('input[name="selected_files[]"]:checked');
-
-                      const selectedFiles = Array.from(checkboxes).map(checkbox => checkbox.value);
-
-                      if(selectedFiles.length === 0){
-                        event.preventDefault();
-                        document.getElementById('delete-warning').innerHTML = 'No files selected for deletion!';
-                      } else {
-                        document.getElementById('delete-warning').innerHTML = '';
-                      }
-                    }); 
-                    });
-
+              
                     document.getElementById('delete').addEventListener('click', function(event){
                       const checkboxes = document.querySelectorAll('input[name="selected_files[]"]:checked');
 
