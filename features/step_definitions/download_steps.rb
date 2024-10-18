@@ -1,6 +1,10 @@
 # features/step_definitions/download_steps.rb
 
-When("I click the download button") do
+When("I click the download button for {string}") do |string|
+  visit download_path(:download, params: { selected_files: [ string ] })
+end
+
+When("I click the download button for no files") do
   click_button "Download"
 end
 
