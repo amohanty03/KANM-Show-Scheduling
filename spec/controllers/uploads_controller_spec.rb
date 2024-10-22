@@ -83,7 +83,7 @@ RSpec.describe UploadsController, type: :controller do
 
         post :create, params: { upload: { csv_file: file } }
 
-        expect(flash[:alert]).to eq("Invalid file type. Please upload a CSV file.")
+        expect(flash[:alert]).to eq("Invalid file type. Please choose a CSV file to upload.")
         expect(File.exist?(Rails.root.join('tmp/test_uploads/test2.txt'))).to be false
       end
     end
@@ -104,7 +104,7 @@ RSpec.describe UploadsController, type: :controller do
 
         post :create, params: { upload: { csv_file: "" } }
 
-        expect(flash[:alert]).to eq("Invalid file type. Please upload a CSV file.")
+        expect(flash[:alert]).to eq("Invalid file type. Please choose a CSV file to upload.")
         expect(File.exist?(Rails.root.join('tmp/test_uploads/test2.txt'))).to be false
       end
     end

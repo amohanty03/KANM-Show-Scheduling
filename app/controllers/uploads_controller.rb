@@ -2,7 +2,7 @@ class UploadsController < ApplicationController
   def create
     Rails.logger.info(params.inspect)
     if params[:upload].nil? || params[:upload][:csv_file].nil?
-      redirect_to welcome_path, alert: "No files were selected. Please upload a CSV file." and return
+      redirect_to welcome_path, alert: "Invalid file type. Please choose a CSV file to upload." and return
     end
     uploaded_file = params[:upload][:csv_file]
 
