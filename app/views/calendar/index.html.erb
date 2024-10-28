@@ -1,0 +1,33 @@
+<%= form_with(url: calendar_path, method: :get, local: true) do %>
+  <label for="day">Select a day:</label>
+  <select name="day" id="day" onchange="this.form.submit()">
+    <% %w[Monday Tuesday Wednesday Thursday Friday Saturday Sunday].each do |day| %>
+      <option value="<%= day %>" <%= day == @selected_day ? 'selected' : '' %>><%= day %></option>
+    <% end %>
+  </select>
+<% end %>
+
+<h2><%= @selected_day %></h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Time Slot</th>
+      <th>Details</th> <!-- Placeholder for variable data -->
+    </tr>
+  </thead>
+  <tbody>
+    <% @time_slots.each_with_index do |slot, index| %>
+      <tr>
+        <td><%= slot %></td>
+        <td><%= "#{@selected_day} Example Show #{index + 1}" %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+
+<div class="field flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#f0f2f4] text-[#111418] text-sm font-bold leading-normal tracking-[0.015em]">
+    <%= link_to 'Back to CSV page', welcome_path, class: 'btn btn-primary' %>
+</div>
+

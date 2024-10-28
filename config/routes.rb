@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get "calendar/index"
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
   # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
@@ -20,6 +21,8 @@ Rails.application.routes.draw do
   get "welcome/index", to: "welcome#index", as: "welcome"
   get "welcome/download", to: "download#download", as: "download"
   resources :uploads, only: [ :new, :create ]
+
+  get "calendar", to: "calendar#index"
 
   # Route for deleting CSV
   delete "welcome/delete_csv_files", to: "welcome#delete_csv_files", as: "delete_csv_files"
