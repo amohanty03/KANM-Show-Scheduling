@@ -2,6 +2,7 @@ class CalendarController < ApplicationController
   def index
     @selected_day = params[:day] || "Monday" # Default to Monday
     @time_slots = generate_time_slots
+    @radio_jockeys = RadioJockey.all
   end
 
   private
