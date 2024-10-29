@@ -2,13 +2,13 @@ class UploadsController < ApplicationController
   def create
     Rails.logger.info(params.inspect)
     if params[:upload].nil? || params[:upload][:csv_file].nil?
-      redirect_to welcome_path, alert: "Invalid file type. Please choose a CSV file to upload." and return
+      redirect_to welcome_path, alert: "Invalid file type. Please choose a xlsx file to upload." and return
     end
     uploaded_file = params[:upload][:csv_file]
 
     # Validate that the uploaded file is a CSV
     unless valid_csv?(uploaded_file)
-      redirect_to welcome_path, alert: "Invalid file type. Please choose a CSV file to upload." and return
+      redirect_to welcome_path, alert: "Invalid file type. Please choose a xlsx file to upload." and return
     end
 
     upload_path = Rails.env.test? ? Rails.root.join("tmp", "test_uploads") : Rails.root.join("public", "uploads")
@@ -25,6 +25,6 @@ class UploadsController < ApplicationController
   private
 
   def valid_csv?(file)
-    file.present? && file.content_type == "text/csv" && File.extname(file.original_filename) == ".csv"
+    file.present? && File.extname(file.original_filename) == ".xlsx"
   end
 end

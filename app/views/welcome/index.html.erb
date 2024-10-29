@@ -31,8 +31,7 @@
             No files are present
           </p>
         <% else %>
-          <!-- helps for deleting CSV files -->
-          <%= form_with url: delete_csv_files_path, method: :delete do %>
+          <%= form_with url: handle_files_path, method: :post do %>
             <!-- Displaying CSV files -->
             <div class="w-full max-w-lg max-h-60 overflow-y-auto border border-gray-300 rounded-lg p-4">
               <ul>
@@ -45,6 +44,13 @@
               </ul>
             </div>
 
+            <div class="field flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#f0f2f4] text-[#111418] text-sm font-bold leading-normal tracking-[0.015em]">
+              <%= submit_tag 'Generate Schedule', name: 'action_type', value: 'generate_schedule', class: 'btn btn-primary' %>
+            </div>
+
+            <div class="field flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#f0f2f4] text-[#111418] text-sm font-bold leading-normal tracking-[0.015em]">
+              <%= submit_tag 'Delete Selected Files', name: 'action_type', value: 'delete_files', class: 'btn btn-danger' %>
+            </div>
             <!-- Can be deleted later -->
             <button id="display-selected" class="mt-4 flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#f0f2f4] text-[#111418] text-sm font-bold leading-normal tracking-[0.015em]" type="button">
               <span class="truncate">Display Selected</span>
@@ -52,11 +58,6 @@
 
             <!-- Can be deleted later -->
             <div id="selected-files" class="mt-4 text-[#111418] text-sm font-bold"></div>
-            
-            <!-- Delete button for  csv files -->
-            <button id="delete" class="mt-4 flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#f0f2f4] text-[#111418] text-sm font-bold leading-normal tracking-[0.015em]" type="submit">
-             <span class="truncate">Delete</span>
-            </button>
 
             <!-- Flash message for delete -->
             <div id="delete-warning" style="color: red; margin-top: 10px;"></div>
@@ -93,7 +94,7 @@
 
                 <%= form_with(url: uploads_path, local: true, multipart: true) do |form| %>
                   <div class="field flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#f0f2f4] text-[#111418] text-sm font-bold leading-normal tracking-[0.015em]">
-                    <%= form.file_field :csv_file, name: 'upload[csv_file]', accept: '.csv' %>
+                    <%= form.file_field :csv_file, name: 'upload[csv_file]', accept: '.xlsx' %>
                   </div>
                   <div class="actions flex min-w-[84px] max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 px-4 bg-[#f0f2f4] text-[#111418] text-sm font-bold leading-normal tracking-[0.015em]">
                     <%= form.submit "Upload" %>
