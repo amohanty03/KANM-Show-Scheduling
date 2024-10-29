@@ -60,3 +60,10 @@ admins.each do |admin|
     Admin.create!(admin)
   end
 end
+
+%w[Monday Tuesday Wednesday Thursday Friday Saturday Sunday].each do |day|
+  (0..23).each do |hour|
+    ScheduleEntry.create(day: day, hour: hour, show_name: nil, last_name: nil, jockey_id: nil)
+  end
+end
+
