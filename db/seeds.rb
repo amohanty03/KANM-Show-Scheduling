@@ -66,4 +66,3 @@ end
     ScheduleEntry.create(day: day, hour: hour, show_name: nil, last_name: nil, jockey_id: nil)
   end
 end
-

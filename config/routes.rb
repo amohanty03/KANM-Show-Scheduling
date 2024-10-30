@@ -27,5 +27,4 @@ Rails.application.routes.draw do
   # Route for deleting CSV
   delete "welcome/delete_csv_files", to: "welcome#delete_csv_files", as: "delete_csv_files"
   post "welcome/handle_files", to: "welcome#handle_files", as: "handle_files"
-
 end
