@@ -71,36 +71,40 @@ class WelcomeController < ApplicationController
     i = 1
     first_sheet.each_row_streaming(offset: 1) do |row|  # Skip header row
       # Create a new RadioJockey record for each row
-      i = i + 1
+      i += 1
       if row[13]&.value.to_s == "Returning DJ"
         numeric_value = row[26].cell_value.to_f
         best_hour = (numeric_value * 24).round.to_s
 
-        RadioJockey.create!(
-          timestamp: row[0]&.value.to_s || "",
-          first_name: row[4]&.value.to_s || "",
-          last_name: row[5]&.value.to_s || "",
-          UIN: row[8]&.value.to_s || "",
-          expected_grad: row[9]&.value.to_s || "",
-          member_type: row[13]&.value.to_s || "",
-          retaining: row[14]&.value.to_s || "", # this is dummy data from us, column location may change
-          semesters_in_KANM: row[15]&.value.to_s || "",
-          show_name: row[22]&.value.to_s || "",
-          DJ_name: row[23]&.value.to_s || "",
-          best_day: row[25]&.value.to_s || "",
-          best_hour: best_hour,
-          alt_mon: xlsx.cell("AB", i).to_s,
-          alt_tue: xlsx.cell("AC", i).to_s,
-          alt_wed: xlsx.cell("AD", i).to_s,
-          alt_thu: xlsx.cell("AE", i).to_s,
-          alt_fri: xlsx.cell("AF", i).to_s,
-          alt_sat: xlsx.cell("AG", i).to_s,
-          alt_sun: xlsx.cell("AH", i).to_s,
-          un_feb: xlsx.cell("AI", i).to_s,
-          un_mar: xlsx.cell("AJ", i).to_s,
-          un_apr: xlsx.cell("AK", i).to_s,
-          un_may: xlsx.cell("AL", i).to_s
-        )
+        show_name = row[22]&.value.to_s || "" # retrieve show name
+
+        unless RadioJockey.exists?(show_name: show_name) # scheduling is only performed on shows not RJs
+          RadioJockey.create!(
+            timestamp: row[0]&.value.to_s || "",
+            first_name: row[4]&.value.to_s || "",
+            last_name: row[5]&.value.to_s || "",
+            UIN: row[8]&.value.to_s || "",
+            expected_grad: row[9]&.value.to_s || "",
+            member_type: row[13]&.value.to_s || "",
+            retaining: row[14]&.value.to_s || "", # this is dummy data from us, column location may change
+            semesters_in_KANM: row[15]&.value.to_s || "",
+            show_name: show_name,
+            DJ_name: row[23]&.value.to_s || "",
+            best_day: row[25]&.value.to_s || "",
+            best_hour: best_hour,
+            alt_mon: xlsx.cell("AB", i).to_s,
+            alt_tue: xlsx.cell("AC", i).to_s,
+            alt_wed: xlsx.cell("AD", i).to_s,
+            alt_thu: xlsx.cell("AE", i).to_s,
+            alt_fri: xlsx.cell("AF", i).to_s,
+            alt_sat: xlsx.cell("AG", i).to_s,
+            alt_sun: xlsx.cell("AH", i).to_s,
+            un_feb: xlsx.cell("AI", i).to_s,
+            un_mar: xlsx.cell("AJ", i).to_s,
+            un_apr: xlsx.cell("AK", i).to_s,
+            un_may: xlsx.cell("AL", i).to_s
+          )
+        end
       end
     end
 
