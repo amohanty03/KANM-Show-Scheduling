@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_29_055822) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_29_201112) do
   create_table "admins", force: :cascade do |t|
     t.string "email"
     t.string "uin"
@@ -48,6 +48,16 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_29_055822) do
     t.string "un_mar"
     t.string "un_apr"
     t.string "un_may"
+  end
+
+  create_table "schedule_entries", force: :cascade do |t|
+    t.string "day"
+    t.integer "hour"
+    t.string "show_name"
+    t.string "last_name"
+    t.integer "jockey_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "uploads", force: :cascade do |t|
