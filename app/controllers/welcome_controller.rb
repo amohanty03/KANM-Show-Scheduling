@@ -58,6 +58,7 @@ class WelcomeController < ApplicationController
     selected_files.each do |file_name|
       file_path = Rails.root.join(upload_path, file_name)
       parse_and_create_radio_jockeys(file_path)
+      ScheduleProcessor.process
     end
     redirect_to calendar_path
   end
@@ -142,6 +143,7 @@ class WelcomeController < ApplicationController
 
   rescue => e
     Rails.logger.error("Error while parsing XLSX: #{e.message}")
-  # Handle any error, maybe rollback if necessary
-end
+    # Handle any error, maybe rollback if necessary
+    # TODO : Test this to see if its redirecting to welcome page with the message that an error occured during parsing
+  end
 end
