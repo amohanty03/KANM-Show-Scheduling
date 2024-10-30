@@ -5,6 +5,7 @@ class CalendarController < ApplicationController
     @radio_jockeys = RadioJockey.all
     @daily_schedule = ScheduleEntry.where(day: @selected_day).order(:hour)
 
+    # Maybe move this below line to the app/services/scheduler_processor.rb
     # populate_schedule_entries #uncomment this line to call the function below to populate the tabe
   end
 
@@ -16,7 +17,7 @@ class CalendarController < ApplicationController
     end
   end
 
-
+  # Maybe move this below line to the app/services/scheduler_processor.rb
   # def populate_schedule_entries
   #  entry = ScheduleEntry.find_by(day: 'Monday', hour: 10)
 
