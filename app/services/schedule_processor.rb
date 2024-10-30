@@ -7,7 +7,7 @@ class ScheduleProcessor
     self.sort_and_assign_timeslots_for_remaining_rjs
   end
 
-    
+
   # Step 1
   def self.process_returning_rj_retaining_their_slots
     # Extract all returning RJs who are retaining their slots, sorted just in case
@@ -25,11 +25,11 @@ class ScheduleProcessor
     puts "Processing all RJs who need to be assigned a new slot."
 
     # Read and Sort the RJs (Step 2)
-    returning_rjs = RadioJockey.where(member_type: 'Returning DJ', retaining: 'no').order(
-      semesters_in_kanm: :desc, expected_grad: :asc, timestamp: :asc
+    returning_rjs = RadioJockey.where(member_type: "Returning DJ", retaining: "no").order(
+      semesters_in_KANM: :desc, expected_grad: :asc, timestamp: :asc
     )
-    new_rjs = RadioJockey.where(member_type: 'New DJ').order(
-      semesters_in_kanm: :desc, expected_grad: :asc, timestamp: :asc
+    new_rjs = RadioJockey.where(member_type: "New DJ").order(
+      semesters_in_KANM: :desc, expected_grad: :asc, timestamp: :asc
     )
     sorted_rjs = returning_rjs + new_rjs
 
