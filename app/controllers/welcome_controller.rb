@@ -9,26 +9,26 @@ class WelcomeController < ApplicationController
 
   def handle_files
     case params[:action_type]
-      when "generate_schedule"
-        # upload_path = Rails.env.test? ? "#{Rails.root}/tmp/test_uploads" : "#{Rails.root}/public/uploads"
-        selected_files = params[:selected_files]
-        if selected_files.present? && selected_files.size == 1
-          parse_selected_files(selected_files)
-
-        else
-          redirect_to welcome_path, alert: "Please select exactly one file to parse."
-        end
-
-      when "delete_files"
-        if params[:selected_files].present?
-          delete_csv_files(params[:selected_files])
-          redirect_to welcome_path, notice: "Selected files have been deleted."
-        else
-          redirect_to welcome_path, alert: "No files selected for deletion."
-        end
+    when "generate_schedule"
+      # upload_path = Rails.env.test? ? "#{Rails.root}/tmp/test_uploads" : "#{Rails.root}/public/uploads"
+      selected_files = params[:selected_files]
+      if selected_files.present? && selected_files.size == 1
+        parse_selected_files(selected_files)
 
       else
-        redirect_to welcome_path, alert: "Invalid action."
+        redirect_to welcome_path, alert: "Please select exactly one file to parse."
+      end
+
+    when "delete_files"
+      if params[:selected_files].present?
+        delete_csv_files(params[:selected_files])
+        redirect_to welcome_path, notice: "Selected files have been deleted."
+      else
+        redirect_to welcome_path, alert: "No files selected for deletion."
+      end
+
+    else
+      redirect_to welcome_path, alert: "Invalid action."
     end
   end
 
