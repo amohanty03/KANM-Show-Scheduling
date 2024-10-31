@@ -5,5 +5,4 @@ class WelcomeControllerTest < ActionDispatch::IntegrationTest
     get welcome_index_url
     assert_response :success
   end
-#   test "should retain slots for returning RJs" do
-# end
+end

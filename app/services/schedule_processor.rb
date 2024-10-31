@@ -13,7 +13,7 @@ class ScheduleProcessor
     @radio_jockeys = RadioJockey.all
     @radio_jockeys.each do |jockey|
       # Apply the condition - update only if conditions are met (This condition must be set)
-      if (jockey.member_type == 'Returning DJ' and jockey.retaining == 'Yes')
+      if jockey.member_type == "Returning DJ" and jockey.retaining == "Yes"
         # Find the existing ScheduleEntry for the given day and hour
         entry = ScheduleEntry.find_by(day: jockey.day, hour: jockey.hour)
 
@@ -28,7 +28,6 @@ class ScheduleProcessor
       end
     end
     puts "Processing returning RJ who've retaining their slots."
-   
   end
 
   # Step 2 and 3
