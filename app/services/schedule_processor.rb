@@ -19,8 +19,22 @@ class ScheduleProcessor
     @final_schedule[day][hour] == false
   end
 
-  def self.add_entry(day, hour, show)
-    @final_schedule[day][hour] = show
+  def self.is_available_db(day, hour)
+    entry = ScheduleEntry.find_by(day: day, hour: hour)
+    return entry.empty?
+  end
+
+  def self.add_entry(day, hour, jockey)
+    entry = ScheduleEntry.find_by(day: day, hour: hour)
+
+    # Update the entry with new values if it exists
+    if entry
+      entry.update(
+        show_name: jockey.show_name,
+        last_name: jockey.last_name,
+        jockey_id: jockey.id
+      )
+    end
   end
 
 
@@ -72,6 +86,13 @@ class ScheduleProcessor
     return times
   end
 
+  def self.print_final_schedule
+    schedule = ScheduleEntry.all
+    schedule.each do |day|
+      puts day.attributes
+    end
+  end
+
   def self.num_from_day(day)
     case day.downcase
     when "monday"
@@ -98,6 +119,7 @@ class ScheduleProcessor
       alt_times = assemble_alt_times(rj)
       if is_available(num_from_day(rj.best_day), rj.best_hour.to_i)
         @final_schedule[num_from_day(rj.best_day)][rj.best_hour.to_i] = Show.new(rj.show_name, rj.DJ_name)
+        add_entry(rj.best_day, rj.best_hour, rj)
       else
         i = 3
         while i <= 12
@@ -106,23 +128,25 @@ class ScheduleProcessor
             num_times = best_avail[num_from_day(rj.best_day)].length
             good_hour = best_avail[num_from_day(rj.best_day)][num_times / 2]
             if is_available(num_from_day(rj.best_day), good_hour)
-                final_schedule[num_from_day(rj.best_day)][good_hour] = Show.new(rj.show_name, rj.DJ_name)
+                @final_schedule[num_from_day(rj.best_day)][good_hour] = Show.new(rj.show_name, rj.DJ_name)
+                add_entry(rj.best_day, good_hour, rj)
                 break
             end
           else
             best_avail.each do |day, times|
-              puts best_avail
-              puts day
-              puts "---"
-              puts times
+              # puts best_avail
+              # puts day
+              # puts "---"
+              # puts times
               if not day.empty?
                 day_as_num = num_from_day(day.to_s)
                 num_times = times.length
                 good_hour = times[num_times / 2]
-                puts "good hour"
-                puts good_hour
+                # puts "good hour"
+                # puts good_hour
                 if is_available(day_as_num, good_hour.to_i)
                   @final_schedule[day_as_num][good_hour.to_i] = Show.new(rj.show_name, rj.DJ_name)
+                  add_entry(day, good_hour, rj)
                   break
                 end
               end
@@ -159,6 +183,7 @@ class ScheduleProcessor
         "UIN: %-11s\tDJ Name: %-15s Member Type: %-15s Semesters in KANM: %-5s Expected Graduation: %-8s Timestamp: %-20s",
         rj.UIN, rj.DJ_name, rj.member_type, rj.semesters_in_KANM, rj.expected_grad, rj.timestamp
       )
+      print_final_schedule
       # Required code here
     end
   end
