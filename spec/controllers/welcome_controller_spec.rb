@@ -82,7 +82,7 @@ RSpec.describe WelcomeController, type: :controller do
     end
   end
 
-  describe 'DELETE #delete_csv_files' do
+  describe 'POST #handle_files' do
     before { mock_user_sign_in }
 
     context 'when files are selected for deletion' do
@@ -95,12 +95,12 @@ RSpec.describe WelcomeController, type: :controller do
 
       it 'deletes the selected files' do
         expect {
-          delete :delete_csv_files, params: { selected_files: [ 'test1.csv', 'test2.csv' ] }
+          post :handle_files, params: { selected_files: [ 'test1.csv', 'test2.csv' ], action_type: 'delete_files' }
       }.to change { Dir.glob("#{Rails.root}/tmp/test_uploads/*").size }.by(-2) # expect two files to be deleted
       end
 
       it 'sets a flash notice message' do
-        delete :delete_csv_files, params: { selected_files: [ 'test1.csv', 'test2.csv' ] }
+        post :handle_files, params: { selected_files: [ 'test1.csv', 'test2.csv' ], action_type: 'delete_files' }
         expect(flash[:notice]).to eq("Selected files have been deleted.")
       end
     end
@@ -111,10 +111,10 @@ RSpec.describe WelcomeController, type: :controller do
         FileUtils.mkdir_p(test_upload_path)
         File.write("#{test_upload_path}/test1.csv", "sample data")
         expect {
-          delete :delete_csv_files, params: { selected_files: [] }
+          post :handle_files, params: { selected_files: [], action_type: 'delete_files'  }
         }.not_to change { Dir.glob("#{Rails.root}/tmp/test_uploads/*").size }
 
-        expect(flash[:alert]).to be_nil
+        expect(flash[:alert]).to eq("No files selected for deletion.")
       end
     end
   end
