@@ -90,6 +90,7 @@ class WelcomeController < ApplicationController
             member_type: row[14]&.value.to_s || "",
             retaining: row[15]&.value.to_s || "", # this is dummy data from us, column location may change
             semesters_in_KANM: row[16]&.value.to_s || "",
+            show_name: show_name,
             DJ_name: row[24]&.value.to_s || "",
             best_day: row[26]&.value.to_s || "",
             best_hour: best_hour,
@@ -133,6 +134,7 @@ class WelcomeController < ApplicationController
             member_type: row[22].value.nil? ? "" : row[22].value.to_s,
             retaining: "No",
             semesters_in_KANM: row[20].value.nil? ? "" : row[20].value.to_s,
+            show_name: show_name,
             DJ_name: row[33].value.nil? ? "" : row[33].value.to_s,
             best_day: row[35].value.nil? ? "" : row[35].value.to_s,
             best_hour: best_hour,
