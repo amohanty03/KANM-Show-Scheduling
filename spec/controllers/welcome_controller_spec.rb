@@ -117,7 +117,7 @@ RSpec.describe WelcomeController, type: :controller do
       it 'generates a schedule' do
         test_do_not_delete_path = "#{Rails.root}/spec/fixtures/files/CleanTestData.xlsx"
         test_upload_path = "#{Rails.root}/tmp/test_uploads"
-        FileUtils.cp(test_do_not_delete_path, test_upload_path) 
+        FileUtils.cp(test_do_not_delete_path, test_upload_path)
         post :handle_files, params: { selected_files: '/CleanTestData.xlsx', action_type: 'generate_schedule'  }
       end
     end
