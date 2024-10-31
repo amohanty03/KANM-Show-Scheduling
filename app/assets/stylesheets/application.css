@@ -142,6 +142,11 @@
   background-color: darkgreen;
 }
 
+.large-logo {
+  width: 150%; 
+  height: 150%; 
+}
+
 .delete-btn:hover {
   background-color: rgb(112, 39, 39);
 }
