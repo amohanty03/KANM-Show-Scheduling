@@ -112,7 +112,7 @@ class WelcomeController < ApplicationController
     i = 1
     second_sheet.each_row_streaming(offset: 1) do |row|  # Skip header row
       # Create a new RadioJockey record for each row
-      i = i + 1
+      i += 1
       if row[21]&.value.to_s == "New DJ"
         numeric_value = row[35].cell_value.to_f
         best_hour = (numeric_value * 24).round.to_s
