@@ -10,21 +10,22 @@ class ScheduleProcessor
 
   # Step 1
   def self.process_returning_rj_retaining_their_slots
-    @radio_jockeys = RadioJockey.all
-    @radio_jockeys.each do |jockey|
-      # Apply the condition - update only if conditions are met (This condition must be set)
-      if jockey.member_type == "Returning DJ" and jockey.retaining == "Yes"
-        # Find the existing ScheduleEntry for the given day and hour
-        entry = ScheduleEntry.find_by(day: jockey.day, hour: jockey.hour)
+    returning_rjs = RadioJockey.where(member_type: "Returning DJ", retaining: "no").order(
+      semesters_in_KANM: :desc, expected_grad: :asc, timestamp: :asc
+    )
 
-        # Update the entry with new values if it exists
-        if entry
-          entry.update(
-            show_name: jockey.show_name,
-            last_name: jockey.last_name,
-            jockey_id: jockey.id
-          )
-        end
+    returning_rjs.each do |jockey|
+      # Apply the condition - update only if conditions are met (This condition must be set)
+      # Find the existing ScheduleEntry for the given day and hour
+      entry = ScheduleEntry.find_by(day: jockey.day, hour: jockey.hour)
+
+      # Update the entry with new values if it exists
+      if entry
+        entry.update(
+          show_name: jockey.show_name,
+          last_name: jockey.last_name,
+          jockey_id: jockey.id
+        )
       end
     end
     puts "Processing returning RJ who've retaining their slots."
