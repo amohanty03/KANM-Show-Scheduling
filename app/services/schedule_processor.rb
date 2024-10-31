@@ -40,13 +40,16 @@ class ScheduleProcessor
 
   # Step 1
   def self.process_returning_rj_retaining_their_slots
-    # Extract all returning RJs who are retaining their slots, sorted just in case
-    # Check if the schedule for the respective best(retained) slot is empty, if so save it
-    # Else update the Database that the slot isn't retained anymore
-    # But keep track of these RJs who didn't get their retained slot due to the conflict in some list
-    # We will use this conflict list for highlighting in the final CSS, so that the website users are aware of the conflict
+    returning_rjs = RadioJockey.where(member_type: "Returning DJ", retaining: "yes").order(
+      semesters_in_KANM: :desc, expected_grad: :asc, timestamp: :asc
+    )
+
+    returning_rjs.each do |jockey|
+      # Apply the condition - update only if conditions are met (This condition must be set)
+      # Find the existing ScheduleEntry for the given day and hour
+      add_entry(jockey.day, jockey.hour, jockey)
+    end
     puts "Processing returning RJ who've retaining their slots."
-    # Required code here
   end
 
   def self.best_alt_time_ranges(best_time, range, alt_times)
@@ -158,7 +161,6 @@ class ScheduleProcessor
     end
     puts @final_schedule
   end
-
 
   # Step 2 and 3
   def self.sort_and_assign_timeslots_for_remaining_rjs
