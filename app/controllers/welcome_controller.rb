@@ -117,31 +117,35 @@ class WelcomeController < ApplicationController
         numeric_value = row[35].cell_value.to_f
         best_hour = (numeric_value * 24).round.to_s
 
-        RadioJockey.create!(
-          timestamp: row[0]&.value.to_s,
-          first_name: row[5].value.nil? ? "" : row[5].value.to_s,
-          last_name: row[6].value.nil? ? "" : row[6].value.to_s,
-          UIN: row[10].value.nil? ? "" : row[10].value.to_s,
-          expected_grad: row[13].value.nil? ? "" : row[13].value.to_s,
-          member_type: row[21].value.nil? ? "" : row[21].value.to_s,
-          retaining: "No",
-          semesters_in_KANM: row[19].value.nil? ? "" : row[19].value.to_s,
-          show_name: row[31].value.nil? ? "" : row[31].value.to_s,
-          DJ_name: row[32].value.nil? ? "" : row[32].value.to_s,
-          best_day: row[34].value.nil? ? "" : row[34].value.to_s,
-          best_hour: best_hour,
-          alt_mon: xlsx.cell("AK", i).to_s,
-          alt_tue: xlsx.cell("AL", i).to_s,
-          alt_wed: xlsx.cell("AM", i).to_s,
-          alt_thu: xlsx.cell("AN", i).to_s,
-          alt_fri: xlsx.cell("AO", i).to_s,
-          alt_sat: xlsx.cell("AP", i).to_s,
-          alt_sun: xlsx.cell("AQ", i).to_s,
-          un_feb: xlsx.cell("AS", i).to_s,
-          un_mar: xlsx.cell("AT", i).to_s,
-          un_apr: xlsx.cell("AU", i).to_s,
-          un_may: xlsx.cell("AV", i).to_s
-        )
+        show_name = row[31].value.nil? ? "" : row[31].value.to_s # temporary fix for duplicate new RJs
+
+        unless RadioJockey.exists?(show_name: show_name)
+          RadioJockey.create!(
+            timestamp: row[0]&.value.to_s,
+            first_name: row[5].value.nil? ? "" : row[5].value.to_s,
+            last_name: row[6].value.nil? ? "" : row[6].value.to_s,
+            UIN: row[10].value.nil? ? "" : row[10].value.to_s,
+            expected_grad: row[13].value.nil? ? "" : row[13].value.to_s,
+            member_type: row[21].value.nil? ? "" : row[21].value.to_s,
+            retaining: "No",
+            semesters_in_KANM: row[19].value.nil? ? "" : row[19].value.to_s,
+            show_name: show_name,
+            DJ_name: row[32].value.nil? ? "" : row[32].value.to_s,
+            best_day: row[34].value.nil? ? "" : row[34].value.to_s,
+            best_hour: best_hour,
+            alt_mon: xlsx.cell("AK", i).to_s,
+            alt_tue: xlsx.cell("AL", i).to_s,
+            alt_wed: xlsx.cell("AM", i).to_s,
+            alt_thu: xlsx.cell("AN", i).to_s,
+            alt_fri: xlsx.cell("AO", i).to_s,
+            alt_sat: xlsx.cell("AP", i).to_s,
+            alt_sun: xlsx.cell("AQ", i).to_s,
+            un_feb: xlsx.cell("AS", i).to_s,
+            un_mar: xlsx.cell("AT", i).to_s,
+            un_apr: xlsx.cell("AU", i).to_s,
+            un_may: xlsx.cell("AV", i).to_s
+          )
+        end
       end
     end
 
