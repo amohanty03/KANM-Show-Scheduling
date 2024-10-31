@@ -38,7 +38,10 @@ class ScheduleProcessor
     # If not, then get all the available slots, and find one which is free in the schedule, populate and continue
     # If this too failed, then add to the list of unassigned RJs, that we will display in the frontend
     sorted_rjs.each do |rj|
-      puts "UIN: #{rj.UIN}, DJ Name: #{rj.DJ_name}, Member Type: #{rj.member_type}, Semesters in KANM: #{rj.semesters_in_KANM}, Expected Graduation: #{rj.expected_grad}, Timestamp: #{rj.timestamp}"
+      puts format(
+        "UIN: %-11s\tDJ Name: %-15s Member Type: %-15s Semesters in KANM: %-5s Expected Graduation: %-8s Timestamp: %-20s",
+        rj.UIN, rj.DJ_name, rj.member_type, rj.semesters_in_KANM, rj.expected_grad, rj.timestamp
+      )
       # Required code here
     end
   end

@@ -72,11 +72,13 @@ class WelcomeController < ApplicationController
     first_sheet.each_row_streaming(offset: 1) do |row|  # Skip header row
       # Create a new RadioJockey record for each row
       i += 1
-      if row[13]&.value.to_s == "Returning DJ"
-        numeric_value = row[26].cell_value.to_f
+      if row[14]&.value.to_s == "Returning DJ"
+        numeric_value = row[27].cell_value.to_f
         best_hour = (numeric_value * 24).round.to_s
+        expected_grad_year = row[9]&.value.to_s || ""
+        expected_grad_month = row[10]&.value.to_s || ""
 
-        show_name = row[22]&.value.to_s || "" # retrieve show name
+        show_name = row[23]&.value.to_s || "" # retrieve show name
 
         unless RadioJockey.exists?(show_name: show_name) # scheduling is only performed on shows not RJs
           RadioJockey.create!(
@@ -84,25 +86,26 @@ class WelcomeController < ApplicationController
             first_name: row[4]&.value.to_s || "",
             last_name: row[5]&.value.to_s || "",
             UIN: row[8]&.value.to_s || "",
-            expected_grad: row[9]&.value.to_s || "",
-            member_type: row[13]&.value.to_s || "",
-            retaining: row[14]&.value.to_s || "", # this is dummy data from us, column location may change
-            semesters_in_KANM: row[15]&.value.to_s || "",
+            expected_grad: "#{expected_grad_year}/#{expected_grad_month}",
+            member_type: row[14]&.value.to_s || "",
+            retaining: row[15]&.value.to_s || "", # this is dummy data from us, column location may change
+            semesters_in_KANM: row[16]&.value.to_s || "",
             show_name: show_name,
-            DJ_name: row[23]&.value.to_s || "",
-            best_day: row[25]&.value.to_s || "",
+            DJ_name: row[24]&.value.to_s || "",
+            best_day: row[26]&.value.to_s || "",
             best_hour: best_hour,
-            alt_mon: xlsx.cell("AB", i).to_s,
-            alt_tue: xlsx.cell("AC", i).to_s,
-            alt_wed: xlsx.cell("AD", i).to_s,
-            alt_thu: xlsx.cell("AE", i).to_s,
-            alt_fri: xlsx.cell("AF", i).to_s,
-            alt_sat: xlsx.cell("AG", i).to_s,
-            alt_sun: xlsx.cell("AH", i).to_s,
-            un_feb: xlsx.cell("AI", i).to_s,
-            un_mar: xlsx.cell("AJ", i).to_s,
-            un_apr: xlsx.cell("AK", i).to_s,
-            un_may: xlsx.cell("AL", i).to_s
+            alt_mon: xlsx.cell("AC", i).to_s,
+            alt_tue: xlsx.cell("AD", i).to_s,
+            alt_wed: xlsx.cell("AE", i).to_s,
+            alt_thu: xlsx.cell("AF", i).to_s,
+            alt_fri: xlsx.cell("AG", i).to_s,
+            alt_sat: xlsx.cell("AH", i).to_s,
+            alt_sun: xlsx.cell("AI", i).to_s,
+            un_jan: xlsx.cell("AJ", i).to_s,
+            un_feb: xlsx.cell("AK", i).to_s,
+            un_mar: xlsx.cell("AL", i).to_s,
+            un_apr: xlsx.cell("AM", i).to_s,
+            un_may: xlsx.cell("AN", i).to_s
           )
         end
       end
@@ -113,11 +116,13 @@ class WelcomeController < ApplicationController
     second_sheet.each_row_streaming(offset: 1) do |row|  # Skip header row
       # Create a new RadioJockey record for each row
       i += 1
-      if row[21]&.value.to_s == "New DJ"
-        numeric_value = row[35].cell_value.to_f
+      if row[22]&.value.to_s == "New DJ"
+        numeric_value = row[36].cell_value.to_f
         best_hour = (numeric_value * 24).round.to_s
+        expected_grad_year = row[13]&.value.to_s || ""
+        expected_grad_month = row[14]&.value.to_s || ""
 
-        show_name = row[31].value.nil? ? "" : row[31].value.to_s # temporary fix for duplicate new RJs
+        show_name = row[32].value.nil? ? "" : row[32].value.to_s # temporary fix for duplicate new RJs
 
         unless RadioJockey.exists?(show_name: show_name)
           RadioJockey.create!(
@@ -125,25 +130,26 @@ class WelcomeController < ApplicationController
             first_name: row[5].value.nil? ? "" : row[5].value.to_s,
             last_name: row[6].value.nil? ? "" : row[6].value.to_s,
             UIN: row[10].value.nil? ? "" : row[10].value.to_s,
-            expected_grad: row[13].value.nil? ? "" : row[13].value.to_s,
-            member_type: row[21].value.nil? ? "" : row[21].value.to_s,
+            expected_grad: "#{expected_grad_year}/#{expected_grad_month}",
+            member_type: row[22].value.nil? ? "" : row[22].value.to_s,
             retaining: "No",
-            semesters_in_KANM: row[19].value.nil? ? "" : row[19].value.to_s,
+            semesters_in_KANM: row[20].value.nil? ? "" : row[20].value.to_s,
             show_name: show_name,
-            DJ_name: row[32].value.nil? ? "" : row[32].value.to_s,
-            best_day: row[34].value.nil? ? "" : row[34].value.to_s,
+            DJ_name: row[33].value.nil? ? "" : row[33].value.to_s,
+            best_day: row[35].value.nil? ? "" : row[35].value.to_s,
             best_hour: best_hour,
-            alt_mon: xlsx.cell("AK", i).to_s,
-            alt_tue: xlsx.cell("AL", i).to_s,
-            alt_wed: xlsx.cell("AM", i).to_s,
-            alt_thu: xlsx.cell("AN", i).to_s,
-            alt_fri: xlsx.cell("AO", i).to_s,
-            alt_sat: xlsx.cell("AP", i).to_s,
-            alt_sun: xlsx.cell("AQ", i).to_s,
-            un_feb: xlsx.cell("AS", i).to_s,
-            un_mar: xlsx.cell("AT", i).to_s,
-            un_apr: xlsx.cell("AU", i).to_s,
-            un_may: xlsx.cell("AV", i).to_s
+            alt_mon: xlsx.cell("AL", i).to_s,
+            alt_tue: xlsx.cell("AM", i).to_s,
+            alt_wed: xlsx.cell("AN", i).to_s,
+            alt_thu: xlsx.cell("A0", i).to_s,
+            alt_fri: xlsx.cell("AP", i).to_s,
+            alt_sat: xlsx.cell("AQ", i).to_s,
+            alt_sun: xlsx.cell("AR", i).to_s,
+            un_jan: xlsx.cell("AS", i).to_s,
+            un_feb: xlsx.cell("AT", i).to_s,
+            un_mar: xlsx.cell("AU", i).to_s,
+            un_apr: xlsx.cell("AV", i).to_s,
+            un_may: xlsx.cell("AW", i).to_s
           )
         end
       end
