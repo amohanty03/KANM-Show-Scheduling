@@ -21,7 +21,7 @@ class WelcomeController < ApplicationController
 
     when "delete_files"
       if params[:selected_files].present?
-        delete_csv_files(params[:selected_files])
+        delete_csv_files()
         redirect_to welcome_path, notice: "Selected files have been deleted."
       else
         redirect_to welcome_path, alert: "No files selected for deletion."
@@ -32,9 +32,7 @@ class WelcomeController < ApplicationController
     end
   end
 
-  private
-
-  def delete_csv_files(selected_files)
+  def delete_csv_files
     # Use a different directory in test environment to isolate real data
     upload_path = Rails.env.test? ? "#{Rails.root}/tmp/test_uploads" : "#{Rails.root}/public/uploads"
 
@@ -49,6 +47,7 @@ class WelcomeController < ApplicationController
           logger.warn("#{file_name} does not exist.")
         end
       end
+      flash[:notice] = "Selected files have been deleted."
     end
   end
 
