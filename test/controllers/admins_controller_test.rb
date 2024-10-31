@@ -45,4 +45,5 @@ class AdminsControllerTest < ActionDispatch::IntegrationTest
 
     assert_redirected_to admins_url
   end
+
 end
