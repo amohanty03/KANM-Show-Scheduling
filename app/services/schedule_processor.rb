@@ -1,8 +1,8 @@
 # app/services/schedule_processor.rb
 # This Class will handle the core business logic of our Scheduler
 class ScheduleProcessor
-  @final_schedule = [Array.new(24, false), Array.new(24, false), Array.new(24, false), Array.new(24, false), Array.new(24, false), Array.new(24, false),
-                     Array.new(24, false)]
+  @final_schedule = [ Array.new(24, false), Array.new(24, false), Array.new(24, false), Array.new(24, false), Array.new(24, false), Array.new(24, false),
+                     Array.new(24, false) ]
   Show = Struct.new(:show_name, :rj_name)
 
   def self.process
@@ -21,7 +21,7 @@ class ScheduleProcessor
 
   def self.is_available_db(day, hour)
     entry = ScheduleEntry.find_by(day: day, hour: hour)
-    return entry.empty?
+    entry.empty?
   end
 
   def self.add_entry(day, hour, jockey)
@@ -47,7 +47,7 @@ class ScheduleProcessor
     returning_rjs.each do |jockey|
       # Apply the condition - update only if conditions are met (This condition must be set)
       # Find the existing ScheduleEntry for the given day and hour
-      add_entry(jockey.day, jockey.hour, jockey)
+      add_entry(jockey.best_day, jockey.best_hour, jockey)
     end
     puts "Processing returning RJ who've retaining their slots."
   end
@@ -70,10 +70,10 @@ class ScheduleProcessor
     end
     range_values = {}
     alt_times.each do |key, values|
-        in_range = values.select{|value| value.to_i >= min_time && value.to_i <= max_time}
+        in_range = values.select { |value| value.to_i >= min_time && value.to_i <= max_time }
         range_values[key] = in_range unless in_range.empty?
     end
-    return range_values
+    range_values
   end
 
   def self.assemble_alt_times(rj)
@@ -86,7 +86,7 @@ class ScheduleProcessor
     times[:Saturday] = RadioJockey.process_alt_times(rj.alt_sat)
     times[:Sunday] = RadioJockey.process_alt_times(rj.alt_sun)
 
-    return times
+    times
   end
 
   def self.print_final_schedule
@@ -99,19 +99,19 @@ class ScheduleProcessor
   def self.num_from_day(day)
     case day.downcase
     when "monday"
-      return 0
+      0
     when "tuesday"
-      return 1
+      1
     when "wednesday"
-      return 2
+      2
     when "thursday"
-      return 3
+      3
     when "friday"
-      return 4
+      4
     when "saturday"
-      return 5
+      5
     when "sunday"
-      return 6
+      6
     else
       puts "Invalid day!"
     end

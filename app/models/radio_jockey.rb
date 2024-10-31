@@ -5,10 +5,9 @@ class RadioJockey < ApplicationRecord
 
   def self.process_alt_times(day)
     alt_list = []
-    day = day.delete(' ')
-    day = day.split(';')
+    day = day.delete(" ")
+    day = day.split(";")
     alt_list = day.each.to_a
-    return alt_list
+    alt_list
   end
-    
 end
