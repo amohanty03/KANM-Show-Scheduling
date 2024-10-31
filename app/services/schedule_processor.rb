@@ -10,7 +10,7 @@ class ScheduleProcessor
 
   # Step 1
   def self.process_returning_rj_retaining_their_slots
-    returning_rjs = RadioJockey.where(member_type: "Returning DJ", retaining: "no").order(
+    returning_rjs = RadioJockey.where(member_type: "Returning DJ", retaining: "yes").order(
       semesters_in_KANM: :desc, expected_grad: :asc, timestamp: :asc
     )
 
