@@ -26,10 +26,10 @@ class ScheduleProcessor
 
     # Read and Sort the RJs (Step 2)
     returning_rjs = RadioJockey.where(member_type: "Returning DJ", retaining: "no").order(
-      semesters_in_KANM: :desc, expected_grad: :asc, timestamp: :asc
+      semesters_in_kanm: :desc, expected_grad: :asc, timestamp: :asc
     )
     new_rjs = RadioJockey.where(member_type: "New DJ").order(
-      semesters_in_KANM: :desc, expected_grad: :asc, timestamp: :asc
+      semesters_in_kanm: :desc, expected_grad: :asc, timestamp: :asc
     )
     sorted_rjs = returning_rjs + new_rjs
 
@@ -40,7 +40,7 @@ class ScheduleProcessor
     sorted_rjs.each do |rj|
       puts format(
         "UIN: %-11s\tDJ Name: %-15s Member Type: %-15s Semesters in KANM: %-5s Expected Graduation: %-8s Timestamp: %-20s",
-        rj.UIN, rj.DJ_name, rj.member_type, rj.semesters_in_KANM, rj.expected_grad, rj.timestamp
+        rj.uin, rj.dj_name, rj.member_type, rj.semesters_in_kanm, rj.expected_grad, rj.timestamp
       )
       # Required code here
     end
