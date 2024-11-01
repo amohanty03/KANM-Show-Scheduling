@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title><%= content_for(:title) || "Kanm Show Scheduling" %></title>
+    <title><%= content_for(:title) || "KANM Show Scheduling" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <%= csrf_meta_tags %>
@@ -27,18 +27,12 @@
     <div class="relative flex size-full min-h-screen flex-col bg-white group/design-root overflow-x-hidden" style='font-family: Newsreader, "Noto Sans", sans-serif;'>
       <div class="layout-container flex h-full grow flex-col">
 
-        <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f0f2f4] px-10 py-3">
-          <div class="flex items-center gap-4 text-[#111418]" style="margin-top: -1px;">
-            <div class="size-4" style="margin-top: -4px;">
-              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path
-                  d="M24 4C25.7818 14.2173 33.7827 22.2182 44 24C33.7827 25.7818 25.7818 33.7827 24 44C22.2182 33.7827 14.2173 25.7818 4 24C14.2173 22.2182 22.2182 14.2173 24 4Z"
-                  fill="currentColor"
-                ></path>
-              </svg>
+        <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f0f2f4] px-10 py-3 w-full">
+          <div class="flex items-center gap-4 text-[#111418] flex-grow" style="margin-top: -1px;">
+            <div class="size-4" style="width: 60px; margin-top: -10px;"> <!-- Set a fixed width here -->
+              <img src="<%= asset_path('KANMLogo.webp') %>" alt="KANM Logo" class="w-full h-auto" /> <!-- w-full for full width within container -->
             </div>
-
-            <h2 class="text-[#111418] text-lg font-bold leading-tight tracking-[-0.015em]">KANM Radio Show Scheduler</h2>
+            <h2 class="text-[#111418] text-lg font-bold leading-tight tracking-[-0.015em]">Radio Show Scheduling</h2>
           </div>
 
           <div class="flex flex-1 justify-end gap-8">
