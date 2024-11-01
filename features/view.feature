@@ -8,7 +8,7 @@ Background: Successful login with a tamu.edu email
     Then  I should be redirected to the welcome page
 
   Scenario: User sees the application title
-    Then I should see "KANM Radio Show Scheduler"
+    Then I should see "Radio Show Scheduling"
 
   Scenario: No files are present in the test uploads directory
     Given there are no CSV files in the test uploads directory
