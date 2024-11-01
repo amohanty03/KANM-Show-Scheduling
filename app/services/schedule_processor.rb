@@ -1,7 +1,6 @@
 # app/services/schedule_processor.rb
 # This Class will handle the core business logic of our Scheduler
 class ScheduleProcessor
-
   def self.process
     puts "Handling the core scheduler business logic here."
     self.process_returning_rj_retaining_their_slots
@@ -44,17 +43,17 @@ class ScheduleProcessor
   def self.best_alt_time_ranges(best_time, range, alt_times)
     min_time = best_time - range
     max_time = best_time + range
-    check_yesterday = false
-    check_tomorrow = false
-    adj_day_range = 0
+    # check_yesterday = false
+    # check_tomorrow = false
+    # adj_day_range = 0
 
     if best_time < range
-      check_yesterday = true
-      adj_day_range = 0 - min_time
+      # check_yesterday = true
+      # adj_day_range = 0 - min_time
       min_time = 0
     elsif best_time > (23 - range)
-      check_tomorrow = true
-      adj_day_range = max_time - 23
+      # check_tomorrow = true
+      # adj_day_range = max_time - 23
       max_time = 23
     end
     range_values = {}
@@ -106,33 +105,48 @@ class ScheduleProcessor
     end
   end
 
+  def self.find_time_same_day(times_best_day, rj)
+    if times_best_day != nil
+      good_hour = times_best_day[times_best_day.length / 2]
+      if is_available_db(rj.best_day, good_hour)
+        add_entry(rj.best_day, good_hour, rj)
+        return true
+      end
+    end
+    false
+  end
+
+  def self.find_time_any_day(best_avail_times, rj)
+    best_avail_times.each do |day, times|
+      if not day.empty?
+        num_times = times.length
+        good_hour = times[num_times / 2]
+        if is_available_db(day, good_hour)
+          add_entry(day, good_hour, rj)
+          return true
+        end
+      end
+    end
+    false
+  end
+
   def self.generate_schedule(sorted_rjs)
     sorted_rjs.each do |rj|
       alt_times = assemble_alt_times(rj)
       if is_available_db(rj.best_day, rj.best_hour)
         add_entry(rj.best_day, rj.best_hour, rj)
       else
+        # Find alternative
         i = 3
         while i <= 12
-          best_avail = best_alt_time_ranges(rj.best_hour.to_i, i, alt_times)
-          if best_avail[num_from_day(rj.best_day)] != nil
-            num_times = best_avail[num_from_day(rj.best_day)].length
-            good_hour = best_avail[num_from_day(rj.best_day)][num_times / 2]
-            if is_available_db(rj.best_day, good_hour)
-                add_entry(rj.best_day, good_hour, rj)
-                break
-            end
-          else
-            best_avail.each do |day, times|
-              if not day.empty?
-                num_times = times.length
-                good_hour = times[num_times / 2]
-                if is_available_db(day, good_hour)
-                  add_entry(day, good_hour, rj)
-                  break
-                end
-              end
-            end
+          best_avail_times = best_alt_time_ranges(rj.best_hour.to_i, i, alt_times)
+          # Same day, similar hour
+          if find_time_same_day(best_avail_times[num_from_day(rj.best_day)], rj) == true
+            break
+          end
+          # Different day, similar hour
+          if find_time_any_day(best_avail_times, rj) == true
+            break
           end
           i += 3
         end
