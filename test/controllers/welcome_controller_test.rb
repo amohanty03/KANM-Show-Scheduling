@@ -6,8 +6,3 @@ class WelcomeControllerTest < ActionDispatch::IntegrationTest
     assert_response :success
   end
 end
-
-  test "should populate database with retaining rjs" do
-    
-  
-  end
