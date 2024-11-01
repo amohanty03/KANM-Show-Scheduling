@@ -29,7 +29,7 @@ class ScheduleProcessor
   # Step 1
   def self.process_returning_rj_retaining_their_slots
     returning_rjs = RadioJockey.where(member_type: "Returning DJ", retaining: "yes").order(
-      semesters_in_KANM: :desc, expected_grad: :asc, timestamp: :asc
+      semesters_in_kanm: :desc, expected_grad: :asc, timestamp: :asc
     )
 
     returning_rjs.each do |jockey|
@@ -160,10 +160,10 @@ class ScheduleProcessor
 
     # Read and Sort the RJs (Step 2)
     returning_rjs = RadioJockey.where(member_type: "Returning DJ", retaining: "no").order(
-      semesters_in_KANM: :desc, expected_grad: :asc, timestamp: :asc
+      semesters_in_kanm: :desc, expected_grad: :asc, timestamp: :asc
     )
     new_rjs = RadioJockey.where(member_type: "New DJ").order(
-      semesters_in_KANM: :desc, expected_grad: :asc, timestamp: :asc
+      semesters_in_kanm: :desc, expected_grad: :asc, timestamp: :asc
     )
     sorted_rjs = returning_rjs + new_rjs
 
@@ -171,6 +171,13 @@ class ScheduleProcessor
     # For each RJ, check first for their best slot being free in the schedule, populate if true, continue
     # If not, then get all the available slots, and find one which is free in the schedule, populate and continue
     # If this too failed, then add to the list of unassigned RJs, that we will display in the frontend
+    sorted_rjs.each do |rj|
+      puts format(
+        "UIN: %-11s DJ Name: %-15s Member Type: %-15s Semesters in KANM: %-5s Expected Graduation: %-8s Timestamp: %-20s",
+        rj.uin, rj.dj_name, rj.member_type, rj.semesters_in_kanm, rj.expected_grad, rj.timestamp
+      )
+    end
+
     generate_schedule(sorted_rjs)
     print_final_schedule
   end
