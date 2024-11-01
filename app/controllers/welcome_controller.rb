@@ -9,7 +9,7 @@ class WelcomeController < ApplicationController
 
   def handle_files
     case params[:action_type]
-    when "generate_schedule"
+    when "Generate Schedule"
       # upload_path = Rails.env.test? ? "#{Rails.root}/tmp/test_uploads" : "#{Rails.root}/public/uploads"
       selected_files = params[:selected_files]
       if selected_files.present? && selected_files.size == 1
@@ -19,7 +19,7 @@ class WelcomeController < ApplicationController
         redirect_to welcome_path, alert: "Please select exactly one file to parse."
       end
 
-    when "delete_files"
+    when "Delete Selected Files"
       if params[:selected_files].present?
         delete_csv_files(params[:selected_files])
         redirect_to welcome_path, notice: "Selected files have been deleted."
@@ -85,13 +85,13 @@ class WelcomeController < ApplicationController
             timestamp: row[0]&.value.to_s || "",
             first_name: row[4]&.value.to_s || "",
             last_name: row[5]&.value.to_s || "",
-            UIN: row[8]&.value.to_s || "",
+            uin: row[8]&.value.to_s || "",
             expected_grad: "#{expected_grad_year}/#{expected_grad_month}",
             member_type: row[14]&.value.to_s || "",
             retaining: row[15]&.value.to_s || "", # this is dummy data from us, column location may change
-            semesters_in_KANM: row[16]&.value.to_s || "",
+            semesters_in_kanm: row[16]&.value.to_s || "",
             show_name: show_name,
-            DJ_name: row[24]&.value.to_s || "",
+            dj_name: row[24]&.value.to_s || "",
             best_day: row[26]&.value.to_s || "",
             best_hour: best_hour,
             alt_mon: xlsx.cell("AC", i).to_s,
@@ -129,13 +129,13 @@ class WelcomeController < ApplicationController
             timestamp: row[0]&.value.to_s,
             first_name: row[5].value.nil? ? "" : row[5].value.to_s,
             last_name: row[6].value.nil? ? "" : row[6].value.to_s,
-            UIN: row[10].value.nil? ? "" : row[10].value.to_s,
+            uin: row[10].value.nil? ? "" : row[10].value.to_s,
             expected_grad: "#{expected_grad_year}/#{expected_grad_month}",
             member_type: row[22].value.nil? ? "" : row[22].value.to_s,
             retaining: "No",
-            semesters_in_KANM: row[20].value.nil? ? "" : row[20].value.to_s,
+            semesters_in_kanm: row[20].value.nil? ? "" : row[20].value.to_s,
             show_name: show_name,
-            DJ_name: row[33].value.nil? ? "" : row[33].value.to_s,
+            dj_name: row[33].value.nil? ? "" : row[33].value.to_s,
             best_day: row[35].value.nil? ? "" : row[35].value.to_s,
             best_hour: best_hour,
             alt_mon: xlsx.cell("AL", i).to_s,

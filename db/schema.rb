@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.2].define(version: 2024_10_29_201112) do
+ActiveRecord::Schema[7.2].define(version: 2024_10_31_195740) do
   create_table "admins", force: :cascade do |t|
     t.string "email"
     t.string "uin"
@@ -28,12 +28,12 @@ ActiveRecord::Schema[7.2].define(version: 2024_10_29_201112) do
     t.string "last_name"
     t.string "show_name"
     t.string "timestamp"
-    t.string "UIN"
+    t.string "uin"
     t.string "expected_grad"
     t.string "member_type"
     t.string "retaining"
-    t.string "semesters_in_KANM"
-    t.string "DJ_name"
+    t.string "semesters_in_kanm"
+    t.string "dj_name"
     t.string "best_day"
     t.string "best_hour"
     t.string "alt_mon"

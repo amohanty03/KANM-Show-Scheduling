@@ -125,6 +125,32 @@
   margin-bottom: 5px;
 }
 
+.framed-button {
+  padding: 8px 16px;      /* Adjust padding for a framed effect */
+  border-radius: 8px;     /* Rounds the button corners */
+  background-color: #007bff; /* Bootstrap primary button color */
+  color: #fff;            /* Button text color */
+  text-decoration: none;  /* Removes underline */
+}
+
+.framed-button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+  color: #fff;               /* Ensure text color is readable */
+}
+
+.generate-btn:hover {
+  background-color: darkgreen;
+}
+
+.large-logo {
+  width: 150%; 
+  height: 150%; 
+}
+
+.delete-btn:hover {
+  background-color: rgb(112, 39, 39);
+}
+
 table {
   width: 100%; /* Full width */
   border-collapse: collapse; /* Collapse borders */
