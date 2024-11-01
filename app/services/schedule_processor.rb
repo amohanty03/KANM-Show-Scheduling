@@ -1,9 +1,6 @@
 # app/services/schedule_processor.rb
 # This Class will handle the core business logic of our Scheduler
 class ScheduleProcessor
-  @final_schedule = [ Array.new(24, false), Array.new(24, false), Array.new(24, false), Array.new(24, false), Array.new(24, false), Array.new(24, false),
-                     Array.new(24, false) ]
-  Show = Struct.new(:show_name, :rj_name)
 
   def self.process
     puts "Handling the core scheduler business logic here."
@@ -11,17 +8,9 @@ class ScheduleProcessor
     self.sort_and_assign_timeslots_for_remaining_rjs
   end
 
-  def self.get_schedule
-    @final_schedule
-  end
-
-  def self.is_available(day, hour)
-    @final_schedule[day][hour] == false
-  end
-
   def self.is_available_db(day, hour)
     entry = ScheduleEntry.find_by(day: day, hour: hour)
-    entry.empty?
+    entry.nil?
   end
 
   def self.add_entry(day, hour, jockey)
@@ -120,8 +109,7 @@ class ScheduleProcessor
   def self.generate_schedule(sorted_rjs)
     sorted_rjs.each do |rj|
       alt_times = assemble_alt_times(rj)
-      if is_available(num_from_day(rj.best_day), rj.best_hour.to_i)
-        @final_schedule[num_from_day(rj.best_day)][rj.best_hour.to_i] = Show.new(rj.show_name, rj.DJ_name)
+      if is_available_db(rj.best_day, rj.best_hour)
         add_entry(rj.best_day, rj.best_hour, rj)
       else
         i = 3
@@ -130,25 +118,16 @@ class ScheduleProcessor
           if best_avail[num_from_day(rj.best_day)] != nil
             num_times = best_avail[num_from_day(rj.best_day)].length
             good_hour = best_avail[num_from_day(rj.best_day)][num_times / 2]
-            if is_available(num_from_day(rj.best_day), good_hour)
-                @final_schedule[num_from_day(rj.best_day)][good_hour] = Show.new(rj.show_name, rj.DJ_name)
+            if is_available_db(rj.best_day, good_hour)
                 add_entry(rj.best_day, good_hour, rj)
                 break
             end
           else
             best_avail.each do |day, times|
-              # puts best_avail
-              # puts day
-              # puts "---"
-              # puts times
               if not day.empty?
-                day_as_num = num_from_day(day.to_s)
                 num_times = times.length
                 good_hour = times[num_times / 2]
-                # puts "good hour"
-                # puts good_hour
-                if is_available(day_as_num, good_hour.to_i)
-                  @final_schedule[day_as_num][good_hour.to_i] = Show.new(rj.show_name, rj.DJ_name)
+                if is_available_db(day, good_hour)
                   add_entry(day, good_hour, rj)
                   break
                 end
@@ -159,7 +138,6 @@ class ScheduleProcessor
         end
       end
     end
-    puts @final_schedule
   end
 
   # Step 2 and 3
@@ -180,13 +158,6 @@ class ScheduleProcessor
     # If not, then get all the available slots, and find one which is free in the schedule, populate and continue
     # If this too failed, then add to the list of unassigned RJs, that we will display in the frontend
     generate_schedule(sorted_rjs)
-    sorted_rjs.each do |rj|
-      puts format(
-        "UIN: %-11s\tDJ Name: %-15s Member Type: %-15s Semesters in KANM: %-5s Expected Graduation: %-8s Timestamp: %-20s",
-        rj.UIN, rj.DJ_name, rj.member_type, rj.semesters_in_KANM, rj.expected_grad, rj.timestamp
-      )
-      print_final_schedule
-      # Required code here
-    end
+    print_final_schedule
   end
 end
