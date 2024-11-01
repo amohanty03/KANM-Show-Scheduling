@@ -27,6 +27,22 @@ Given("I have the day {string}") do |day|
     @day_name = day
 end
 
+Given("the following schedule") do |table|
+    table.hashes.each do |row|
+        ScheduleEntry.create(
+            day: row['day'],
+            hour: row['hour'],
+            show_name: row['show_name']
+        )
+    end
+end
+
+When("I print the final schedule") do
+
+    @output = capture_output do 
+        ScheduleProcessor.print_final_schedule
+    end
+end
 When("I add an entry for {string} at {string}") do |day, hour|
     ScheduleProcessor.add_entry(day, hour, @jockey_create)
 end

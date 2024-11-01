@@ -9,3 +9,13 @@ def request(resource, params = {})
         Open3.capture2(command)
     end
 end
+
+def capture_output
+    old_output = $stdout
+    $stdout = StringIO.new
+    yield
+    $stdout.string
+ensure
+    $stdout = old_output
+
+end

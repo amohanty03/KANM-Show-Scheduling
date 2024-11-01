@@ -27,6 +27,7 @@ Scenario: there are no alternate times in range
     And I am free "Monday" at 9
     Then I should not see "Monday" at 9 in the range list
 
+
 Scenario: convert Monday to 0
     Given I have the day "Monday"
     When I convert the day to a number
@@ -72,3 +73,12 @@ Scenario: Update an existing entry
     And a radio jockey with a show name "Morning show" and last name "DJ" is available
     When I add an entry for "Monday" at "10"
     Then the schedule should be updated with show name "Morning show", last name "DJ"
+
+
+Scenario: Print final schedule
+    Given the following schedule
+    | day     | hour | show_name      |
+    | Monday  | 10   | Morning Show   |
+    | Tuesday | 12   | Afternoon Show |
+    When I print the final schedule
+
