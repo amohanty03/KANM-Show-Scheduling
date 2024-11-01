@@ -28,30 +28,28 @@
       <div class="layout-container flex h-full grow flex-col">
 
         <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f0f2f4] px-10 py-3 w-full">
-  <div class="flex items-center gap-4 text-[#111418] flex-grow" style="margin-top: -1px;">
-    <div class="size-4" style="width: 60px; margin-top: -4px;"> <!-- Set a fixed width here -->
-      <img src="<%= asset_path('KANMLogo.webp') %>" alt="KANM Logo" class="w-full h-auto" /> <!-- w-full for full width within container -->
-    </div>
-    <h2 class="text-[#111418] text-lg font-bold leading-tight tracking-[-0.015em]">Radio Show Scheduling</h2>
-  </div>
-
-  <div class="flex flex-1 justify-end gap-8">
-    <div class="flex gap-2">
-      <div class="dropdown">
-        <i class="fa fa-user-o" aria-hidden="true">
-          <div class="dropdown-content">
-            <%= button_to "Logout", logout_path, class: "admin-button"%>
-            <% if @current_logged_in_admin.super_user? %>
-              <%= link_to "Manage Admins", admins_path, class: "admin-button" %>
-            <% end %>
+          <div class="flex items-center gap-4 text-[#111418] flex-grow" style="margin-top: -1px;">
+            <div class="size-4" style="width: 60px; margin-top: -10px;"> <!-- Set a fixed width here -->
+              <img src="<%= asset_path('KANMLogo.webp') %>" alt="KANM Logo" class="w-full h-auto" /> <!-- w-full for full width within container -->
+            </div>
+            <h2 class="text-[#111418] text-lg font-bold leading-tight tracking-[-0.015em]">Radio Show Scheduling</h2>
           </div>
-        </i>
-      </div>
-    </div>
-  </div>
-</header>
 
-
+          <div class="flex flex-1 justify-end gap-8">
+            <div class="flex gap-2">
+              <div class="dropdown">
+                <i class="fa fa-user-o" aria-hidden="true">
+                  <div class="dropdown-content">
+                    <%= button_to "Logout", logout_path, class: "admin-button"%>
+                    <% if @current_logged_in_admin.super_user? %>
+                      <%= link_to "Manage Admins", admins_path, class: "admin-button" %>
+                    <% end %>
+                  </div>
+                </i>
+              </div>
+            </div>
+          </div>
+        </header>
 
         <main>
           <%= yield %>
