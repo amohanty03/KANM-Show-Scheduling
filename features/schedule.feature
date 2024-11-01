@@ -81,4 +81,8 @@ Scenario: Print final schedule
     | Monday  | 10   | Morning Show   |
     | Tuesday | 12   | Afternoon Show |
     When I print the final schedule
+    Then I should see the schedule printed
+    | day     | hour | show_name      |
+    | Monday  | 10   | Morning Show   |
+    | Tuesday | 12   | Afternoon Show |
 

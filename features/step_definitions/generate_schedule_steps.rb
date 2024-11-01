@@ -43,6 +43,7 @@ When("I print the final schedule") do
         ScheduleProcessor.print_final_schedule
     end
 end
+
 When("I add an entry for {string} at {string}") do |day, hour|
     ScheduleProcessor.add_entry(day, hour, @jockey_create)
 end
@@ -57,6 +58,14 @@ end
 
 When("I convert the day to a number") do
     @day_num = ScheduleProcessor.num_from_day(@day_name)
+end
+
+Then("I should see the schedule printed") do |table|
+    table.hashes.each do |row|
+        expect(@output).to include(row['day'])
+        expect(@output).to include (row['hour'])
+        expect(@output).to include (row['show_name'])
+    end
 end
 
 Then("the schedule should be updated with show name {string}, last name {string}") do |show_name, last_name|
