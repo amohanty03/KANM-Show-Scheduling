@@ -93,12 +93,12 @@ RSpec.describe WelcomeController, type: :controller do
     context 'when files are selected for deletion' do
       it 'deletes the selected files' do
         expect {
-          post :handle_files, params: { selected_files: [ 'test1.csv', 'test2.csv' ], action_type: 'delete_files' }
+          post :handle_files, params: { selected_files: [ 'test1.csv', 'test2.csv' ], action_type: 'Delete Selected Files' }
       }.to change { Dir.glob("#{Rails.root}/tmp/test_uploads/*").size }.by(-2) # expect two files to be deleted
       end
 
       it 'sets a flash notice message' do
-        post :handle_files, params: { selected_files: [ 'test1.csv', 'test2.csv' ], action_type: 'delete_files' }
+        post :handle_files, params: { selected_files: [ 'test1.csv', 'test2.csv' ], action_type: 'Delete Selected Files' }
         expect(flash[:notice]).to eq("Selected files have been deleted.")
       end
     end
@@ -106,7 +106,7 @@ RSpec.describe WelcomeController, type: :controller do
     context 'when no files are selected for deletion' do
       it 'does not delete any files and sets an alert message' do
         expect {
-          post :handle_files, params: { selected_files: [], action_type: 'delete_files'  }
+          post :handle_files, params: { selected_files: [], action_type: 'Delete Selected Files'  }
         }.not_to change { Dir.glob("#{Rails.root}/tmp/test_uploads/*").size }
 
         expect(flash[:alert]).to eq("No files selected for deletion.")
@@ -124,7 +124,7 @@ RSpec.describe WelcomeController, type: :controller do
 
     context 'when no files are selected to generate schedule' do
       it 'does not generate a schedule and sets an alert message' do
-        post :handle_files, params: { selected_files: [], action_type: 'generate_schedule'  }
+        post :handle_files, params: { selected_files: [], action_type: 'Generate Schedule'  }
         expect(flash[:alert]).to eq("Please select exactly one file to parse.")
         expect(response).to redirect_to(welcome_path)
       end
@@ -132,7 +132,7 @@ RSpec.describe WelcomeController, type: :controller do
 
     context 'when more than one file are selected to generate schedule' do
       it 'does not generate a schedule and sets an alert message' do
-        post :handle_files, params: { selected_files: [ 'test1.csv', 'test2.csv' ], action_type: 'generate_schedule'  }
+        post :handle_files, params: { selected_files: [ 'test1.csv', 'test2.csv' ], action_type: 'Generate Schedule'  }
         expect(flash[:alert]).to eq("Please select exactly one file to parse.")
         expect(response).to redirect_to(welcome_path)
       end
