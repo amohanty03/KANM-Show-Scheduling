@@ -16,16 +16,14 @@
       <div class="layout-container flex h-full grow flex-col">
         <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-b-[#f0f2f4] px-10 py-3">
           <div class="flex items-center gap-4 text-[#111418]">
-            <div class="size-4">
-              <svg viewBox="0 0 48 48" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd" clip-rule="evenodd" d="M24 4H42V17.3333V30.6667H24V44H6V30.6667V17.3333H24V4Z" fill="currentColor"></path>
-              </svg>
+            <div class="size-4" style="width: 60px; margin-top: -10px;"> <!-- Set a fixed width here -->
+              <img src="<%= asset_path('KANMLogo.webp') %>" alt="KANM Logo" class="w-full h-auto" /> <!-- w-full for full width within container -->
             </div>
-            <h2 class="text-[#111418] text-lg font-bold leading-tight tracking-[-0.015em]">KANM Radio Show Scheduler</h2>
+            <h2 class="text-[#111418] text-lg font-bold leading-tight tracking-[-0.015em]">Radio Show Scheduling</h2>
           </div>
           <div class="flex gap-2">
             <%= button_to "/auth/google_oauth2", class: "flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-10 bg-[#f0f2f4] text-[#111418] gap-2 text-sm font-bold leading-normal tracking-[0.015em] min-w-0 px-2.5" do %>
-                <img src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-1024.png" alt="Google Logo" style="height: 25px; width: 25px;">
+                <img src="https://cdn1.iconfinder.com/data/icons/google-s-logo/150/Google_Icons-09-1024.png" alt="Google Logo" style="height: 25px; width: 25px; margin-top: -2px;">
                 <span>Login with TAMU Gmail</span>
             <% end %>
             </div>

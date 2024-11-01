@@ -9,7 +9,7 @@ class WelcomeController < ApplicationController
 
   def handle_files
     case params[:action_type]
-    when "generate_schedule"
+    when "Generate Schedule"
       # upload_path = Rails.env.test? ? "#{Rails.root}/tmp/test_uploads" : "#{Rails.root}/public/uploads"
       selected_files = params[:selected_files]
       if selected_files.present? && selected_files.size == 1
@@ -19,7 +19,7 @@ class WelcomeController < ApplicationController
         redirect_to welcome_path, alert: "Please select exactly one file to parse."
       end
 
-    when "delete_files"
+    when "Delete Selected Files"
       if params[:selected_files].present?
         delete_csv_files(params[:selected_files])
         redirect_to welcome_path, notice: "Selected files have been deleted."
