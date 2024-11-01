@@ -11,21 +11,22 @@ Background: Successful login with a tamu.edu email
 Scenario: one files is selected
     Given I visit the welcome page
         Given there are CSV files in the test uploads directory
-        When I select the file "test1.csv"
-        And I click on the 'delete' button
+        When I select the file "test1.xlsx"
+        And I click on the 'Delete Selected Files' button
         Then the file "test1.csv" should not be present in the uploads directory
         
 
 Scenario: two files is selected
     Given I visit the welcome page
         Given there are CSV files in the test uploads directory
-        When I select multiple files "test2.csv" "test3.csv" 
-        And I click on the 'delete' button
+        When I select the file "test2.xlsx"
+        And I select the file "test3.xlsx"
+        And I click on the 'Delete Selected Files' button
         Then the file "test2.csv" should not be present in the uploads directory
         And the file "test3.csv" should not be present in the uploads directory
 
 Scenario: no files selected
     Given I visit the welcome page
         Given there are CSV files in the test uploads directory
-        When I click on the 'delete' button
+        When I click on the 'Delete Selected Files' button
         Then no files should be deleted from the uploads directory
