@@ -17,9 +17,9 @@ class WelcomeController < ApplicationController
       redirect_invalid_action
     end
   end
-  
+
   private
-  
+
   def handle_generate_schedule
     selected_files = params[:selected_files]
     if valid_file_selection?(selected_files)
@@ -28,11 +28,11 @@ class WelcomeController < ApplicationController
       redirect_to welcome_path, alert: "Please select exactly one file to parse."
     end
   end
-  
+
   def valid_file_selection?(selected_files)
     selected_files.present? && selected_files.size == 1
   end
-  
+
   def handle_delete_selected_files
     if params[:selected_files].present?
       delete_csv_files(params[:selected_files])
@@ -41,40 +41,40 @@ class WelcomeController < ApplicationController
       redirect_to welcome_path, alert: "No files selected for deletion."
     end
   end
-  
+
   def redirect_invalid_action
     redirect_to welcome_path, alert: "Invalid action."
   end
-  
+
 
   private
 
   def delete_csv_files(selected_files)
     upload_path = determine_upload_path
-  
+
     return unless params[:selected_files].present?
-  
+
     params[:selected_files].each do |file_name|
       delete_file(upload_path, file_name)
     end
   end
-  
+
   private
-  
+
   def determine_upload_path
     Rails.env.test? ? "#{Rails.root}/tmp/test_uploads" : "#{Rails.root}/public/uploads"
   end
-  
+
   def delete_file(upload_path, file_name)
     file_path = Rails.root.join(upload_path, file_name)
-  
+
     if File.exist?(file_path)
       File.delete(file_path)
     else
       logger.warn("#{file_name} does not exist.")
     end
   end
-  
+
 
   def parse_selected_files(selected_files)
     upload_path = Rails.env.test? ? "#{Rails.root}/tmp/test_uploads" : "#{Rails.root}/public/uploads"
@@ -90,14 +90,14 @@ class WelcomeController < ApplicationController
   def parse_and_create_radio_jockeys(file_path)
     RadioJockey.delete_all
     xlsx = Roo::Spreadsheet.open(file_path.to_s)
-  
-    process_sheet(xlsx.sheet(0), "Returning DJ", returning_dj_attributes,xlsx)
-    process_sheet(xlsx.sheet(1), "New DJ", new_dj_attributes,xlsx)
+
+    process_sheet(xlsx.sheet(0), "Returning DJ", returning_dj_attributes, xlsx)
+    process_sheet(xlsx.sheet(1), "New DJ", new_dj_attributes, xlsx)
   end
-  
+
   private
-  
-  def process_sheet(sheet, dj_type, attributes,xlsx)
+
+  def process_sheet(sheet, dj_type, attributes, xlsx)
     i = 1
     sheet.each_row_streaming(offset: 1) do |row| # Skip header row
       i += 1
@@ -106,14 +106,14 @@ class WelcomeController < ApplicationController
       end
     end
   end
-  
+
   def create_radio_jockey(row, row_index, attributes, xlsx)
     numeric_value = row[attributes[:best_hour_column]].cell_value.to_f
     best_hour = (numeric_value * 24).round.to_s
     expected_grad_year = row[attributes[:grad_year_column]]&.value.to_s || ""
     expected_grad_month = row[attributes[:grad_month_column]]&.value.to_s || ""
     show_name = row[attributes[:show_name_column]]&.value.to_s || ""
-  
+
     unless RadioJockey.exists?(show_name: show_name)
       RadioJockey.create!(
         timestamp: row[attributes[:timestamp_column]]&.value.to_s || "",
@@ -133,7 +133,7 @@ class WelcomeController < ApplicationController
       )
     end
   end
-  
+
   def weekly_availability(row_index, weekly_columns, xlsx)
     {
       alt_mon: xlsx.cell(weekly_columns[:mon], row_index).to_s,
@@ -145,7 +145,7 @@ class WelcomeController < ApplicationController
       alt_sun: xlsx.cell(weekly_columns[:sun], row_index).to_s
     }
   end
-  
+
   def unavailability(row_index, unavailability_columns, xlsx)
     {
       un_jan: xlsx.cell(unavailability_columns[:jan], row_index).to_s,
@@ -155,7 +155,7 @@ class WelcomeController < ApplicationController
       un_may: xlsx.cell(unavailability_columns[:may], row_index).to_s
     }
   end
-  
+
   def returning_dj_attributes
     {
       timestamp_column: 0, first_name_column: 4, last_name_column: 5, uin_column: 8,
@@ -166,7 +166,7 @@ class WelcomeController < ApplicationController
       unavailability_columns: { jan: "AJ", feb: "AK", mar: "AL", apr: "AM", may: "AN" }
     }
   end
-  
+
   def new_dj_attributes
     {
       timestamp_column: 0, first_name_column: 5, last_name_column: 6, uin_column: 10,
@@ -177,11 +177,10 @@ class WelcomeController < ApplicationController
       unavailability_columns: { jan: "AS", feb: "AT", mar: "AU", apr: "AV", may: "AW" }
     }
   end
-  
+
 
   rescue => e
     Rails.logger.error("Error while parsing XLSX: #{e.message}")
-    # Handle any error, maybe rollback if necessary
-    # TODO : Test this to see if its redirecting to welcome page with the message that an error occured during parsing
-  end
-
+  # Handle any error, maybe rollback if necessary
+  # TODO : Test this to see if its redirecting to welcome page with the message that an error occured during parsing
+end
