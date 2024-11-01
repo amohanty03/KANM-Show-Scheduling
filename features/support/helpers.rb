@@ -17,5 +17,4 @@ def capture_output
     $stdout.string
 ensure
     $stdout = old_output
-
 end

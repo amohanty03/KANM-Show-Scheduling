@@ -11,7 +11,7 @@ Given("a Radio Jockey with alt times for each day") do
 end
 
 Given("there is a schedule entry for {string} at {string}") do |day, hour|
-    ScheduleEntry.create(day: day, hour: hour, show_name:'Show A', last_name: 'Doe', jockey_id: 1)
+    ScheduleEntry.create(day: day, hour: hour, show_name: 'Show A', last_name: 'Doe', jockey_id: 1)
 end
 
 Given("no schedule entry exists for {string} at {string}") do |day, hour|
@@ -23,7 +23,6 @@ Given("a radio jockey with a show name {string} and last name {string} is availa
 end
 
 Given("I have the day {string}") do |day|
-
     @day_name = day
 end
 
@@ -38,8 +37,7 @@ Given("the following schedule") do |table|
 end
 
 When("I print the final schedule") do
-
-    @output = capture_output do 
+    @output = capture_output do
         ScheduleProcessor.print_final_schedule
     end
 end
@@ -69,7 +67,7 @@ Then("I should see the schedule printed") do |table|
 end
 
 Then("the schedule should be updated with show name {string}, last name {string}") do |show_name, last_name|
-    entry = ScheduleEntry.find_by(day: "Monday", hour:10)
+    entry = ScheduleEntry.find_by(day: "Monday", hour: 10)
     expect(entry.show_name).to eq(show_name)
     expect(entry.last_name).to eq(last_name)
 end
@@ -135,6 +133,5 @@ Then("I should get number {int}") do |num|
 end
 
 Then("I should see an {string} message") do |message|
-    expect {ScheduleProcessor.num_from_day(@day_name)}.to output(/#{message}/).to_stdout
+    expect { ScheduleProcessor.num_from_day(@day_name) }.to output(/#{message}/).to_stdout
 end
-
