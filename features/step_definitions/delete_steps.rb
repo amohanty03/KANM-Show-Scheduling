@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
-When("I click on the delete button") do
-    click_button "delete_files"
+When("I click on the {string} button") do |button|
+    click_button button
   end
 When ("I select multiple files {string} {string}") do |filename1, filename2|
   checkbox1 = find("input[type='checkbox'][value='#{filename1}']")
