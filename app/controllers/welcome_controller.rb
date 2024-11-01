@@ -70,8 +70,6 @@ class WelcomeController < ApplicationController
 
     if File.exist?(file_path)
       File.delete(file_path)
-    else
-      logger.warn("#{file_name} does not exist.")
     end
   end
 
@@ -81,7 +79,13 @@ class WelcomeController < ApplicationController
 
     selected_files.each do |file_name|
       file_path = Rails.root.join(upload_path, file_name)
-      parse_and_create_radio_jockeys(file_path)
+      begin
+        parse_and_create_radio_jockeys(file_path)
+      rescue StandardError => e
+        Rails.logger.error("Error while parsing XLSX: #{e.message}")
+        flash[:alert] = "An error occurred during file parsing."
+        redirect_to welcome_path and return
+      end
       ScheduleProcessor.process
     end
     redirect_to calendar_path
@@ -177,10 +181,4 @@ class WelcomeController < ApplicationController
       unavailability_columns: { jan: "AS", feb: "AT", mar: "AU", apr: "AV", may: "AW" }
     }
   end
-
-
-  rescue => e
-    Rails.logger.error("Error while parsing XLSX: #{e.message}")
-  # Handle any error, maybe rollback if necessary
-  # TODO : Test this to see if its redirecting to welcome page with the message that an error occured during parsing
 end

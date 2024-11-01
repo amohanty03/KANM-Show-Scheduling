@@ -8,7 +8,9 @@ class CalendarController < ApplicationController
 
   def generate_time_slots
     (0..23).map do |hour|
-      "#{hour}:00 - #{hour + 1}:00"
+      start_time = "#{format('%02d', hour)}:00"
+      end_time = hour == 23 ? "00:00" : "#{format('%02d', hour + 1)}:00"
+      "#{start_time} - #{end_time}"
     end
   end
 end

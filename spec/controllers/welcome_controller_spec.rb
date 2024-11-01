@@ -93,12 +93,12 @@ RSpec.describe WelcomeController, type: :controller do
     context 'when files are selected for deletion' do
       it 'deletes the selected files' do
         expect {
-          post :handle_files, params: { selected_files: [ 'test1.csv', 'test2.csv' ], action_type: 'delete_files' }
+          post :handle_files, params: { selected_files: [ 'test1.csv', 'test2.csv' ], action_type: 'Delete Selected Files' }
       }.to change { Dir.glob("#{Rails.root}/tmp/test_uploads/*").size }.by(-2) # expect two files to be deleted
       end
 
       it 'sets a flash notice message' do
-        post :handle_files, params: { selected_files: [ 'test1.csv', 'test2.csv' ], action_type: 'delete_files' }
+        post :handle_files, params: { selected_files: [ 'test1.csv', 'test2.csv' ], action_type: 'Delete Selected Files' }
         expect(flash[:notice]).to eq("Selected files have been deleted.")
       end
     end
@@ -106,7 +106,7 @@ RSpec.describe WelcomeController, type: :controller do
     context 'when no files are selected for deletion' do
       it 'does not delete any files and sets an alert message' do
         expect {
-          post :handle_files, params: { selected_files: [], action_type: 'delete_files'  }
+          post :handle_files, params: { selected_files: [], action_type: 'Delete Selected Files'  }
         }.not_to change { Dir.glob("#{Rails.root}/tmp/test_uploads/*").size }
 
         expect(flash[:alert]).to eq("No files selected for deletion.")
@@ -115,16 +115,15 @@ RSpec.describe WelcomeController, type: :controller do
 
     context 'when exactly one file is selected to generate schedule' do
       it 'generates a schedule' do
-        test_do_not_delete_path = "#{Rails.root}/spec/fixtures/files/CleanTestData.xlsx"
-        test_upload_path = "#{Rails.root}/tmp/test_uploads"
-        FileUtils.cp(test_do_not_delete_path, test_upload_path)
-        post :handle_files, params: { selected_files: '/CleanTestData.xlsx', action_type: 'generate_schedule'  }
+        test_do_not_delete_path = "#{Rails.root}/spec/fixtures/files/Test_Sample_v2.xlsx"
+        post :handle_files, params: { selected_files: [ test_do_not_delete_path ], action_type: 'Generate Schedule'  }
+        expect(response).to redirect_to(calendar_path)
       end
     end
 
     context 'when no files are selected to generate schedule' do
       it 'does not generate a schedule and sets an alert message' do
-        post :handle_files, params: { selected_files: [], action_type: 'generate_schedule'  }
+        post :handle_files, params: { selected_files: [], action_type: 'Generate Schedule'  }
         expect(flash[:alert]).to eq("Please select exactly one file to parse.")
         expect(response).to redirect_to(welcome_path)
       end
@@ -132,9 +131,23 @@ RSpec.describe WelcomeController, type: :controller do
 
     context 'when more than one file are selected to generate schedule' do
       it 'does not generate a schedule and sets an alert message' do
-        post :handle_files, params: { selected_files: [ 'test1.csv', 'test2.csv' ], action_type: 'generate_schedule'  }
+        post :handle_files, params: { selected_files: [ 'test1.csv', 'test2.csv' ], action_type: 'Generate Schedule'  }
         expect(flash[:alert]).to eq("Please select exactly one file to parse.")
         expect(response).to redirect_to(welcome_path)
+      end
+    end
+
+    context 'when an error occurs during file parsing' do
+      before do
+        allow_any_instance_of(WelcomeController).to receive(:parse_and_create_radio_jockeys).and_raise(StandardError, 'Test error')
+      end
+
+      it 'logs an error message and redirects to the welcome page' do
+        expect(Rails.logger).to receive(:error).with("Error while parsing XLSX: Test error")
+        post :handle_files, params: { selected_files: [ 'test1.csv' ], action_type: 'Generate Schedule' }
+
+        expect(response).to redirect_to(welcome_path)
+        expect(flash[:alert]).to eq("An error occurred during file parsing.")
       end
     end
   end
