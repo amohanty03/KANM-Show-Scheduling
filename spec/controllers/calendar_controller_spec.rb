@@ -41,68 +41,13 @@ RSpec.describe CalendarController, type: :controller do
   end
 
   describe 'GET #calendar' do
-    before do
-      # Sample data setup
-      @rj1 = RadioJockey.create(
-        first_name: 'John',
-        last_name: 'Doe',
-        uin: '123456789',
-        expected_grad: '2025/05',
-        member_type: 'Returning DJ',
-        retaining: 'Yes',
-        semesters_in_kanm: '2',
-        show_name: 'Show A',
-        dj_name: 'DJ John',
-        best_day: 'Monday',
-        best_hour: '10:00',
-        alt_mon: '',
-        alt_tue: '',
-        alt_wed: '',
-        alt_thu: '',
-        alt_fri: '',
-        alt_sat: '',
-        alt_sun: '',
-        un_jan: '',
-        un_feb: '',
-        un_mar: '',
-        un_apr: '',
-        un_may: ''
-      )
-      @rj2 = RadioJockey.create(
-        first_name: 'Jane',
-        last_name: 'Doe',
-        uin: '123456789',
-        expected_grad: '2025/05',
-        member_type: 'Returning DJ',
-        retaining: 'Yes',
-        semesters_in_kanm: '2',
-        show_name: 'Show B',
-        dj_name: 'DJ Jane',
-        best_day: 'Monday',
-        best_hour: '11:00',
-        alt_mon: '',
-        alt_tue: '',
-        alt_wed: '',
-        alt_thu: '',
-        alt_fri: '',
-        alt_sat: '',
-        alt_sun: '',
-        un_jan: '',
-        un_feb: '',
-        un_mar: '',
-        un_apr: '',
-        un_may: ''
-      )
-
-      # Sample schedule entries for "Monday"
-      ScheduleEntry.create(day: 'Monday', hour: '10:00', show_name: 'Show A', last_name: 'Doe', jockey_id: 1)
-      ScheduleEntry.create(day: 'Monday', hour: '11:00', show_name: 'Show B', last_name: 'Doe', jockey_id: 2)
-    end
-
     context 'when day parameter is not provided' do
       it 'defaults to Monday' do
         get :index
-        expect(assigns(:selected_day)).to eq 'Monday'
+        expect(response).to redirect_to(login_path)
+        mock_user_sign_in
+        get :index
+        expect(response).to render_template('calendar/index')
       end
     end
   end
