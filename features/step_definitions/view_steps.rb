@@ -22,13 +22,13 @@ Given('there are some CSV files in the test uploads directory') do
   test_upload_path = "#{Rails.root}/tmp/test_uploads"
   FileUtils.rm_rf(Dir.glob("#{test_upload_path}/*"))
   # Create some dummy CSV files for the test
-  File.write("#{test_upload_path}/test1.csv", "Test data 1")
-  File.write("#{test_upload_path}/test2.csv", "Test data 2")
+  File.write("#{test_upload_path}/test1.xlsx", "Test data 1")
+  File.write("#{test_upload_path}/test2.xlsx", "Test data 2")
 end
 
 Then('I should see the uploaded files listed') do
-  expect(page).to have_content("test1.csv")
-  expect(page).to have_content("test2.csv")
+  expect(page).to have_content("test1.xlsx")
+  expect(page).to have_content("test2.xlsx")
 end
 
 When('I select the file {string}') do |filename|

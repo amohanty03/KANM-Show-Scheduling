@@ -12,8 +12,8 @@ Feature: CSV File Download
   Scenario: Downloading a selected CSV file
     Given there are some CSV files in the test uploads directory
     And there are no files in the test downloads directory
-    And I select the file "test1.csv"
-    When I click the download button for "test1.csv"
+    And I select the file "test1.xlsx"
+    When I click the download button for "test1.xlsx"
     Then the file "archived_files.zip" should be saved in "tmp/test_downloads"
 
   Scenario: Not downloading when no files are selected
