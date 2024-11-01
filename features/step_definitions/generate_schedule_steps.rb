@@ -10,8 +10,48 @@ Given("a Radio Jockey with alt times for each day") do
     )
 end
 
+Given("there is a schedule entry for {string} at {string}") do |day, hour|
+    ScheduleEntry.create(day: day, hour: hour, show_name:'Show A', last_name: 'Doe', jockey_id: 1)
+end
+
+Given("no schedule entry exists for {string} at {string}") do |day, hour|
+    ScheduleEntry.where(day:, hour: hour).destroy_all
+end
+
+Given("a radio jockey with a show name {string} and last name {string} is available") do |show_name, last_name|
+    @jockey_create = RadioJockey.new(show_name: show_name, last_name: last_name)
+end
+
+Given("I have the day {string}") do |day|
+
+    @day_name = day
+end
+
+When("I add an entry for {string} at {string}") do |day, hour|
+    ScheduleProcessor.add_entry(day, hour, @jockey_create)
+end
+
 When("I assemble the alternate times") do
     @assemble_alt_times = ScheduleProcessor.assemble_alt_times(@radio_jockey)
+end
+
+When("I check for an available time slot for {string} at {int}") do |day, hour|
+    @result = ScheduleProcessor.is_available_db(day, hour)
+end
+
+When("I convert the day to a number") do
+    @day_num = ScheduleProcessor.num_from_day(@day_name)
+end
+
+Then("the schedule should be updated with show name {string}, last name {string}") do |show_name, last_name|
+    entry = ScheduleEntry.find_by(day: "Monday", hour:10)
+    expect(entry.show_name).to eq(show_name)
+    expect(entry.last_name).to eq(last_name)
+end
+
+Then("the schedule should not be updated") do
+    entry = ScheduleEntry.find_by(day: "Tuesday", hour: 11)
+    expect(entry).to be_nil
 end
 
 Then("I should get a list of alt times for each day of the week") do
@@ -65,3 +105,11 @@ Then('I should not see {string} at {int} in the range list') do |string, int|
     range_list = ScheduleProcessor.best_alt_time_ranges(@best_time, @range, @alt_times)
     expect(range_list) != { string => [ int ] }
 end
+Then("I should get number {int}") do |num|
+    expect(@day_num).to eq(num)
+end
+
+Then("I should see an {string} message") do |message|
+    expect {ScheduleProcessor.num_from_day(@day_name)}.to output(/#{message}/).to_stdout
+end
+
