@@ -93,6 +93,13 @@ class WelcomeController < ApplicationController
 
   def parse_and_create_radio_jockeys(file_path)
     RadioJockey.delete_all
+    ScheduleEntry.delete_all
+    %w[Monday Tuesday Wednesday Thursday Friday Saturday Sunday].each do |day|
+      (0..23).each do |hour|
+        ScheduleEntry.create(day: day, hour: hour, show_name: nil, last_name: nil, jockey_id: nil)
+      end
+    end
+
     xlsx = Roo::Spreadsheet.open(file_path.to_s)
 
     process_sheet(xlsx.sheet(0), "Returning DJ", returning_dj_attributes, xlsx)
