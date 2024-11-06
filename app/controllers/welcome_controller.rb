@@ -177,7 +177,7 @@ class WelcomeController < ApplicationController
       grad_year_column: 13, grad_month_column: 14, member_type_column: 22,
       retaining: "No", semesters_column: 20, show_name_column: 32,
       dj_name_column: 33, best_day_column: 35, best_hour_column: 36,
-      weekly_columns: { mon: "AL", tue: "AM", wed: "AN", thu: "A0", fri: "AP", sat: "AQ", sun: "AR" },
+      weekly_columns: { mon: "AL", tue: "AM", wed: "AN", thu: "AO", fri: "AP", sat: "AQ", sun: "AR" },
       unavailability_columns: { jan: "AS", feb: "AT", mar: "AU", apr: "AV", may: "AW" }
     }
   end
