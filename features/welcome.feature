@@ -9,7 +9,7 @@ Feature: Welcome Page
     Scenario: User handles file generation with a valid file
       Given I visit the welcome page
       And I upload a valid CSV file
-      And I select the file "Test_Sample_v2.xlsx"
+      And I select the file "Test_Sample_v3.xlsx"
       When I choose to "Generate Schedule"
       Then I should be redirected to the calendar page
 
