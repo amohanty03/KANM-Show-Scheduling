@@ -12,6 +12,7 @@ Scenario: time slot is not available
     Then I should see that the time slot is not available
 
 Scenario: time slot is available
+    Given There is an unassigned schedule entry for "Tuesday" at "11"
     When I check for an available time slot for "Tuesday" at "11"
     Then I should see that the time slot is available
 

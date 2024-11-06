@@ -93,6 +93,13 @@ class WelcomeController < ApplicationController
 
   def parse_and_create_radio_jockeys(file_path)
     RadioJockey.delete_all
+    ScheduleEntry.delete_all
+    %w[Monday Tuesday Wednesday Thursday Friday Saturday Sunday].each do |day|
+      (0..23).each do |hour|
+        ScheduleEntry.create(day: day, hour: hour, show_name: nil, last_name: nil, jockey_id: nil)
+      end
+    end
+
     xlsx = Roo::Spreadsheet.open(file_path.to_s)
 
     # process_sheet(xlsx.sheet(0), "Returning DJ", returning_dj_attributes, xlsx)
@@ -282,7 +289,7 @@ class WelcomeController < ApplicationController
   #     grad_year_column: 13, grad_month_column: 14, member_type_column: 22,
   #     retaining: "No", semesters_column: 20, show_name_column: 32,
   #     dj_name_column: 33, best_day_column: 35, best_hour_column: 36,
-  #     weekly_columns: { mon: "AL", tue: "AM", wed: "AN", thu: "A0", fri: "AP", sat: "AQ", sun: "AR" },
+  #     weekly_columns: { mon: "AL", tue: "AM", wed: "AN", thu: "AO", fri: "AP", sat: "AQ", sun: "AR" },
   #     unavailability_columns: { jan: "AS", feb: "AT", mar: "AU", apr: "AV", may: "AW" }
   #   }
   # end

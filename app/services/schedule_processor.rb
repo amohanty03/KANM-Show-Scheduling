@@ -9,7 +9,7 @@ class ScheduleProcessor
 
   def self.is_available_db(day, hour)
     entry = ScheduleEntry.find_by(day: day, hour: hour)
-    entry.nil?
+    entry.show_name.nil?
   end
 
   def self.add_entry(day, hour, jockey)
