@@ -36,6 +36,11 @@ Given("the following schedule") do |table|
     end
 end
 
+Given("There is an unassigned schedule entry for {string} at {string}") do |day, hour|
+    ScheduleEntry.delete_all
+    ScheduleEntry.create(day: day, hour: hour, show_name: nil)
+end
+
 When("I print the final schedule") do
     @output = capture_output do
         ScheduleProcessor.print_final_schedule
