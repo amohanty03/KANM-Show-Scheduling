@@ -102,15 +102,12 @@ class WelcomeController < ApplicationController
 
     xlsx = Roo::Spreadsheet.open(file_path.to_s)
 
-    # process_sheet(xlsx.sheet(0), "Returning DJ", returning_dj_attributes, xlsx)
-    # process_sheet(xlsx.sheet(1), "New DJ", new_dj_attributes, xlsx)
     process_sheet(xlsx.sheet(0), "Returning DJ", xlsx, header_mapping)
     process_sheet(xlsx.sheet(1), "New DJ", xlsx, header_mapping)
   end
 
   private
 
-  # def process_sheet(sheet, dj_type, attributes, xlsx, header_mapping)
   def process_sheet(sheet, dj_type, xlsx, header_mapping)
     headers = xlsx.row(1)
 
@@ -124,7 +121,6 @@ class WelcomeController < ApplicationController
       i += 1
       if row[column_mapping[header_mapping[:member_type]]].to_s == dj_type
         create_radio_jockey(row, i, xlsx, column_mapping, header_mapping)
-        # create_radio_jockey(row, i, attributes, xlsx, column_mapping, header_mapping)
       end
     end
   end
@@ -151,12 +147,6 @@ class WelcomeController < ApplicationController
   end
 
   def create_radio_jockey(row, row_index, xlsx, column_mapping, header_mapping)
-    # def create_radio_jockey(row, row_index, attributes, xlsx, column_mapping, header_mapping)
-    # best_hour_string = (row[column_mapping[header_mapping[:best_hour]]] || "").to_f
-    # best_hour = (best_hour_string * 24).round.to_s
-    # expected_grad_year = row[attributes[:grad_year_column]]&.value.to_s || ""
-    # expected_grad_month = row[attributes[:grad_month_column]]&.value.to_s || ""
-    # show_name = row[attributes[:show_name_column]]&.value.to_s || ""
 
     best_hour_string = row[column_mapping[header_mapping[:best_hour]]].to_s || ""
     best_hour = convert_to_24_hr_format(best_hour_string)
@@ -168,18 +158,6 @@ class WelcomeController < ApplicationController
 
     unless RadioJockey.exists?(show_name: show_name)
       RadioJockey.create!(
-        # timestamp: row[attributes[:timestamp_column]]&.value.to_s || "",
-        # first_name: row[attributes[:first_name_column]]&.value.to_s || "",
-        # last_name: row[attributes[:last_name_column]]&.value.to_s || "",
-        # uin: row[attributes[:uin_column]]&.value.to_s || "",
-        # member_type: row[attributes[:member_type_column]]&.value.to_s || "",
-        # retaining: attributes[:retaining] || row[attributes[:retaining_column]]&.value.to_s || "",
-        # semesters_in_kanm: row[attributes[:semesters_column]]&.value.to_s || "",
-        # dj_name: row[attributes[:dj_name_column]]&.value.to_s || "",
-        # best_day: row[attributes[:best_day_column]]&.value.to_s || "",
-        # **weekly_availability(row_index, attributes[:weekly_columns], xlsx),
-        # **unavailability(row_index, attributes[:unavailability_columns], xlsx)
-        # timestamp: row[column_mapping[header_mapping[:timestamp]]].to_s || "",
         timestamp: row[column_mapping[header_mapping[:timestamp]]].value.to_s || "",
         first_name: row[column_mapping[header_mapping[:first_name]]].to_s || "",
         last_name: row[column_mapping[header_mapping[:last_name]]].to_s || "",
@@ -249,48 +227,4 @@ class WelcomeController < ApplicationController
       un_dec: "unavailable dates [december]",
     }
   end
-
-  # def weekly_availability(row_index, weekly_columns, xlsx)
-  #   {
-  #     alt_mon: xlsx.cell(weekly_columns[:mon], row_index).to_s,
-  #     alt_tue: xlsx.cell(weekly_columns[:tue], row_index).to_s,
-  #     alt_wed: xlsx.cell(weekly_columns[:wed], row_index).to_s,
-  #     alt_thu: xlsx.cell(weekly_columns[:thu], row_index).to_s,
-  #     alt_fri: xlsx.cell(weekly_columns[:fri], row_index).to_s,
-  #     alt_sat: xlsx.cell(weekly_columns[:sat], row_index).to_s,
-  #     alt_sun: xlsx.cell(weekly_columns[:sun], row_index).to_s
-  #   }
-  # end
-
-  # def unavailability(row_index, unavailability_columns, xlsx)
-  #   {
-  #     un_jan: xlsx.cell(unavailability_columns[:jan], row_index).to_s,
-  #     un_feb: xlsx.cell(unavailability_columns[:feb], row_index).to_s,
-  #     un_mar: xlsx.cell(unavailability_columns[:mar], row_index).to_s,
-  #     un_apr: xlsx.cell(unavailability_columns[:apr], row_index).to_s,
-  #     un_may: xlsx.cell(unavailability_columns[:may], row_index).to_s
-  #   }
-  # end
-
-  # def returning_dj_attributes
-  #   {
-  #     timestamp_column: 0, first_name_column: 4, last_name_column: 5, uin_column: 8,
-  #     grad_year_column: 9, grad_month_column: 10, member_type_column: 14,
-  #     retaining_column: 15, semesters_column: 16, show_name_column: 23,
-  #     dj_name_column: 24, best_day_column: 26, best_hour_column: 27,
-  #     weekly_columns: { mon: "AC", tue: "AD", wed: "AE", thu: "AF", fri: "AG", sat: "AH", sun: "AI" },
-  #     unavailability_columns: { jan: "AJ", feb: "AK", mar: "AL", apr: "AM", may: "AN" }
-  #   }
-  # end
-
-  # def new_dj_attributes
-  #   {
-  #     timestamp_column: 0, first_name_column: 5, last_name_column: 6, uin_column: 10,
-  #     grad_year_column: 13, grad_month_column: 14, member_type_column: 22,
-  #     retaining: "No", semesters_column: 20, show_name_column: 32,
-  #     dj_name_column: 33, best_day_column: 35, best_hour_column: 36,
-  #     weekly_columns: { mon: "AL", tue: "AM", wed: "AN", thu: "AO", fri: "AP", sat: "AQ", sun: "AR" },
-  #     unavailability_columns: { jan: "AS", feb: "AT", mar: "AU", apr: "AV", may: "AW" }
-  #   }
-  # end
 end

@@ -28,7 +28,7 @@ class ScheduleProcessor
 
   # Step 1
   def self.process_returning_rj_retaining_their_slots
-    returning_rjs = RadioJockey.where(member_type: "Returning DJ", retaining: "yes").order(
+    returning_rjs = RadioJockey.where(member_type: "Returning DJ", retaining: "Yes").order(
       semesters_in_kanm: :desc, expected_grad: :asc, timestamp: :asc
     )
 
@@ -159,7 +159,7 @@ class ScheduleProcessor
     puts "Processing all RJs who need to be assigned a new slot."
 
     # Read and Sort the RJs (Step 2)
-    returning_rjs = RadioJockey.where(member_type: "Returning DJ", retaining: "no").order(
+    returning_rjs = RadioJockey.where(member_type: "Returning DJ", retaining: "No").order(
       semesters_in_kanm: :desc, expected_grad: :asc, timestamp: :asc
     )
     new_rjs = RadioJockey.where(member_type: "New DJ").order(
