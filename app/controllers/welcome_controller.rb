@@ -129,16 +129,16 @@ class WelcomeController < ApplicationController
     # raise ArgumentError, "Best Hour cannot be nil, please fix the spreadsheet" if time.nil?
     hour, ampm = time.split(" ")
     if hour == "12"
-      return ampm == "AM" ? "0" : "12"
+      ampm == "AM" ? "0" : "12"
     else
-      return ampm == "AM" ? hour : (hour.to_i + 12).to_s
+      ampm == "AM" ? hour : (hour.to_i + 12).to_s
     end
   end
 
   def format_times(times)
     times = times.split(",")
     converted_times = []
-    times.each do |time| 
+    times.each do |time|
       converted_time = convert_to_24_hr_format(time)
       converted_times << converted_time
     end
@@ -147,7 +147,6 @@ class WelcomeController < ApplicationController
   end
 
   def create_radio_jockey(row, row_index, xlsx, column_mapping, header_mapping)
-
     best_hour_string = row[column_mapping[header_mapping[:best_hour]]].to_s || ""
     best_hour = convert_to_24_hr_format(best_hour_string)
     expected_grad_year = row[column_mapping[header_mapping[:graduating_year]]].to_s || ""
@@ -224,7 +223,7 @@ class WelcomeController < ApplicationController
       un_sep: "unavailable dates [september]",
       un_oct: "unavailable dates [october]",
       un_nov: "unavailable dates [november]",
-      un_dec: "unavailable dates [december]",
+      un_dec: "unavailable dates [december]"
     }
   end
 end
