@@ -1,6 +1,7 @@
 <!-- Add this line in the <head> section of app/views/layouts/application.html.erb -->
 <div class="mt-4 ms-4">
   <%= link_to '← Back', welcome_path, class: 'framed-button' %>
+  <%= link_to 'Export Schedule', export_calendar_index_path(day: @selected_day), class: 'framed-button' %>
 </div>
 
 <div class="mt-4 ms-4">
