@@ -2,7 +2,7 @@
 
 When("I upload a valid CSV file") do
   visit welcome_path
-  attach_file('upload[csv_file]', Rails.root.join('spec/fixtures/files/Test_Sample_v2.xlsx'))
+  attach_file('upload[csv_file]', Rails.root.join('spec/fixtures/files/Test_Sample_v3.xlsx'))
   click_button "Upload"
 end
 
