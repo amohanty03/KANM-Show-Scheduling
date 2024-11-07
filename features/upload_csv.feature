@@ -12,9 +12,9 @@ Feature: CSV File Upload
     Scenario: Uploading a valid CSV file
       Given I am on the login page
       When I upload a valid CSV file
-      Then I should see "Test_Sample_v2.xlsx"
+      Then I should see "RJ_Simple_Sample_Test.xlsx"
       Then I should see "File uploaded successfully."
-      And the file "Test_Sample_v2.xlsx" should be saved in "tmp/test_uploads"
+      And the file "RJ_Simple_Sample_Test.xlsx" should be saved in "tmp/test_uploads"
 
     Scenario: Uploading an invalid file
       Given I am on the login page

@@ -115,7 +115,7 @@ RSpec.describe WelcomeController, type: :controller do
 
     context 'when exactly one file is selected to generate schedule' do
       it 'generates a schedule' do
-        test_do_not_delete_path = "#{Rails.root}/spec/fixtures/files/Test_Sample_v2.xlsx"
+        test_do_not_delete_path = "#{Rails.root}/spec/fixtures/files/RJ_Simple_Sample_Test.xlsx"
         post :handle_files, params: { selected_files: [ test_do_not_delete_path ], action_type: 'Generate Schedule'  }
         expect(response).to redirect_to(calendar_path)
       end
