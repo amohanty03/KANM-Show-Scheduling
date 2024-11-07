@@ -15,32 +15,27 @@ class CalendarController < ApplicationController
   end
 
   def export
-    @selected_day = params[:day]
-    @time_slots = generate_time_slots # Example time slots, adjust as needed
-    @daily_schedule = ScheduleEntry.where(day: @selected_day) # Example query, adjust as needed
+    @time_slots = generate_time_slots
+    days_of_week = %w[Monday Tuesday Wednesday Thursday Friday Saturday Sunday]
 
-    # Create an Excel package
     package = Axlsx::Package.new
     workbook = package.workbook
 
-    # Add a worksheet to the workbook
-    workbook.add_worksheet(name: "#{@selected_day} Schedule") do |sheet|
-      # Add header row
-      sheet.add_row [ "Time Slot", "Show Name", "Last Name", "Jockey ID" ]
+    days_of_week.each do |day|
+      daily_schedule = ScheduleEntry.where(day: day)
 
-      # Add each time slot and details to the sheet
-      @time_slots.each_with_index do |slot, index|
-        entry = @daily_schedule.find { |e| e.hour == index }
-        show_name = entry&.show_name || "Empty"
-        last_name = entry&.last_name || "Empty"
-        jockey_id = entry&.jockey_id || "Empty"
+      workbook.add_worksheet(name: "#{day}") do |sheet|
+        sheet.add_row [ "Time Slot", "Show Name" ]
 
-        sheet.add_row [ slot, show_name, last_name, jockey_id ]
+        @time_slots.each_with_index do |slot, index|
+          entry = daily_schedule.find { |e| e.hour == index }
+          show_name = entry&.show_name || ""
+          sheet.add_row [ slot, show_name ]
+        end
       end
     end
 
-    # Send the file to the user
-    file_name = "#{@selected_day}_schedule.xlsx"
+    file_name = "Weekly_Schedule.xlsx"
     send_data package.to_stream.read, filename: file_name, type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
   end
 end
