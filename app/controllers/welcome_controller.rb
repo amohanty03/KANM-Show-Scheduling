@@ -117,7 +117,7 @@ class WelcomeController < ApplicationController
     end
 
     i = 1
-    sheet.each_row_streaming(offset: 1) do |row| # Skip header row
+    sheet.each_row_streaming(offset: 1, pad_cells: true) do |row| # Skip header row
       i += 1
       if row[column_mapping[header_mapping[:member_type]]].to_s == dj_type
         create_radio_jockey(row, i, xlsx, column_mapping, header_mapping)
