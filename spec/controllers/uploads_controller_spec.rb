@@ -40,7 +40,7 @@ RSpec.describe UploadsController, type: :controller do
     allow(controller).to receive(:current_logged_in_admin).and_return(admin)
   end
 
-  describe 'POST #create' do
+  describe 'POST #uploads' do
     context 'with valid parameters' do
       it 'uploads a CSV file successfully' do
       old_controller = @controller
@@ -57,10 +57,10 @@ RSpec.describe UploadsController, type: :controller do
 
       file = fixture_file_upload('test1.xlsx', 'application/vnd.ms-excel')
 
-      post :create, params: { upload: { csv_file: file } }
+      post :handle_upload, params: { upload: { csv_file: file } }
 
       expect(response).to redirect_to(welcome_path)
-      expect(flash[:alert]).to eq('File uploaded successfully.')
+      expect(flash[:notice]).to eq('File uploaded successfully.')
 
       expect(File.exist?(Rails.root.join('tmp/test_uploads/test1.xlsx'))).to be true
       end
@@ -81,7 +81,7 @@ RSpec.describe UploadsController, type: :controller do
         expect(response).to render_template('welcome/index')
         file = fixture_file_upload('test2.txt', 'text/plain')
 
-        post :create, params: { upload: { csv_file: file } }
+        post :handle_upload, params: { upload: { csv_file: file } }
 
         expect(flash[:alert]).to eq("Invalid file type. Please choose a xlsx file to upload.")
         expect(File.exist?(Rails.root.join('tmp/test_uploads/test2.txt'))).to be false
@@ -102,7 +102,7 @@ RSpec.describe UploadsController, type: :controller do
         @controller = old_controller
         expect(response).to render_template('welcome/index')
 
-        post :create, params: { upload: { csv_file: "" } }
+        post :handle_upload, params: { upload: { csv_file: "" } }
 
         expect(flash[:alert]).to eq("Invalid file type. Please choose a xlsx file to upload.")
         expect(File.exist?(Rails.root.join('tmp/test_uploads/test2.txt'))).to be false

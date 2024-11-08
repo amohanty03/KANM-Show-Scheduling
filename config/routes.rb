@@ -20,7 +20,8 @@ Rails.application.routes.draw do
   resources :admins
   get "welcome/index", to: "welcome#index", as: "welcome"
   get "welcome/download", to: "download#download", as: "download"
-  resources :uploads, only: [ :new, :create ]
+  post "uploads", to: "uploads#handle_upload", as: "uploads"
+  # resources :uploads, only: [ :new, :create ]
 
   # config/routes.rb
   resources :calendar, only: [ :index ] do

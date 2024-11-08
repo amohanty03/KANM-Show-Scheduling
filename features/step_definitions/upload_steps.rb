@@ -19,3 +19,12 @@ end
 Then("no files are uploaded") do
   expect(File.exist?(Rails.root.join("tmp/test_uploads", 'test2.txt'))).to be false
 end
+
+When("I click {string} without selecting a file") do |button|
+  visit welcome_path
+  click_button button
+end
+
+Then("I should see a warning {string}") do |message|
+  expect(page).to have_content(message)
+end

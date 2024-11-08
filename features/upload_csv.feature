@@ -20,3 +20,8 @@ Feature: CSV File Upload
       Given I am on the login page
       When I upload an invalid file type
       Then I should see "Invalid file type. Please choose a xlsx file to upload."
+
+    Scenario: Uploading without a selected file
+      Given I am on the login page
+      When I click "Upload" without selecting a file
+      Then I should see a warning "Please select a file to upload."
