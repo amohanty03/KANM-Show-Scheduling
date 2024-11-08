@@ -158,6 +158,11 @@ class WelcomeController < ApplicationController
     show_name = row[column_mapping[header_mapping[:show_name]]].to_s || ""
     retaining = column_mapping.key?(header_mapping[:retaining]) ? row[column_mapping[header_mapping[:retaining]]].to_s || "No" : "No"
 
+    if show_name.strip.empty?
+      puts "Show name is missing, thus ignoring the entry"
+      return
+    end
+
     existing_rj = RadioJockey.find_by(show_name: show_name)
     if existing_rj
       puts "Found an existing RJ with Show Name : ", show_name
