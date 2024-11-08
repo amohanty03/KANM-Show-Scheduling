@@ -10,7 +10,7 @@ class UploadsController < ApplicationController
 
   private
 
-  
+
   def create(uploaded_file)
     # Validate that the uploaded file is a CSV
     unless valid_csv?(uploaded_file)
