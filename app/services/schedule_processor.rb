@@ -173,8 +173,8 @@ class ScheduleProcessor
     # If this too failed, then add to the list of unassigned RJs, that we will display in the frontend
     sorted_rjs.each do |rj|
       puts format(
-        "UIN: %-11s DJ Name: %-15s Member Type: %-15s Semesters in KANM: %-5s Expected Graduation: %-8s Timestamp: %-20s",
-        rj.uin, rj.dj_name, rj.member_type, rj.semesters_in_kanm, rj.expected_grad, rj.timestamp
+        "UIN: %-11s DJ Name: %-15s Member Type: %-15s Semesters in KANM: %-5s Expected Graduation: %-8s Timestamp: %-20s Show Name: %-20s",
+        rj.uin, rj.dj_name, rj.member_type, rj.semesters_in_kanm, rj.expected_grad, rj.timestamp, rj.show_name
       )
     end
 
