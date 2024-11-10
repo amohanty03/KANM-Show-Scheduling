@@ -10,11 +10,15 @@ class UploadsController < ApplicationController
 
   private
 
-
+  
   def create(uploaded_file)
     # Validate that the uploaded file is a CSV
-    unless valid_csv?(uploaded_file)
+    if !valid_csv?(uploaded_file)
       redirect_to welcome_path, alert: "Invalid file type. Please choose a xlsx file to upload." and return
+    elsif long_name?(uploaded_file)
+      redirect_to welcome_path, alert: "File name is too long. Please rename the file and try again." and return
+    elsif duplicate_name?(uploaded_file)
+      redirect_to welcome_path, alert: "There is a file with the same name. Please rename the file and try again." and return
     end
 
     upload_path = Rails.env.test? ? Rails.root.join("tmp", "test_uploads") : Rails.root.join("public", "uploads")
@@ -30,5 +34,15 @@ class UploadsController < ApplicationController
 
   def valid_csv?(file)
     file.present? && File.extname(file.original_filename) == ".xlsx"
+  end
+
+  def long_name?(file)
+    File.basename(file.original_filename).length >= 60
+  end
+
+  def duplicate_name?(file)
+    # Use a different directory in test environment to isolate real data
+    upload_path = Rails.env.test? ? "#{Rails.root}/tmp/test_uploads" : "#{Rails.root}/public/uploads"
+    File.exist?(Rails.root.join(upload_path, file.original_filename))
   end
 end

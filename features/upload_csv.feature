@@ -25,3 +25,13 @@ Feature: CSV File Upload
       Given I am on the login page
       When I click "Upload" without selecting a file
       Then I should see a warning "Please select a file to upload."
+
+    Scenario: Uploading a file with a long name
+      Given I am on the login page
+      When I upload a file with a long name
+      Then I should see a warning message "File name is too long. Please rename the file and try again."
+
+    Scenario: Uploading a file with the same name
+      Given I am on the login page
+      When I upload a file with the same name
+      Then I should see this warning "There is a file with the same name. Please rename the file and try again."
