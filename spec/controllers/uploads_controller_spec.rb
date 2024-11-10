@@ -109,7 +109,7 @@ RSpec.describe UploadsController, type: :controller do
       end
     end
 
-    
+
     context 'with invalid parameters' do
       it 'does not upload a file with a long name' do
         old_controller = @controller
