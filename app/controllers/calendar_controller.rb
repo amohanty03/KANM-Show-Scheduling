@@ -1,4 +1,4 @@
-require 'axlsx'
+require "axlsx"
 class CalendarController < ApplicationController
   def index
     @selected_day = params[:day] || "Monday" # Default to Monday
@@ -41,19 +41,18 @@ class CalendarController < ApplicationController
   end
 
   def download_unassigned_rjs
-    unassigned_rjs = ScheduleProcessor.unassigned_rjs 
+    unassigned_rjs = ScheduleProcessor.unassigned_rjs
 
     package = Axlsx::Package.new
 
     package.workbook.add_worksheet(name: "Unassigned RJs") do |sheet|
-      sheet.add_row ["UIN", "First Name", "Last Name", "DJ Name", "Member Type", "Semesters in KANM", "Expected Graduation", "Timestamp", "Show Name"]
+      sheet.add_row [ "UIN", "First Name", "Last Name", "DJ Name", "Member Type", "Semesters in KANM", "Expected Graduation", "Timestamp", "Show Name" ]
 
       unassigned_rjs.each do |rj|
-        sheet.add_row [rj.uin, rj.first_name, rj.last_name, rj.dj_name, rj.member_type, rj.semesters_in_kanm, rj.expected_grad, rj.timestamp, rj.show_name]
+        sheet.add_row [ rj.uin, rj.first_name, rj.last_name, rj.dj_name, rj.member_type, rj.semesters_in_kanm, rj.expected_grad, rj.timestamp, rj.show_name ]
       end
     end
 
     send_data package.to_stream.read, filename: "unassigned_rjs.xlsx", type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
   end
-
 end

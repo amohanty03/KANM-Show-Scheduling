@@ -164,7 +164,7 @@ class ScheduleProcessor
       end
       # If no slot was assigned, add RJ to unassigned list
       unassigned_rjs << rj unless assigned
-    end  
+    end
   end
 
   # Step 2 and 3
