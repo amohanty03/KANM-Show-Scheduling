@@ -1,10 +1,16 @@
 # app/services/schedule_processor.rb
 # This Class will handle the core business logic of our Scheduler
 class ScheduleProcessor
+  @unassigned_rjs = []  # Class variable to store unassigned RJs
+
   def self.process
     puts "Handling the core scheduler business logic here."
     self.process_returning_rj_retaining_their_slots
     self.sort_and_assign_timeslots_for_remaining_rjs
+  end
+
+  def self.unassigned_rjs
+    @unassigned_rjs
   end
 
   def self.is_available_db(day, hour)
@@ -131,10 +137,13 @@ class ScheduleProcessor
   end
 
   def self.generate_schedule(sorted_rjs)
+    @unassigned_rjs = []  # Reset the unassigned RJs list before processing
     sorted_rjs.each do |rj|
       alt_times = assemble_alt_times(rj)
+      assigned = false
       if is_available_db(rj.best_day, rj.best_hour)
         add_entry(rj.best_day, rj.best_hour, rj)
+        assigned = true
       else
         # Find alternative
         i = 3
@@ -142,16 +151,20 @@ class ScheduleProcessor
           best_avail_times = best_alt_time_ranges(rj.best_hour.to_i, i, alt_times)
           # Same day, similar hour
           if find_time_same_day(best_avail_times[num_from_day(rj.best_day)], rj) == true
+            assigned = true
             break
           end
           # Different day, similar hour
           if find_time_any_day(best_avail_times, rj) == true
+            assigned = true
             break
           end
           i += 3
         end
       end
-    end
+      # If no slot was assigned, add RJ to unassigned list
+      unassigned_rjs << rj unless assigned
+    end  
   end
 
   # Step 2 and 3
