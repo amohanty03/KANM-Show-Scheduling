@@ -43,23 +43,38 @@ class ScheduleProcessor
   def self.best_alt_time_ranges(best_time, range, alt_times)
     min_time = best_time - range
     max_time = best_time + range
-    # check_yesterday = false
-    # check_tomorrow = false
-    # adj_day_range = 0
+    check_yesterday = false
+    check_tomorrow = false
+    adj_day_range = 0
 
     if best_time < range
-      # check_yesterday = true
-      # adj_day_range = 0 - min_time
+      check_yesterday = true
+      adj_day_range = 0 - min_time
       min_time = 0
     elsif best_time > (23 - range)
-      # check_tomorrow = true
-      # adj_day_range = max_time - 23
+      check_tomorrow = true
+      adj_day_range = max_time - 23
       max_time = 23
     end
     range_values = {}
     alt_times.each do |key, values|
         in_range = values.select { |value| value.to_i >= min_time && value.to_i <= max_time }
         range_values[key] = in_range unless in_range.empty?
+        if check_yesterday
+          in_range_yesterday = values.select { |value| value.to_i >= adj_day_range && value.to_i <= 23 }
+          puts "KEY"
+          puts num_from_day(key)
+          key_yesterday = (num_from_day(key) - 1) % 7
+          range_values[key_yesterday] = in_range_yesterday unless in_range_yesterday.empty?
+          puts "FROM YESTERDAY"
+          puts in_range_yesterday
+        elsif check_tomorrow
+          in_range_tomorrow = values.select { |value| value.to_i >= 0 && value.to_i <= adj_day_range }
+          key_tomorrow = (num_from_day(key) + 1) % 7
+          range_values[key_tomorrow] = in_range_tomorrow unless in_range_tomorrow.empty?
+          puts "FROM TOMORROW"
+          puts in_range_tomorrow
+        end
     end
     range_values
   end
@@ -86,19 +101,19 @@ class ScheduleProcessor
 
   def self.num_from_day(day)
     case day.downcase
-    when "monday"
+    when :monday
       0
-    when "tuesday"
+    when :tuesday
       1
-    when "wednesday"
+    when :wednesday
       2
-    when "thursday"
+    when :thursday
       3
-    when "friday"
+    when :friday
       4
-    when "saturday"
+    when :saturday
       5
-    when "sunday"
+    when :sunday
       6
     else
       puts "Invalid day!"
