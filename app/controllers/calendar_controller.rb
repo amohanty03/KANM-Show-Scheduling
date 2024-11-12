@@ -21,17 +21,17 @@ class CalendarController < ApplicationController
     package = Axlsx::Package.new
     workbook = package.workbook
 
-    days_of_week.each do |day|
-      daily_schedule = ScheduleEntry.where(day: day)
+    workbook.add_worksheet(name: "Weekly Schedule") do |sheet|
+      sheet.add_row([ "Time Slot" ] + days_of_week)
 
-      workbook.add_worksheet(name: "#{day}") do |sheet|
-        sheet.add_row [ "Time Slot", "Show Name" ]
-
-        @time_slots.each_with_index do |slot, index|
-          entry = daily_schedule.find { |e| e.hour == index }
+      @time_slots.each_with_index do |slot, index|
+        row = [ slot ]
+        days_of_week.each do |day|
+          entry = ScheduleEntry.where(day: day, hour: index).first
           show_name = entry&.show_name || ""
-          sheet.add_row [ slot, show_name ]
+          row << show_name
         end
+        sheet.add_row(row)
       end
     end
 
