@@ -23,9 +23,9 @@ Rails.application.routes.draw do
   post "uploads", to: "uploads#handle_upload", as: "uploads"
   # resources :uploads, only: [ :new, :create ]
 
-  # config/routes.rb
   resources :calendar, only: [ :index ] do
     get :export, on: :collection
+    get :download_unassigned_rjs, on: :collection
   end
 
   get "calendar", to: "calendar#index"
