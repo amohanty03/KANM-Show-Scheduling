@@ -9,7 +9,11 @@ class ScheduleProcessor
 
   def self.is_available_db(day, hour)
     entry = ScheduleEntry.find_by(day: day, hour: hour)
-    entry.show_name.nil?
+    if not entry.nil?
+      entry.show_name.nil?
+    else
+      false
+    end
   end
 
   def self.add_entry(day, hour, jockey)
@@ -133,7 +137,7 @@ class ScheduleProcessor
 
   def self.find_time_any_day(best_avail_times, rj)
     best_avail_times.each do |day, times|
-      if not day.empty?
+      if not day.nil?
         num_times = times.length
         good_hour = times[num_times / 2]
         if is_available_db(day, good_hour)
