@@ -51,4 +51,20 @@ RSpec.describe CalendarController, type: :controller do
       end
     end
   end
+
+  describe 'GET #export' do
+    before do
+      mock_user_sign_in
+      allow(ScheduleEntry).to receive(:where).and_return([])
+    end
+
+    it 'returns an Excel file with the correct content type and filename' do
+      get :export
+
+      expect(response).to have_http_status(:success)
+      expect(response.header['Content-Type']).to eq 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      expect(response.header['Content-Disposition']).to include('attachment')
+      expect(response.header['Content-Disposition']).to include('Weekly_Schedule.xlsx')
+    end
+  end
 end

@@ -22,14 +22,11 @@ class CalendarController < ApplicationController
     workbook = package.workbook
 
     workbook.add_worksheet(name: "Weekly Schedule") do |sheet|
-      # Add header row with days of the week
       sheet.add_row([ "Time Slot" ] + days_of_week)
 
-      # Add each time slot as a row, with shows for each day in respective columns
       @time_slots.each_with_index do |slot, index|
         row = [ slot ]
         days_of_week.each do |day|
-          # Find the schedule entry for the specific day and hour
           entry = ScheduleEntry.where(day: day, hour: index).first
           show_name = entry&.show_name || ""
           row << show_name
