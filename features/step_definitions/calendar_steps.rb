@@ -15,3 +15,12 @@ Then("I should see time slots for the whole day") do
     expect(page).to have_content("#{start_time} - #{end_time}")
   end
 end
+
+Then("I click on the {string} button in the calendar page") do |export|
+  click_link(export)
+end
+
+Then("I should see the downloaded file {string}") do |filename|
+  download_path = Rails.root.join('tmp', 'test_downloads', filename)
+  expect(File).to exist(download_path)
+end

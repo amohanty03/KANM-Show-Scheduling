@@ -11,3 +11,8 @@ Background: Successful login with a tamu.edu email
     Given I visit the calendar index with the day "Tuesday"
     Then I should see the selected day as "Tuesday"
     And I should see time slots for the whole day
+
+  Scenario: User wants to export the entire weekly schedule
+    Given I visit the calendar index with the day "Tuesday"
+    Then I click on the "Export Schedule" button in the calendar page
+#    And I should see the downloaded file "Weekly_Schedule.xlsx"
