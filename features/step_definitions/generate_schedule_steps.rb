@@ -23,7 +23,7 @@ Given("a radio jockey with a show name {string} and last name {string} is availa
 end
 
 Given("I have the day {string}") do |day|
-    @day_name = day
+    @day_name = day.to_sym
 end
 
 Given("the following schedule") do |table|
