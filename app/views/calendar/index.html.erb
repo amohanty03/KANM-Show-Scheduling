@@ -32,11 +32,15 @@
       <td><%= slot %></td>
       <% entry = @daily_schedule.find { |e| e.hour == index } %>
       <td>
-        <% if entry.present? && entry.show_name.present? && entry.last_name.present? && entry.jockey_id.present? && entry.radio_jockey.present? %>
+        <% if entry.present? && entry.show_name.present? && entry.last_name.present?%>
           <strong>Show Name:</strong> <%= entry.show_name %><br>
-          <strong>Last Name:</strong> <%= entry.last_name %><br>
+          <strong>ID:</strong> <%= entry.jockey_id %><br>
+        <% if entry.radio_jockey.dj_name.present? %>
           <strong>DJ Name:</strong> <%= entry.radio_jockey.dj_name %><br>
-          <strong>ID:</strong> <%= entry.jockey_id %>
+        <% else %>
+          <strong>First Name:</strong> <%= entry.radio_jockey.first_name %><br>
+          <strong>Last Name:</strong> <%= entry.radio_jockey.last_name %><br>
+        <% end %>
         <% else %>
           Empty
         <% end %>
