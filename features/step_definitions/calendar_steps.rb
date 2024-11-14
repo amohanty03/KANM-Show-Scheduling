@@ -40,4 +40,3 @@ end
 Then("I should be able to download an Excel file containing the unassigned RJ list") do
   expect(page.response_headers['Content-Type']).to include('application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
 end
-
