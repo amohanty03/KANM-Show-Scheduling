@@ -18,7 +18,7 @@ class ScheduleProcessor
     Saturday: 5,
     Sunday: 6
   }
-  
+
   def self.unassigned_rjs
     @unassigned_rjs
   end
