@@ -157,13 +157,13 @@ class WelcomeController < ApplicationController
     member_type = row[column_mapping[header_mapping[:member_type]]].to_s || ""
     show_name = row[column_mapping[header_mapping[:show_name]]].to_s || ""
     retaining = column_mapping.key?(header_mapping[:retaining]) ? row[column_mapping[header_mapping[:retaining]]].to_s || "No" : "No"
-  
+
     if show_name.strip.empty?
       puts "Show name is missing, thus ignoring the entry"
       return
     end
-  
-    #Prepare the common data
+
+    # Prepare the common data
     rj_data = {
       timestamp: timestamp,
       first_name: row[column_mapping[header_mapping[:first_name]]].to_s || "",
@@ -190,12 +190,12 @@ class WelcomeController < ApplicationController
       un_apr: row[column_mapping[header_mapping[:un_apr]]].to_s || "",
       un_may: row[column_mapping[header_mapping[:un_may]]].to_s || ""
     }
-  
+
     existing_rj = RadioJockey.find_by(show_name: show_name)
     if existing_rj
       puts "Found an existing RJ with Show Name : ", show_name
       update = false
-  
+
       if member_type != existing_rj.member_type
         if member_type == "Returning RJ" # Returning has higher priority, else ignore
           update = true
@@ -206,9 +206,9 @@ class WelcomeController < ApplicationController
           (semesters_in_kanm == existing_rj.semesters_in_kanm && expected_grad == existing_rj.expected_grad && timestamp < existing_rj.timestamp)
           update = true
         end
-      end  
- 
-      
+      end
+
+
       if update
         puts "Incoming RJ has higher priority, hence using the data from the same"
         existing_rj.update(rj_data)
@@ -217,7 +217,7 @@ class WelcomeController < ApplicationController
       RadioJockey.create!(rj_data)
     end
   end
-  
+
 
   def header_mapping
     {
