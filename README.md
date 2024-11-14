@@ -54,6 +54,5 @@ View the detailed coverage report at `coverage/index.html` .
 Please run ` rubocop --format simple --out reports/rubocop_summary.txt `.
 View the report at `reports/rubocop_summary.txt`.
 
-Forking this repo to test if everything works.
 
 ***Ruby version : 3.3.4***

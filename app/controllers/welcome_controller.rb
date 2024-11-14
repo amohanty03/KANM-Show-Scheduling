@@ -191,32 +191,6 @@ class WelcomeController < ApplicationController
       un_may: row[column_mapping[header_mapping[:un_may]]].to_s || ""
     }
 
-    timestamp: timestamp,
-    first_name: row[column_mapping[header_mapping[:first_name]]].to_s || "",
-    last_name: row[column_mapping[header_mapping[:last_name]]].to_s || "",
-    uin: row[column_mapping[header_mapping[:uin]]].to_s || "",
-    expected_grad: expected_grad,
-    member_type: member_type,
-    retaining: retaining,
-    semesters_in_kanm: semesters_in_kanm,
-    show_name: show_name,
-    dj_name: row[column_mapping[header_mapping[:dj_name]]].to_s || "",
-    best_day: row[column_mapping[header_mapping[:best_day]]].to_s || "",
-    best_hour: best_hour,
-    alt_mon: format_times(row[column_mapping[header_mapping[:alt_mon]]].to_s || ""),
-    alt_tue: format_times(row[column_mapping[header_mapping[:alt_tue]]].to_s || ""),
-    alt_wed: format_times(row[column_mapping[header_mapping[:alt_wed]]].to_s || ""),
-    alt_thu: format_times(row[column_mapping[header_mapping[:alt_thu]]].to_s || ""),
-    alt_fri: format_times(row[column_mapping[header_mapping[:alt_fri]]].to_s || ""),
-    alt_sat: format_times(row[column_mapping[header_mapping[:alt_sat]]].to_s || ""),
-    alt_sun: format_times(row[column_mapping[header_mapping[:alt_sun]]].to_s || ""),
-    un_jan: row[column_mapping[header_mapping[:un_jan]]].to_s || "",
-    un_feb: row[column_mapping[header_mapping[:un_feb]]].to_s || "",
-    un_mar: row[column_mapping[header_mapping[:un_mar]]].to_s || "",
-    un_apr: row[column_mapping[header_mapping[:un_apr]]].to_s || "",
-    un_may: row[column_mapping[header_mapping[:un_may]]].to_s || ""
-  }
-
     existing_rj = RadioJockey.find_by(show_name: show_name)
     if existing_rj
       puts "Found an existing RJ with Show Name : ", show_name
