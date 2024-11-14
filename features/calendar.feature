@@ -11,3 +11,18 @@ Background: Successful login with a tamu.edu email
     Given I visit the calendar index with the day "Tuesday"
     Then I should see the selected day as "Tuesday"
     And I should see time slots for the whole day
+
+  Scenario: User wants to export the entire weekly schedule
+    Given I visit the calendar index with the day "Tuesday"
+    Then I click on the "Export Schedule" button in the calendar page
+#    And I should see the downloaded file "Weekly_Schedule.xlsx"
+
+  Scenario: Download button for unassigned RJ list is present
+    Given I am on the calendar page
+    Then I should see the "Download Unassigned RJs" link
+
+  Scenario: Download unassigned RJ list as an Excel file
+    Given I am on the calendar page
+    When I click the "Download Unassigned RJs" link
+    Then I should be able to download an Excel file containing the unassigned RJ list
+

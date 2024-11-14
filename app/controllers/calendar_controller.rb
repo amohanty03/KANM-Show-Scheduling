@@ -1,3 +1,4 @@
+require "axlsx"
 class CalendarController < ApplicationController
   def index
     @selected_day = params[:day] || "Monday" # Default to Monday
@@ -21,21 +22,37 @@ class CalendarController < ApplicationController
     package = Axlsx::Package.new
     workbook = package.workbook
 
-    days_of_week.each do |day|
-      daily_schedule = ScheduleEntry.where(day: day)
+    workbook.add_worksheet(name: "Weekly Schedule") do |sheet|
+      sheet.add_row([ "Time Slot" ] + days_of_week)
 
-      workbook.add_worksheet(name: "#{day}") do |sheet|
-        sheet.add_row [ "Time Slot", "Show Name" ]
-
-        @time_slots.each_with_index do |slot, index|
-          entry = daily_schedule.find { |e| e.hour == index }
+      @time_slots.each_with_index do |slot, index|
+        row = [ slot ]
+        days_of_week.each do |day|
+          entry = ScheduleEntry.where(day: day, hour: index).first
           show_name = entry&.show_name || ""
-          sheet.add_row [ slot, show_name ]
+          row << show_name
         end
+        sheet.add_row(row)
       end
     end
 
     file_name = "Weekly_Schedule.xlsx"
     send_data package.to_stream.read, filename: file_name, type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+  end
+
+  def download_unassigned_rjs
+    unassigned_rjs = ScheduleProcessor.unassigned_rjs
+
+    package = Axlsx::Package.new
+
+    package.workbook.add_worksheet(name: "Unassigned RJs") do |sheet|
+      sheet.add_row [ "UIN", "First Name", "Last Name", "DJ Name", "Member Type", "Semesters in KANM", "Expected Graduation", "Timestamp", "Show Name" ]
+
+      unassigned_rjs.each do |rj|
+        sheet.add_row [ rj.uin, rj.first_name, rj.last_name, rj.dj_name, rj.member_type, rj.semesters_in_kanm, rj.expected_grad, rj.timestamp, rj.show_name ]
+      end
+    end
+
+    send_data package.to_stream.read, filename: "unassigned_rjs.xlsx", type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
   end
 end
