@@ -4,7 +4,6 @@
   <%= link_to 'Export Schedule', export_calendar_index_path(day: @selected_day), class: 'framed-button' %>
   <%= link_to "Download Unassigned RJs", download_unassigned_rjs_calendar_index_path, class: 'framed-button' %>
 </div>
-
 <div class="mt-4 ms-4">
   <%= form_with(url: calendar_path, method: :get, local: true) do %>
     <label for="day">Select a day:</label>
@@ -38,8 +37,7 @@
         <% if entry.radio_jockey.dj_name.present? %>
           <strong>DJ Name:</strong> <%= entry.radio_jockey.dj_name %><br>
         <% else %>
-          <strong>First Name:</strong> <%= entry.radio_jockey.first_name %><br>
-          <strong>Last Name:</strong> <%= entry.radio_jockey.last_name %><br>
+          <strong>DJ Name:</strong> <%= entry.radio_jockey.first_name %> <%= entry.radio_jockey.last_name %><br>
         <% end %>
         <% else %>
           Empty
