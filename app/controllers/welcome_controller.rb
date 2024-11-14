@@ -147,49 +147,42 @@ class WelcomeController < ApplicationController
   end
 
   def create_radio_jockey(row, row_index, xlsx, column_mapping, header_mapping)
-    show_name = get_show_name(row, column_mapping, header_mapping)
-    return if show_name.strip.empty?
-
-    rj_data = prepare_rj_data(row, column_mapping, header_mapping, show_name)
+    show_name = row[column_mapping[header_mapping[:show_name]]].to_s.strip
+    if show_name.empty?
+      puts "Show name is missing, thus ignoring the entry"
+      return
+    end
+  
+    rj_data = prepare_rj_data(row, column_mapping, header_mapping)
+  
     existing_rj = RadioJockey.find_by(show_name: show_name)
-
     if existing_rj
-      update_existing_rj(existing_rj, rj_data, row, column_mapping, header_mapping)
+      puts "Found an existing RJ with Show Name: #{show_name}"
+      if should_update_rj(existing_rj, row, column_mapping, header_mapping)
+        puts "Incoming RJ has higher priority, hence using the data from the same"
+        existing_rj.update(rj_data)
+      end
     else
       RadioJockey.create!(rj_data)
     end
   end
-
+  
   private
-
-  def get_show_name(row, column_mapping, header_mapping)
-    row[column_mapping[header_mapping[:show_name]]].to_s || ""
-  end
-
-  def prepare_rj_data(row, column_mapping, header_mapping, show_name)
-    best_hour_string = row[column_mapping[header_mapping[:best_hour]]].to_s || ""
-    best_hour = convert_to_24_hr_format(best_hour_string)
-    expected_grad_year = row[column_mapping[header_mapping[:graduating_year]]].to_s || ""
-    expected_grad_month = row[column_mapping[header_mapping[:graduating_month]]].to_s || ""
-    expected_grad = "#{expected_grad_year}/#{expected_grad_month}"
-    semesters_in_kanm = row[column_mapping[header_mapping[:semesters_in_kanm]]].to_s || "0"
-    timestamp = row[column_mapping[header_mapping[:timestamp]]].value.to_s || ""
-    member_type = row[column_mapping[header_mapping[:member_type]]].to_s || ""
-    retaining = column_mapping.key?(header_mapping[:retaining]) ? row[column_mapping[header_mapping[:retaining]]].to_s || "No" : "No"
-
+  
+  def prepare_rj_data(row, column_mapping, header_mapping)
     {
-      timestamp: timestamp,
+      timestamp: row[column_mapping[header_mapping[:timestamp]]].value.to_s || "",
       first_name: row[column_mapping[header_mapping[:first_name]]].to_s || "",
       last_name: row[column_mapping[header_mapping[:last_name]]].to_s || "",
       uin: row[column_mapping[header_mapping[:uin]]].to_s || "",
-      expected_grad: expected_grad,
-      member_type: member_type,
-      retaining: retaining,
-      semesters_in_kanm: semesters_in_kanm,
-      show_name: show_name,
+      expected_grad: "#{row[column_mapping[header_mapping[:graduating_year]]].to_s || ""}/#{row[column_mapping[header_mapping[:graduating_month]]].to_s || ""}",
+      member_type: row[column_mapping[header_mapping[:member_type]]].to_s || "",
+      retaining: column_mapping.key?(header_mapping[:retaining]) ? row[column_mapping[header_mapping[:retaining]]].to_s || "No" : "No",
+      semesters_in_kanm: row[column_mapping[header_mapping[:semesters_in_kanm]]].to_s || "0",
+      show_name: row[column_mapping[header_mapping[:show_name]]].to_s.strip,
       dj_name: row[column_mapping[header_mapping[:dj_name]]].to_s || "",
       best_day: row[column_mapping[header_mapping[:best_day]]].to_s || "",
-      best_hour: best_hour,
+      best_hour: convert_to_24_hr_format(row[column_mapping[header_mapping[:best_hour]]].to_s || ""),
       alt_mon: format_times(row[column_mapping[header_mapping[:alt_mon]]].to_s || ""),
       alt_tue: format_times(row[column_mapping[header_mapping[:alt_tue]]].to_s || ""),
       alt_wed: format_times(row[column_mapping[header_mapping[:alt_wed]]].to_s || ""),
@@ -204,33 +197,22 @@ class WelcomeController < ApplicationController
       un_may: row[column_mapping[header_mapping[:un_may]]].to_s || ""
     }
   end
-
-  def update_existing_rj(existing_rj, rj_data, row, column_mapping, header_mapping)
+  
+  def should_update_rj(existing_rj, row, column_mapping, header_mapping)
     member_type = row[column_mapping[header_mapping[:member_type]]].to_s || ""
-    semesters_in_kanm = row[column_mapping[header_mapping[:semesters_in_kanm]]].to_s || "0"
-    expected_grad_year = row[column_mapping[header_mapping[:graduating_year]]].to_s || ""
-    expected_grad_month = row[column_mapping[header_mapping[:graduating_month]]].to_s || ""
-    expected_grad = "#{expected_grad_year}/#{expected_grad_month}"
+    semesters_in_kanm = row[column_mapping[header_mapping[:semesters_in_kanm]]].to_s.to_i
+    expected_grad = "#{row[column_mapping[header_mapping[:graduating_year]]].to_s}/#{row[column_mapping[header_mapping[:graduating_month]]].to_s}"
     timestamp = row[column_mapping[header_mapping[:timestamp]]].value.to_s || ""
-
-    update = false
+  
     if member_type != existing_rj.member_type
-      update = member_type == "Returning RJ" # Returning has higher priority
+      member_type == "Returning RJ"
     else
-      update = should_update_rj(existing_rj, semesters_in_kanm, expected_grad, timestamp)
-    end
-
-    if update
-      puts "Incoming RJ has higher priority, hence using the data from the same"
-      existing_rj.update(rj_data)
-    end
-  end
-
-  def should_update_rj(existing_rj, semesters_in_kanm, expected_grad, timestamp)
-    existing_rj.semesters_in_kanm < semesters_in_kanm ||
+      (existing_rj.semesters_in_kanm < semesters_in_kanm) ||
       (existing_rj.semesters_in_kanm == semesters_in_kanm && existing_rj.expected_grad < expected_grad) ||
       (existing_rj.semesters_in_kanm == semesters_in_kanm && existing_rj.expected_grad == expected_grad && existing_rj.timestamp < timestamp)
+    end
   end
+  
 
   def header_mapping
     {
