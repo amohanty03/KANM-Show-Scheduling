@@ -112,16 +112,10 @@ class ScheduleProcessor
   def self.num_from_day(day)
     case day.downcase
     when :monday
-      puts "Valid day!"
-      puts day
       0
     when :tuesday
-      puts "Valid day!"
-      puts day
       1
     when :wednesday
-      puts "Valid day!"
-      puts day
       2
     when :thursday
       3
@@ -133,7 +127,6 @@ class ScheduleProcessor
       6
     else
       puts "Invalid day!"
-      puts day
     end
   end
 
