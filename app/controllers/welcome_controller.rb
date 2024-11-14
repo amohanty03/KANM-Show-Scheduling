@@ -210,11 +210,13 @@ class WelcomeController < ApplicationController
       end
     else # Same member type
       if (semesters_in_kanm > existing_rj.semesters_in_kanm) ||
-        (semesters_in_kanm == existing_rj.semesters_in_kanm && expected_grad < existing_rj.expected_grad) ||
-        (semesters_in_kanm == existing_rj.semesters_in_kanm && expected_grad == existing_rj.expected_grad && timestamp < existing_rj.timestamp)
+         (semesters_in_kanm == existing_rj.semesters_in_kanm && expected_grad < existing_rj.expected_grad) ||
+         (semesters_in_kanm == existing_rj.semesters_in_kanm && expected_grad == existing_rj.expected_grad && timestamp < existing_rj.timestamp)
         return true
       end
     end
+
+    false
   end
 
 
