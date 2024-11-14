@@ -158,7 +158,7 @@ class WelcomeController < ApplicationController
     existing_rj = RadioJockey.find_by(show_name: show_name)
     if existing_rj
       puts "Found an existing RJ with Show Name : ", show_name
-      if should_update_rj(existing_rj, row, column_mapping, header_mapping)
+      if should_update_rj(existing_rj, row, column_mapping, header_mapping, rj_data)
         puts "Incoming RJ has higher priority, hence using the data from the same"
         existing_rj.update(rj_data)
       end
@@ -198,11 +198,11 @@ class WelcomeController < ApplicationController
     }
   end
 
-  def should_update_rj(existing_rj, row, column_mapping, header_mapping)
-    member_type = row[column_mapping[header_mapping[:member_type]]].to_s || ""
-    semesters_in_kanm = row[column_mapping[header_mapping[:semesters_in_kanm]]].to_s || "0"
-    expected_grad = "#{row[column_mapping[header_mapping[:graduating_year]]].to_s || ""}/#{row[column_mapping[header_mapping[:graduating_month]]].to_s || ""}"
-    timestamp = row[column_mapping[header_mapping[:timestamp]]].value.to_s || ""
+  def should_update_rj(existing_rj, row, column_mapping, header_mapping, rj_data)
+    member_type = rj_data[:member_type]
+    semesters_in_kanm = rj_data[:semesters_in_kanm]
+    expected_grad = rj_data[:expected_grad]
+    timestamp = rj_data[:timestamp]
 
     if member_type != existing_rj.member_type
       if member_type == "Returning RJ" # Returning has higher priority, else ignore
