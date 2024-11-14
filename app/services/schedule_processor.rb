@@ -54,18 +54,38 @@ class ScheduleProcessor
     puts "Processing returning RJ who've retaining their slots."
   end
 
+  def self.add_times_yesterday(values, adj_day_range, adj_check, range_values, key_yesterday)
+    in_range_yesterday = values.select { |value| (value.to_i >= adj_day_range && value.to_i <= adj_check) }
+
+    if range_values[key_yesterday].nil? == false
+      range_values[key_yesterday].concat(in_range_yesterday) unless in_range_yesterday.empty?
+    else
+      range_values[key_yesterday] = in_range_yesterday unless in_range_yesterday.empty?
+    end
+  end
+
+  def self.add_times_tomorrow(values, adj_day_range, adj_check, range_values, key_tomorrow)
+    in_range_tomorrow = values.select { |value| value.to_i >= adj_check && value.to_i <= adj_day_range }
+
+    if range_values[key_tomorrow].nil? == false
+      range_values[key_tomorrow].concat(in_range_tomorrow) unless in_range_tomorrow.empty?
+    else
+      range_values[key_tomorrow] = in_range_tomorrow unless in_range_tomorrow.empty?
+    end
+  end
+
   def self.best_alt_time_ranges(best_time, range, range_step, alt_times)
     min_time = best_time - range
     min_check = min_time + range_step
     max_time = best_time + range
     max_check = max_time - range_step
-    check_yesterday = false
-    check_tomorrow = false
+    add_to_yesterday = false
+    add_to_tomorrow = false
     adj_day_range = 0
     adj_check = 0
 
     if best_time < range
-      check_yesterday = true
+      add_to_yesterday = true
       adj_day_range = 0 - min_time
       if adj_day_range > range_step
         min_check = 0
@@ -75,7 +95,7 @@ class ScheduleProcessor
       end
       min_time = 0
     elsif best_time > (23 - range)
-      check_tomorrow = true
+      add_to_tomorrow = true
       adj_day_range = max_time - 23
       if adj_day_range > range_step
         max_check = 23
@@ -93,22 +113,12 @@ class ScheduleProcessor
       else
         range_values[key] = in_range unless in_range.empty?
       end
-      if check_yesterday
-        in_range_yesterday = values.select { |value| (value.to_i >= adj_day_range && value.to_i <= adj_check) }
+      if add_to_yesterday
         key_yesterday = day_from_num((num_from_day(key) - 1) % 7)
-        if range_values[key_yesterday].nil? == false
-          range_values[key_yesterday].concat(in_range_yesterday) unless in_range_yesterday.empty?
-        else
-          range_values[key_yesterday] = in_range_yesterday unless in_range_yesterday.empty?
-        end
-      elsif check_tomorrow
-        in_range_tomorrow = values.select { |value| value.to_i >= adj_check && value.to_i <= adj_day_range }
+        add_times_yesterday(alt_times[key_yesterday], adj_day_range, adj_check, range_values, key_yesterday)
+      elsif add_to_tomorrow
         key_tomorrow = day_from_num((num_from_day(key) + 1) % 7)
-        if range_values[key_tomorrow].nil? == false
-          range_values[key_tomorrow].concat(in_range_tomorrow) unless in_range_tomorrow.empty?
-        else
-          range_values[key_tomorrow] = in_range_tomorrow unless in_range_tomorrow.empty?
-        end
+        add_times_tomorrow(alt_times[key_tomorrow], adj_day_range, adj_check, range_values, key_tomorrow)
       end
     end
     range_values
@@ -141,7 +151,7 @@ class ScheduleProcessor
       puts "Invalid num!"
     end
   end
-  
+
   def self.num_from_day(name)
     stylized_name = name.downcase.capitalize.to_sym
     if DAYS_AS_NUMS.key?(stylized_name)
