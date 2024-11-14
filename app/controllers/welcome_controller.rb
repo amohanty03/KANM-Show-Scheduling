@@ -157,91 +157,64 @@ class WelcomeController < ApplicationController
     member_type = row[column_mapping[header_mapping[:member_type]]].to_s || ""
     show_name = row[column_mapping[header_mapping[:show_name]]].to_s || ""
     retaining = column_mapping.key?(header_mapping[:retaining]) ? row[column_mapping[header_mapping[:retaining]]].to_s || "No" : "No"
-
+  
     if show_name.strip.empty?
       puts "Show name is missing, thus ignoring the entry"
       return
     end
-
+  
+    #Prepare the common data
+    rj_data = {
+      timestamp: timestamp,
+      first_name: row[column_mapping[header_mapping[:first_name]]].to_s || "",
+      last_name: row[column_mapping[header_mapping[:last_name]]].to_s || "",
+      uin: row[column_mapping[header_mapping[:uin]]].to_s || "",
+      expected_grad: expected_grad,
+      member_type: member_type,
+      retaining: retaining,
+      semesters_in_kanm: semesters_in_kanm,
+      show_name: show_name,
+      dj_name: row[column_mapping[header_mapping[:dj_name]]].to_s || "",
+      best_day: row[column_mapping[header_mapping[:best_day]]].to_s || "",
+      best_hour: best_hour,
+      alt_mon: format_times(row[column_mapping[header_mapping[:alt_mon]]].to_s || ""),
+      alt_tue: format_times(row[column_mapping[header_mapping[:alt_tue]]].to_s || ""),
+      alt_wed: format_times(row[column_mapping[header_mapping[:alt_wed]]].to_s || ""),
+      alt_thu: format_times(row[column_mapping[header_mapping[:alt_thu]]].to_s || ""),
+      alt_fri: format_times(row[column_mapping[header_mapping[:alt_fri]]].to_s || ""),
+      alt_sat: format_times(row[column_mapping[header_mapping[:alt_sat]]].to_s || ""),
+      alt_sun: format_times(row[column_mapping[header_mapping[:alt_sun]]].to_s || ""),
+      un_jan: row[column_mapping[header_mapping[:un_jan]]].to_s || "",
+      un_feb: row[column_mapping[header_mapping[:un_feb]]].to_s || "",
+      un_mar: row[column_mapping[header_mapping[:un_mar]]].to_s || "",
+      un_apr: row[column_mapping[header_mapping[:un_apr]]].to_s || "",
+      un_may: row[column_mapping[header_mapping[:un_may]]].to_s || ""
+    }
+  
     existing_rj = RadioJockey.find_by(show_name: show_name)
     if existing_rj
-      puts "Found an existing RJ with Show Name : ", show_name
+      puts "Found an existing RJ with Show Name: #{show_name}"
       update = false
-
+  
       if member_type != existing_rj.member_type
-        if member_type == "Returning RJ" # Returning has higher priority, else ignore
-          update = true
-        end
-      else # Same member type
+        update = true if member_type == "Returning RJ"
+      else
         if (semesters_in_kanm > existing_rj.semesters_in_kanm) ||
           (semesters_in_kanm == existing_rj.semesters_in_kanm && expected_grad < existing_rj.expected_grad) ||
           (semesters_in_kanm == existing_rj.semesters_in_kanm && expected_grad == existing_rj.expected_grad && timestamp < existing_rj.timestamp)
           update = true
         end
       end
-
+  
       if update
         puts "Incoming RJ has higher priority, hence using the data from the same"
-        existing_rj.update(
-          timestamp: timestamp,
-          first_name: row[column_mapping[header_mapping[:first_name]]].to_s || "",
-          last_name: row[column_mapping[header_mapping[:last_name]]].to_s || "",
-          uin: row[column_mapping[header_mapping[:uin]]].to_s || "",
-          expected_grad: expected_grad,
-          member_type: member_type,
-          retaining: retaining,
-          semesters_in_kanm: semesters_in_kanm,
-          show_name: show_name,
-          dj_name: row[column_mapping[header_mapping[:dj_name]]].to_s || "",
-          best_day: row[column_mapping[header_mapping[:best_day]]].to_s || "",
-          best_hour: best_hour,
-
-          alt_mon: format_times(row[column_mapping[header_mapping[:alt_mon]]].to_s || ""),
-          alt_tue: format_times(row[column_mapping[header_mapping[:alt_tue]]].to_s || ""),
-          alt_wed: format_times(row[column_mapping[header_mapping[:alt_wed]]].to_s || ""),
-          alt_thu: format_times(row[column_mapping[header_mapping[:alt_thu]]].to_s || ""),
-          alt_fri: format_times(row[column_mapping[header_mapping[:alt_fri]]].to_s || ""),
-          alt_sat: format_times(row[column_mapping[header_mapping[:alt_sat]]].to_s || ""),
-          alt_sun: format_times(row[column_mapping[header_mapping[:alt_sun]]].to_s || ""),
-
-          un_jan: row[column_mapping[header_mapping[:un_jan]]].to_s || "",
-          un_feb: row[column_mapping[header_mapping[:un_feb]]].to_s || "",
-          un_mar: row[column_mapping[header_mapping[:un_mar]]].to_s || "",
-          un_apr: row[column_mapping[header_mapping[:un_apr]]].to_s || "",
-          un_may: row[column_mapping[header_mapping[:un_may]]].to_s || "",
-        )
+        existing_rj.update(rj_data)
       end
     else
-      RadioJockey.create!(
-        timestamp: timestamp,
-        first_name: row[column_mapping[header_mapping[:first_name]]].to_s || "",
-        last_name: row[column_mapping[header_mapping[:last_name]]].to_s || "",
-        uin: row[column_mapping[header_mapping[:uin]]].to_s || "",
-        expected_grad: expected_grad,
-        member_type: member_type,
-        retaining: retaining,
-        semesters_in_kanm: semesters_in_kanm,
-        show_name: show_name,
-        dj_name: row[column_mapping[header_mapping[:dj_name]]].to_s || "",
-        best_day: row[column_mapping[header_mapping[:best_day]]].to_s || "",
-        best_hour: best_hour,
-
-        alt_mon: format_times(row[column_mapping[header_mapping[:alt_mon]]].to_s || ""),
-        alt_tue: format_times(row[column_mapping[header_mapping[:alt_tue]]].to_s || ""),
-        alt_wed: format_times(row[column_mapping[header_mapping[:alt_wed]]].to_s || ""),
-        alt_thu: format_times(row[column_mapping[header_mapping[:alt_thu]]].to_s || ""),
-        alt_fri: format_times(row[column_mapping[header_mapping[:alt_fri]]].to_s || ""),
-        alt_sat: format_times(row[column_mapping[header_mapping[:alt_sat]]].to_s || ""),
-        alt_sun: format_times(row[column_mapping[header_mapping[:alt_sun]]].to_s || ""),
-
-        un_jan: row[column_mapping[header_mapping[:un_jan]]].to_s || "",
-        un_feb: row[column_mapping[header_mapping[:un_feb]]].to_s || "",
-        un_mar: row[column_mapping[header_mapping[:un_mar]]].to_s || "",
-        un_apr: row[column_mapping[header_mapping[:un_apr]]].to_s || "",
-        un_may: row[column_mapping[header_mapping[:un_may]]].to_s || "",
-      )
+      RadioJockey.create!(rj_data)
     end
   end
+  
 
   def header_mapping
     {
