@@ -157,7 +157,7 @@ class WelcomeController < ApplicationController
 
     existing_rj = RadioJockey.find_by(show_name: show_name)
     if existing_rj
-      puts "Found an existing RJ with Show Name: #{show_name}"
+      puts "Found an existing RJ with Show Name : ", show_name
       if should_update_rj(existing_rj, row, column_mapping, header_mapping)
         puts "Incoming RJ has higher priority, hence using the data from the same"
         existing_rj.update(rj_data)
@@ -200,16 +200,20 @@ class WelcomeController < ApplicationController
 
   def should_update_rj(existing_rj, row, column_mapping, header_mapping)
     member_type = row[column_mapping[header_mapping[:member_type]]].to_s || ""
-    semesters_in_kanm = row[column_mapping[header_mapping[:semesters_in_kanm]]].to_s.to_i
-    expected_grad = "#{row[column_mapping[header_mapping[:graduating_year]]]}/#{row[column_mapping[header_mapping[:graduating_month]]]}"
+    semesters_in_kanm = row[column_mapping[header_mapping[:semesters_in_kanm]]].to_s || "0"
+    expected_grad = "#{row[column_mapping[header_mapping[:graduating_year]]].to_s || ""}/#{row[column_mapping[header_mapping[:graduating_month]]].to_s || ""}"
     timestamp = row[column_mapping[header_mapping[:timestamp]]].value.to_s || ""
 
     if member_type != existing_rj.member_type
-      member_type == "Returning RJ"
-    else
-      (existing_rj.semesters_in_kanm < semesters_in_kanm) ||
-      (existing_rj.semesters_in_kanm == semesters_in_kanm && existing_rj.expected_grad < expected_grad) ||
-      (existing_rj.semesters_in_kanm == semesters_in_kanm && existing_rj.expected_grad == expected_grad && existing_rj.timestamp < timestamp)
+      if member_type == "Returning RJ" # Returning has higher priority, else ignore
+        return true
+      end
+    else # Same member type
+      if (semesters_in_kanm > existing_rj.semesters_in_kanm) ||
+        (semesters_in_kanm == existing_rj.semesters_in_kanm && expected_grad < existing_rj.expected_grad) ||
+        (semesters_in_kanm == existing_rj.semesters_in_kanm && expected_grad == existing_rj.expected_grad && timestamp < existing_rj.timestamp)
+        return true
+      end
     end
   end
 
