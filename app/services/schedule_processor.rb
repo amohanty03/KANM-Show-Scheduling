@@ -7,6 +7,16 @@ class ScheduleProcessor
     self.sort_and_assign_timeslots_for_remaining_rjs
   end
 
+  DAYS_AS_NUMS = {
+    Monday: 0,
+    Tuesday: 1,
+    Wednesday: 2,
+    Thursday: 3,
+    Friday: 4,
+    Saturday: 5,
+    Sunday: 6
+  }
+
   def self.is_available_db(day, hour)
     entry = ScheduleEntry.find_by(day: day, hour: hour)
     if not entry.nil?
@@ -124,46 +134,20 @@ class ScheduleProcessor
     end
   end
 
-  def self.num_from_day(day) # convert to enum
-    case day.downcase
-    when :monday
-      0
-    when :tuesday
-      1
-    when :wednesday
-      2
-    when :thursday
-      3
-    when :friday
-      4
-    when :saturday
-      5
-    when :sunday
-      6
-    else
-      puts "Invalid day!"
-    end
-  end
-
-  def self.day_from_num(num) # convert to enum
-    case num
-    when 0
-      :Monday
-    when 1
-      :Tuesday
-    when 2
-      :Wednesday
-    when 3
-      :Thursday
-    when 4
-      :Friday
-    when 5
-      :Saturday
-    when 6
-      :Sunday
+  def self.day_from_num(num)
+    if DAYS_AS_NUMS.value?(num)
+      DAYS_AS_NUMS.key(num)
     else
       puts "Invalid num!"
-      puts num
+    end
+  end
+  
+  def self.num_from_day(name)
+    stylized_name = name.downcase.capitalize.to_sym
+    if DAYS_AS_NUMS.key?(stylized_name)
+      DAYS_AS_NUMS[stylized_name]
+    else
+      puts "Invalid day!"
     end
   end
 
