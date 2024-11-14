@@ -62,23 +62,29 @@ class ScheduleProcessor
     end
     range_values = {}
     alt_times.each do |key, values|
-        in_range = values.select { |value| value.to_i >= min_time && value.to_i <= max_time }
+      in_range = values.select { |value| value.to_i >= min_time && value.to_i <= max_time }
+      if range_values[key].nil? == false
+        range_values[key].concat(in_range) unless in_range.empty?
+      else
         range_values[key] = in_range unless in_range.empty?
-        if check_yesterday
-          in_range_yesterday = values.select { |value| value.to_i >= adj_day_range && value.to_i <= 23 }
-          puts "KEY"
-          puts num_from_day(key)
-          key_yesterday = (num_from_day(key) - 1) % 7
+      end
+      if check_yesterday
+        in_range_yesterday = values.select { |value| value.to_i >= adj_day_range && value.to_i <= 23 }
+        key_yesterday = day_from_num((num_from_day(key) - 1) % 7)
+        if range_values[key_yesterday].nil? == false
+          range_values[key_yesterday].concat(in_range_yesterday) unless in_range_yesterday.empty?
+        else
           range_values[key_yesterday] = in_range_yesterday unless in_range_yesterday.empty?
-          puts "FROM YESTERDAY"
-          puts in_range_yesterday
-        elsif check_tomorrow
-          in_range_tomorrow = values.select { |value| value.to_i >= 0 && value.to_i <= adj_day_range }
-          key_tomorrow = (num_from_day(key) + 1) % 7
-          range_values[key_tomorrow] = in_range_tomorrow unless in_range_tomorrow.empty?
-          puts "FROM TOMORROW"
-          puts in_range_tomorrow
         end
+      elsif check_tomorrow
+        in_range_tomorrow = values.select { |value| value.to_i >= 0 && value.to_i <= adj_day_range }
+        key_tomorrow = day_from_num((num_from_day(key) + 1) % 7)
+        if range_values[key_tomorrow].nil? == false
+          range_values[key_tomorrow].concat(in_range_tomorrow) unless in_range_tomorrow.empty?
+        else
+          range_values[key_tomorrow] = in_range_tomorrow unless in_range_tomorrow.empty?
+        end
+      end
     end
     range_values
   end
@@ -106,10 +112,16 @@ class ScheduleProcessor
   def self.num_from_day(day)
     case day.downcase
     when :monday
+      puts "Valid day!"
+      puts day
       0
     when :tuesday
+      puts "Valid day!"
+      puts day
       1
     when :wednesday
+      puts "Valid day!"
+      puts day
       2
     when :thursday
       3
@@ -121,6 +133,29 @@ class ScheduleProcessor
       6
     else
       puts "Invalid day!"
+      puts day
+    end
+  end
+
+  def self.day_from_num(num)
+    case num
+    when 0
+      :Monday
+    when 1
+      :Tuesday
+    when 2
+      :Wednesday
+    when 3
+      :Thursday
+    when 4
+      :Friday
+    when 5
+      :Saturday
+    when 6
+      :Sunday
+    else
+      puts "Invalid num!"
+      puts num
     end
   end
 
@@ -160,7 +195,7 @@ class ScheduleProcessor
         while i <= 12
           best_avail_times = best_alt_time_ranges(rj.best_hour.to_i, i, alt_times)
           # Same day, similar hour
-          if find_time_same_day(best_avail_times[num_from_day(rj.best_day)], rj) == true
+          if find_time_same_day(best_avail_times[num_from_day(rj.best_day.to_sym)], rj) == true
             break
           end
           # Different day, similar hour
