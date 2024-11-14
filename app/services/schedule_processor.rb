@@ -161,10 +161,11 @@ class ScheduleProcessor
 
   def self.find_time_same_day(times_best_day, rj)
     if times_best_day != nil
-      good_hour = times_best_day[times_best_day.length / 2]
-      if is_available_db(rj.best_day, good_hour)
-        add_entry(rj.best_day, good_hour, rj)
-        return true
+      for good_hour in times_best_day
+        if is_available_db(rj.best_day, good_hour)
+          add_entry(rj.best_day, good_hour, rj)
+          return true
+        end
       end
     end
     false
@@ -172,12 +173,13 @@ class ScheduleProcessor
 
   def self.find_time_any_day(best_avail_times, rj)
     best_avail_times.each do |day, times|
-      if not day.nil?
+      if day != nil
         num_times = times.length
-        good_hour = times[num_times / 2]
-        if is_available_db(day, good_hour)
-          add_entry(day, good_hour, rj)
-          return true
+        for good_hour in best_avail_times
+          if is_available_db(day, good_hour)
+            add_entry(day, good_hour, rj)
+            return true
+          end
         end
       end
     end
