@@ -193,19 +193,22 @@ class WelcomeController < ApplicationController
   
     existing_rj = RadioJockey.find_by(show_name: show_name)
     if existing_rj
-      puts "Found an existing RJ with Show Name: #{show_name}"
+      puts "Found an existing RJ with Show Name : ", show_name
       update = false
   
       if member_type != existing_rj.member_type
-        update = true if member_type == "Returning RJ"
-      else
+        if member_type == "Returning RJ" # Returning has higher priority, else ignore
+          update = true
+        end
+      else # Same member type
         if (semesters_in_kanm > existing_rj.semesters_in_kanm) ||
           (semesters_in_kanm == existing_rj.semesters_in_kanm && expected_grad < existing_rj.expected_grad) ||
           (semesters_in_kanm == existing_rj.semesters_in_kanm && expected_grad == existing_rj.expected_grad && timestamp < existing_rj.timestamp)
           update = true
         end
-      end
-  
+      end  
+ 
+      
       if update
         puts "Incoming RJ has higher priority, hence using the data from the same"
         existing_rj.update(rj_data)
