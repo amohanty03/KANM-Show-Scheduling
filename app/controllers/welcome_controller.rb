@@ -152,9 +152,9 @@ class WelcomeController < ApplicationController
       puts "Show name is missing, thus ignoring the entry"
       return
     end
-  
+
     rj_data = prepare_rj_data(row, column_mapping, header_mapping)
-  
+
     existing_rj = RadioJockey.find_by(show_name: show_name)
     if existing_rj
       puts "Found an existing RJ with Show Name: #{show_name}"
@@ -166,9 +166,9 @@ class WelcomeController < ApplicationController
       RadioJockey.create!(rj_data)
     end
   end
-  
+
   private
-  
+
   def prepare_rj_data(row, column_mapping, header_mapping)
     {
       timestamp: row[column_mapping[header_mapping[:timestamp]]].value.to_s || "",
@@ -197,13 +197,13 @@ class WelcomeController < ApplicationController
       un_may: row[column_mapping[header_mapping[:un_may]]].to_s || ""
     }
   end
-  
+
   def should_update_rj(existing_rj, row, column_mapping, header_mapping)
     member_type = row[column_mapping[header_mapping[:member_type]]].to_s || ""
     semesters_in_kanm = row[column_mapping[header_mapping[:semesters_in_kanm]]].to_s.to_i
-    expected_grad = "#{row[column_mapping[header_mapping[:graduating_year]]].to_s}/#{row[column_mapping[header_mapping[:graduating_month]]].to_s}"
+    expected_grad = "#{row[column_mapping[header_mapping[:graduating_year]]]}/#{row[column_mapping[header_mapping[:graduating_month]]]}"
     timestamp = row[column_mapping[header_mapping[:timestamp]]].value.to_s || ""
-  
+
     if member_type != existing_rj.member_type
       member_type == "Returning RJ"
     else
@@ -212,7 +212,7 @@ class WelcomeController < ApplicationController
       (existing_rj.semesters_in_kanm == semesters_in_kanm && existing_rj.expected_grad == expected_grad && existing_rj.timestamp < timestamp)
     end
   end
-  
+
 
   def header_mapping
     {
