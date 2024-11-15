@@ -42,10 +42,10 @@ class CalendarController < ApplicationController
 
   def format_time_list(time_list_str)
     return "" if time_list_str.nil? || time_list_str.empty?
- 
+
     time_list_str.split(";").map { |hour| "#{hour.to_i.to_s.rjust(2, '0')}:00" }.join(";")
   end
-  
+
 
   def download_unassigned_rjs
     unassigned_rjs = ScheduleProcessor.unassigned_rjs
