@@ -60,25 +60,15 @@ class ScheduleProcessor
     puts "Processing returning RJ who've retaining their slots."
   end
 
-  def self.add_times_yesterday(values, adj_day_range, adj_check, range_values, key_yesterday)
-    in_range_yesterday = values.select { |value| (value.to_i >= adj_day_range && value.to_i <= adj_check) }
-
-    if range_values[key_yesterday].nil? == false
-      range_values[key_yesterday].concat(in_range_yesterday) unless in_range_yesterday.empty?
-    else
-      range_values[key_yesterday] = in_range_yesterday unless in_range_yesterday.empty?
+  def self.add_in_range(key, values, range_values, min, max)
+    in_range = values.select { |value| (value.to_i >= min && value.to_i <= max) }
+      if range_values[key].nil? == false
+        range_values[key].concat(in_range) unless in_range.empty?
+      else
+        range_values[key] = in_range unless in_range.empty?
+      end
+      range_values
     end
-  end
-
-  def self.add_times_tomorrow(values, adj_day_range, adj_check, range_values, key_tomorrow)
-    in_range_tomorrow = values.select { |value| value.to_i >= adj_check && value.to_i <= adj_day_range }
-
-    if range_values[key_tomorrow].nil? == false
-      range_values[key_tomorrow].concat(in_range_tomorrow) unless in_range_tomorrow.empty?
-    else
-      range_values[key_tomorrow] = in_range_tomorrow unless in_range_tomorrow.empty?
-    end
-  end
 
   def self.best_alt_time_ranges(best_time, range, range_step, alt_times)
     min_time = best_time - range
@@ -114,17 +104,12 @@ class ScheduleProcessor
     range_values = {}
     alt_times.each do |key, values|
       in_range = values.select { |value| (value.to_i >= min_time && value.to_i <= min_check) || (value.to_i >= max_check && value.to_i <= max_time) }
-      if range_values[key].nil? == false
-        range_values[key].concat(in_range) unless in_range.empty?
-      else
-        range_values[key] = in_range unless in_range.empty?
-      end
+      range_values = add_in_range(key, values, range_values, min_time, min_check)
+      range_values = add_in_range(key, values, range_values, max_check, max_time)
       if add_to_yesterday
-        key_yesterday = day_from_num((num_from_day(key) - 1) % 7)
-        add_times_yesterday(alt_times[key_yesterday], adj_day_range, adj_check, range_values, key_yesterday)
+        range_values = add_in_range(key, values, range_values, adj_day_range, adj_check)
       elsif add_to_tomorrow
-        key_tomorrow = day_from_num((num_from_day(key) + 1) % 7)
-        add_times_tomorrow(alt_times[key_tomorrow], adj_day_range, adj_check, range_values, key_tomorrow)
+        range_values = add_in_range(key, values, range_values, adj_check, adj_day_range)
       end
     end
     range_values

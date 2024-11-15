@@ -30,6 +30,19 @@ Scenario: there are no alternate times in range
     And I am free "Monday" at 9
     Then I should not see "Monday" at 9 in the range list
 
+Scenario: there are alternate times in range yesterday
+    Given I have a best time of 1
+    And I have a range of 6 hours
+    And I have a range step of 3 hours
+    And I am free "Sunday" at 20
+    Then I should see "Sunday" at 20 in the range list
+
+Scenario: there are no alternate times in range yesterday
+    Given I have a best time of 1
+    And I have a range of 3 hours
+    And I have a range step of 3 hours
+    And I am free "Sunday" at 20
+    Then I should not see "Sunday" at 20 in the range list
 
 Scenario: convert Monday to 0
     Given I have the day "Monday"
