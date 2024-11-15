@@ -46,10 +46,10 @@ class CalendarController < ApplicationController
     package = Axlsx::Package.new
 
     package.workbook.add_worksheet(name: "Unassigned RJs") do |sheet|
-      sheet.add_row [ "UIN", "First Name", "Last Name", "DJ Name", "Member Type", "Semesters in KANM", "Expected Graduation", "Timestamp", "Show Name", "Best Day", "Best Hour", "Alternative Timeslots [Monday]", "Alternative Timeslots [Tuesday]", "Alternative Timeslots [Wednesday]", "Alternative Timeslots [Thursday]", "Alternative Timeslots [Friday]", "Alternative Timeslots [Saturday]", "Alternative Timeslots [Sunday]"]
+      sheet.add_row [ "UIN", "First Name", "Last Name", "DJ Name", "Member Type", "Semesters in KANM", "Expected Graduation", "Timestamp", "Show Name", "Best Day", "Best Hour", "Alternative Timeslots [Monday]", "Alternative Timeslots [Tuesday]", "Alternative Timeslots [Wednesday]", "Alternative Timeslots [Thursday]", "Alternative Timeslots [Friday]", "Alternative Timeslots [Saturday]", "Alternative Timeslots [Sunday]" ]
 
       unassigned_rjs.each do |rj|
-        sheet.add_row [ rj.uin, rj.first_name, rj.last_name, rj.dj_name, rj.member_type, rj.semesters_in_kanm, rj.expected_grad, rj.timestamp, rj.show_name, rj.best_day, rj.best_hour, rj.alt_mon, rj.alt_tue, rj.alt_wed, rj.alt_thu, rj.alt_fri, rj.alt_sat, rj.alt_sun ]  
+        sheet.add_row [ rj.uin, rj.first_name, rj.last_name, rj.dj_name, rj.member_type, rj.semesters_in_kanm, rj.expected_grad, rj.timestamp, rj.show_name, rj.best_day, rj.best_hour, rj.alt_mon, rj.alt_tue, rj.alt_wed, rj.alt_thu, rj.alt_fri, rj.alt_sat, rj.alt_sun ]
       end
     end
 
