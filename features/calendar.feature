@@ -19,11 +19,11 @@ Background: Successful login with a tamu.edu email
 
   Scenario: Download button for unassigned RJ list is present
     Given I am on the calendar page
-    Then I should see the "Download Unassigned RJs" link
+    Then I should see the "Download Unassigned RJ List" link
 
   Scenario: Download unassigned RJ list as an Excel file
     Given I am on the calendar page
-    When I click the "Download Unassigned RJs" link
+    When I click the "Download Unassigned RJ List" link
     Then I should be able to download an Excel file containing the unassigned RJ list
 
   Scenario: Upload a file containing data and generate a schedule using it
