@@ -23,23 +23,24 @@
   <thead>
     <tr>
       <th>Time Slot</th>
-      <th>Details</th> <!-- Placeholder for variable data -->
+      <th>Details</th> 
     </tr>
   </thead>
   <tbody>
     <% @time_slots.each_with_index do |slot, index| %>
       <% entry = @daily_schedule.find { |e| e.hour == index } %>
+      
       <% if entry.present? && entry.show_name.present? %>
         <tr>
-          <td><%= slot %></td>
+          <td><%= slot %></td> 
           <td>
-            <strong>Show Name:</strong> <%= entry.show_name %><br>
-            <% # Find the matching radio_jockey for this show_name %>
-            <% matching_rj = RadioJockey.find_by(show_name: entry.show_name) %>
-            <% if matching_rj.dj_name.present? %>
-              <strong>DJ Name:</strong> <%= matching_rj.dj_name %>
+            <% if entry.show_name.present? && entry.last_name.present? %>
+              <strong>Show Name:</strong> <%= entry.show_name %><br>
+            <% end %>
+            <% if entry.radio_jockey.dj_name.present? %>
+              <strong>DJ Name:</strong> <%= entry.radio_jockey.dj_name %><br>
             <% else %>
-              <strong>Name:</strong> <%= matching_rj.first_name %> <%= matching_rj.last_name %>
+              <strong>DJ Name:</strong> <%= entry.radio_jockey.first_name %> <%= entry.radio_jockey.last_name %><br>
             <% end %>
           </td>
         </tr>
