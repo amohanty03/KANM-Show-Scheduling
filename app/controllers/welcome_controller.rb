@@ -126,7 +126,6 @@ class WelcomeController < ApplicationController
   end
 
   def convert_to_24_hr_format(time)
-    # raise ArgumentError, "Best Hour cannot be nil, please fix the spreadsheet" if time.nil?
     hour, ampm = time.split(" ")
     if hour == "12"
       ampm == "AM" ? "0" : "12"
