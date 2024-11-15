@@ -23,7 +23,7 @@ Given("a radio jockey with a show name {string} and last name {string} is availa
 end
 
 Given("I have the day {string}") do |day|
-    @day_name = day
+    @day_name = day.to_sym
 end
 
 Given("the following schedule") do |table|
@@ -120,17 +120,21 @@ Given('I have a range of {int} hours') do |int|
     @range = int
 end
 
+Given('I have a range step of {int} hours') do |int|
+    @range_step = int
+end
+
 Given('I am free {string} at {int}') do |string, int|
     @alt_times = { string => [ int ] }
 end
 
 Then('I should see {string} at {int} in the range list') do |string, int|
-    range_list = ScheduleProcessor.best_alt_time_ranges(@best_time, @range, @alt_times)
+    range_list = ScheduleProcessor.best_alt_time_ranges(@best_time, @range, @range_step,  @alt_times)
     expect(range_list) == { string => [ int ] }
 end
 
 Then('I should not see {string} at {int} in the range list') do |string, int|
-    range_list = ScheduleProcessor.best_alt_time_ranges(@best_time, @range, @alt_times)
+    range_list = ScheduleProcessor.best_alt_time_ranges(@best_time, @range, @range_step, @alt_times)
     expect(range_list) != { string => [ int ] }
 end
 Then("I should get number {int}") do |num|

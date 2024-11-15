@@ -31,7 +31,7 @@ RSpec.describe ScheduleProcessor, type: :service do
             Sunday: []
         }
 
-        result = ScheduleProcessor.best_alt_time_ranges(3, 3, alt_times)
+        result = ScheduleProcessor.best_alt_time_ranges(3, 3, 3, alt_times)
         expect(alt_times == expected_times)
     end
 end

@@ -9,13 +9,27 @@ class ScheduleProcessor
     self.sort_and_assign_timeslots_for_remaining_rjs
   end
 
+  DAYS_AS_NUMS = {
+    Monday: 0,
+    Tuesday: 1,
+    Wednesday: 2,
+    Thursday: 3,
+    Friday: 4,
+    Saturday: 5,
+    Sunday: 6
+  }
+
   def self.unassigned_rjs
     @unassigned_rjs
   end
 
   def self.is_available_db(day, hour)
     entry = ScheduleEntry.find_by(day: day, hour: hour)
-    entry.show_name.nil?
+    if not entry.nil?
+      entry.show_name.nil?
+    else
+      false
+    end
   end
 
   def self.add_entry(day, hour, jockey)
@@ -46,26 +60,57 @@ class ScheduleProcessor
     puts "Processing returning RJ who've retaining their slots."
   end
 
-  def self.best_alt_time_ranges(best_time, range, alt_times)
+  def self.add_in_range(key, values, range_values, min, max)
+    in_range = values.select { |value| (value.to_i >= min && value.to_i <= max) }
+      if range_values[key].nil? == false
+        range_values[key].concat(in_range) unless in_range.empty?
+      else
+        range_values[key] = in_range unless in_range.empty?
+      end
+      range_values
+    end
+
+  def self.best_alt_time_ranges(best_time, range, range_step, alt_times)
     min_time = best_time - range
+    min_check = min_time + range_step
     max_time = best_time + range
-    # check_yesterday = false
-    # check_tomorrow = false
-    # adj_day_range = 0
+    max_check = max_time - range_step
+    add_to_yesterday = false
+    add_to_tomorrow = false
+    adj_day_range = 0
+    adj_check = 0
 
     if best_time < range
-      # check_yesterday = true
-      # adj_day_range = 0 - min_time
+      add_to_yesterday = true
+      adj_day_range = 0 - min_time
+      if adj_day_range > range_step
+        min_check = 0
+        adj_check = adj_day_range + range_step
+      else
+        adj_check = 23
+      end
       min_time = 0
     elsif best_time > (23 - range)
-      # check_tomorrow = true
-      # adj_day_range = max_time - 23
+      add_to_tomorrow = true
+      adj_day_range = max_time - 23
+      if adj_day_range > range_step
+        max_check = 23
+        adj_check = adj_day_range - range_step
+      else
+        adj_check = 0
+      end
       max_time = 23
     end
     range_values = {}
     alt_times.each do |key, values|
-        in_range = values.select { |value| value.to_i >= min_time && value.to_i <= max_time }
-        range_values[key] = in_range unless in_range.empty?
+      in_range = values.select { |value| (value.to_i >= min_time && value.to_i <= min_check) || (value.to_i >= max_check && value.to_i <= max_time) }
+      range_values = add_in_range(key, values, range_values, min_time, min_check)
+      range_values = add_in_range(key, values, range_values, max_check, max_time)
+      if add_to_yesterday
+        range_values = add_in_range(key, values, range_values, adj_day_range, adj_check)
+      elsif add_to_tomorrow
+        range_values = add_in_range(key, values, range_values, adj_check, adj_day_range)
+      end
     end
     range_values
   end
@@ -90,22 +135,18 @@ class ScheduleProcessor
     end
   end
 
-  def self.num_from_day(day)
-    case day.downcase
-    when "monday"
-      0
-    when "tuesday"
-      1
-    when "wednesday"
-      2
-    when "thursday"
-      3
-    when "friday"
-      4
-    when "saturday"
-      5
-    when "sunday"
-      6
+  def self.day_from_num(num)
+    if DAYS_AS_NUMS.value?(num)
+      DAYS_AS_NUMS.key(num)
+    else
+      puts "Invalid num!"
+    end
+  end
+
+  def self.num_from_day(name)
+    stylized_name = name.downcase.capitalize.to_sym
+    if DAYS_AS_NUMS.key?(stylized_name)
+      DAYS_AS_NUMS[stylized_name]
     else
       puts "Invalid day!"
     end
@@ -124,7 +165,7 @@ class ScheduleProcessor
 
   def self.find_time_any_day(best_avail_times, rj)
     best_avail_times.each do |day, times|
-      if not day.empty?
+      if day != nil
         num_times = times.length
         good_hour = times[num_times / 2]
         if is_available_db(day, good_hour)
@@ -147,8 +188,9 @@ class ScheduleProcessor
       else
         # Find alternative
         i = 3
+        range_step = 3
         while i <= 12
-          best_avail_times = best_alt_time_ranges(rj.best_hour.to_i, i, alt_times)
+          best_avail_times = best_alt_time_ranges(rj.best_hour.to_i, i, range_step, alt_times)
           # Same day, similar hour
           if find_time_same_day(best_avail_times[num_from_day(rj.best_day)], rj) == true
             assigned = true
@@ -159,7 +201,7 @@ class ScheduleProcessor
             assigned = true
             break
           end
-          i += 3
+          i += range_step
         end
       end
       # If no slot was assigned, add RJ to unassigned list
