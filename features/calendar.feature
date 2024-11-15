@@ -10,7 +10,7 @@ Background: Successful login with a tamu.edu email
   Scenario: User views the calendar index for a specific day
     Given I visit the calendar index with the day "Tuesday"
     Then I should see the selected day as "Tuesday"
-    And I should see time slots for the whole day
+    And I should see no time slots for the whole day
 
   Scenario: User wants to export the entire weekly schedule
     Given I visit the calendar index with the day "Tuesday"
@@ -25,4 +25,12 @@ Background: Successful login with a tamu.edu email
     Given I am on the calendar page
     When I click the "Download Unassigned RJs" link
     Then I should be able to download an Excel file containing the unassigned RJ list
+
+  Scenario: Upload a file containing data and generate a schedule using it
+    Given I upload a CSV file with just two entries
+    Then  I should see "RJ_Two_Entries.xlsx"
+    When  I check the checkbox for "RJ_Two_Entries.xlsx"
+    And   I click the "Generate Schedule" button to generate the schedule
+    Then  I should be taken to the calendar page
+    Then  I should see 2 filled timeslots
 
