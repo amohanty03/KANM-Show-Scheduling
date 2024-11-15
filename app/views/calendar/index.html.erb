@@ -22,82 +22,28 @@
   <thead>
     <tr>
       <th>Time Slot</th>
-      <th>Details</th> <!-- Placeholder for variable data -->
+      <th>Details</th> 
     </tr>
   </thead>
   <tbody>
     <% @time_slots.each_with_index do |slot, index| %>
-    <tr>
-      <td><%= slot %></td>
       <% entry = @daily_schedule.find { |e| e.hour == index } %>
-      <td>
-        <% if entry.present? && entry.show_name.present? && entry.last_name.present?%>
-          <strong>Show Name:</strong> <%= entry.show_name %><br>
-          <strong>ID:</strong> <%= entry.jockey_id %><br>
-        <% if entry.radio_jockey.dj_name.present? %>
-          <strong>DJ Name:</strong> <%= entry.radio_jockey.dj_name %><br>
-        <% else %>
-          <strong>DJ Name:</strong> <%= entry.radio_jockey.first_name %> <%= entry.radio_jockey.last_name %><br>
-        <% end %>
-        <% else %>
-          Empty
-        <% end %>
-      </td>
-    </tr>
-  <% end %>
-  </tbody>
-</table>
-
-<table class="min-w-full border-collapse border border-gray-300">
-  <thead>
-    <tr>
-      <th class="border border-gray-300 p-2">Timestamp</th>
-      <th class="border border-gray-300 p-2">Show Name</th>
-      <th class="border border-gray-300 p-2">First Name</th>
-      <th class="border border-gray-300 p-2">Last Name</th>
-      <th class="border border-gray-300 p-2">UIN</th>
-      <th class="border border-gray-300 p-2">Expected Grad</th>
-      <th class="border border-gray-300 p-2">Member Type</th>
-      <th class="border border-gray-300 p-2">Retaining</th>
-      <th class="border border-gray-300 p-2">Semesters in KANM</th>
-      <th class="border border-gray-300 p-2">DJ Name</th>
-      <th class="border border-gray-300 p-2">Best Day</th>
-      <th class="border border-gray-300 p-2">Best Hour</th>
-      <th class="border border-gray-300 p-2">Alt Mon</th>
-      <th class="border border-gray-300 p-2">Alt Tue</th>
-      <th class="border border-gray-300 p-2">Alt Wed</th>
-      <th class="border border-gray-300 p-2">Alt Thu</th>
-      <th class="border border-gray-300 p-2">Alt Fri</th>
-      <th class="border border-gray-300 p-2">Alt Sat</th>
-      <th class="border border-gray-300 p-2">Alt Sun</th>
-
-
-    </tr>
-  </thead>
-  <tbody>
-    <% @radio_jockeys.each do |rj| %>
-      <tr>
-        <td class="border border-gray-300 p-2"><%= rj.timestamp %></td>
-        <td class="border border-gray-300 p-2"><%= rj.show_name %></td>
-        <td class="border border-gray-300 p-2"><%= rj.first_name %></td>
-        <td class="border border-gray-300 p-2"><%= rj.last_name %></td>
-        <td class="border border-gray-300 p-2"><%= rj.uin %></td>
-        <td class="border border-gray-300 p-2"><%= rj.expected_grad %></td>
-        <td class="border border-gray-300 p-2"><%= rj.member_type %></td>
-        <td class="border border-gray-300 p-2"><%= rj.retaining %></td>
-        <td class="border border-gray-300 p-2"><%= rj.semesters_in_kanm %></td>
-        <td class="border border-gray-300 p-2"><%= rj.dj_name %></td>
-        <td class="border border-gray-300 p-2"><%= rj.best_day %></td>
-        <td class="border border-gray-300 p-2"><%= rj.best_hour %></td>
-        <td class="border border-gray-300 p-2"><%= rj.alt_mon %></td>
-        <td class="border border-gray-300 p-2"><%= rj.alt_tue %></td>
-        <td class="border border-gray-300 p-2"><%= rj.alt_wed %></td>
-        <td class="border border-gray-300 p-2"><%= rj.alt_thu %></td>
-        <td class="border border-gray-300 p-2"><%= rj.alt_fri %></td>
-        <td class="border border-gray-300 p-2"><%= rj.alt_sat %></td>
-        <td class="border border-gray-300 p-2"><%= rj.alt_sun %></td>
-      </tr>
+    
+      <% if entry.present? && entry.show_name.present? %>
+        <tr>
+          <td><%= slot %></td> 
+          <td>
+            <% if entry.show_name.present? && entry.last_name.present? %>
+              <strong>Show Name:</strong> <%= entry.show_name %><br>
+            <% end %>
+            <% if entry.radio_jockey.dj_name.present? %>
+              <strong>DJ Name:</strong> <%= entry.radio_jockey.dj_name %><br>
+            <% else %>
+              <strong>DJ Name:</strong> <%= entry.radio_jockey.first_name %> <%= entry.radio_jockey.last_name %><br>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
     <% end %>
   </tbody>
 </table>
-
