@@ -40,16 +40,24 @@ class CalendarController < ApplicationController
     send_data package.to_stream.read, filename: file_name, type: "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
   end
 
+  def format_time_list(time_list_str)
+    return "" if time_list_str.nil? || time_list_str.empty?
+
+    time_list_str.split(";").map { |hour| "#{hour.to_i.to_s.rjust(2, '0')}:00" }.join(";")
+  end
+
+
   def download_unassigned_rjs
     unassigned_rjs = ScheduleProcessor.unassigned_rjs
 
     package = Axlsx::Package.new
 
     package.workbook.add_worksheet(name: "Unassigned RJs") do |sheet|
-      sheet.add_row [ "UIN", "First Name", "Last Name", "DJ Name", "Member Type", "Semesters in KANM", "Expected Graduation", "Timestamp", "Show Name" ]
+      sheet.add_row [ "UIN", "First Name", "Last Name", "DJ Name", "Member Type", "Semesters in KANM", "Expected Graduation", "Timestamp", "Show Name", "Best Day", "Best Hour", "Alternative Timeslots [Monday]", "Alternative Timeslots [Tuesday]", "Alternative Timeslots [Wednesday]", "Alternative Timeslots [Thursday]", "Alternative Timeslots [Friday]", "Alternative Timeslots [Saturday]", "Alternative Timeslots [Sunday]" ]
 
       unassigned_rjs.each do |rj|
-        sheet.add_row [ rj.uin, rj.first_name, rj.last_name, rj.dj_name, rj.member_type, rj.semesters_in_kanm, rj.expected_grad, rj.timestamp, rj.show_name ]
+        formatted_best_hour = "#{rj.best_hour.to_i.to_s.rjust(2, '0')}:00"
+        sheet.add_row [ rj.uin, rj.first_name, rj.last_name, rj.dj_name, rj.member_type, rj.semesters_in_kanm, rj.expected_grad, rj.timestamp, rj.show_name, rj.best_day, formatted_best_hour, format_time_list(rj.alt_mon), format_time_list(rj.alt_tue), format_time_list(rj.alt_wed), format_time_list(rj.alt_thu), format_time_list(rj.alt_fri), format_time_list(rj.alt_sat), format_time_list(rj.alt_sun) ]
       end
     end
 
