@@ -126,7 +126,6 @@ class WelcomeController < ApplicationController
   end
 
   def convert_to_24_hr_format(time)
-    # raise ArgumentError, "Best Hour cannot be nil, please fix the spreadsheet" if time.nil?
     hour, ampm = time.split(" ")
     if hour == "12"
       ampm == "AM" ? "0" : "12"
@@ -147,36 +146,42 @@ class WelcomeController < ApplicationController
   end
 
   def create_radio_jockey(row, row_index, xlsx, column_mapping, header_mapping)
-    best_hour_string = row[column_mapping[header_mapping[:best_hour]]].to_s || ""
-    best_hour = convert_to_24_hr_format(best_hour_string)
-    expected_grad_year = row[column_mapping[header_mapping[:graduating_year]]].to_s || ""
-    expected_grad_month = row[column_mapping[header_mapping[:graduating_month]]].to_s || ""
-    expected_grad = "#{expected_grad_year}/#{expected_grad_month}"
-    semesters_in_kanm = row[column_mapping[header_mapping[:semesters_in_kanm]]].to_s || "0"
-    timestamp = row[column_mapping[header_mapping[:timestamp]]].value.to_s || ""
-    member_type = row[column_mapping[header_mapping[:member_type]]].to_s || ""
-    show_name = row[column_mapping[header_mapping[:show_name]]].to_s || ""
-    retaining = column_mapping.key?(header_mapping[:retaining]) ? row[column_mapping[header_mapping[:retaining]]].to_s || "No" : "No"
-
-    if show_name.strip.empty?
+    show_name = row[column_mapping[header_mapping[:show_name]]].to_s.strip
+    if show_name.empty?
       puts "Show name is missing, thus ignoring the entry"
       return
     end
 
-    # Prepare the common data
-    rj_data = {
-      timestamp: timestamp,
+    rj_data = prepare_rj_data(row, column_mapping, header_mapping)
+
+    existing_rj = RadioJockey.find_by(show_name: show_name)
+    if existing_rj
+      puts "Found an existing RJ with Show Name : ", show_name
+      if should_update_rj(existing_rj, row, column_mapping, header_mapping, rj_data)
+        puts "Incoming RJ has higher priority, hence using the data from the same"
+        existing_rj.update(rj_data)
+      end
+    else
+      RadioJockey.create!(rj_data)
+    end
+  end
+
+  private
+
+  def prepare_rj_data(row, column_mapping, header_mapping)
+    {
+      timestamp: row[column_mapping[header_mapping[:timestamp]]].value.to_s || "",
       first_name: row[column_mapping[header_mapping[:first_name]]].to_s || "",
       last_name: row[column_mapping[header_mapping[:last_name]]].to_s || "",
       uin: row[column_mapping[header_mapping[:uin]]].to_s || "",
-      expected_grad: expected_grad,
-      member_type: member_type,
-      retaining: retaining,
-      semesters_in_kanm: semesters_in_kanm,
-      show_name: show_name,
+      expected_grad: "#{row[column_mapping[header_mapping[:graduating_year]]].to_s || ""}/#{row[column_mapping[header_mapping[:graduating_month]]].to_s || ""}",
+      member_type: row[column_mapping[header_mapping[:member_type]]].to_s || "",
+      retaining: column_mapping.key?(header_mapping[:retaining]) ? row[column_mapping[header_mapping[:retaining]]].to_s || "No" : "No",
+      semesters_in_kanm: row[column_mapping[header_mapping[:semesters_in_kanm]]].to_s || "0",
+      show_name: row[column_mapping[header_mapping[:show_name]]].to_s.strip,
       dj_name: row[column_mapping[header_mapping[:dj_name]]].to_s || "",
       best_day: row[column_mapping[header_mapping[:best_day]]].to_s || "",
-      best_hour: best_hour,
+      best_hour: convert_to_24_hr_format(row[column_mapping[header_mapping[:best_hour]]].to_s || ""),
       alt_mon: format_times(row[column_mapping[header_mapping[:alt_mon]]].to_s || ""),
       alt_tue: format_times(row[column_mapping[header_mapping[:alt_tue]]].to_s || ""),
       alt_wed: format_times(row[column_mapping[header_mapping[:alt_wed]]].to_s || ""),
@@ -190,32 +195,27 @@ class WelcomeController < ApplicationController
       un_apr: row[column_mapping[header_mapping[:un_apr]]].to_s || "",
       un_may: row[column_mapping[header_mapping[:un_may]]].to_s || ""
     }
+  end
 
-    existing_rj = RadioJockey.find_by(show_name: show_name)
-    if existing_rj
-      puts "Found an existing RJ with Show Name : ", show_name
-      update = false
+  def should_update_rj(existing_rj, row, column_mapping, header_mapping, rj_data)
+    member_type = rj_data[:member_type]
+    semesters_in_kanm = rj_data[:semesters_in_kanm]
+    expected_grad = rj_data[:expected_grad]
+    timestamp = rj_data[:timestamp]
 
-      if member_type != existing_rj.member_type
-        if member_type == "Returning RJ" # Returning has higher priority, else ignore
-          update = true
-        end
-      else # Same member type
-        if (semesters_in_kanm > existing_rj.semesters_in_kanm) ||
-          (semesters_in_kanm == existing_rj.semesters_in_kanm && expected_grad < existing_rj.expected_grad) ||
-          (semesters_in_kanm == existing_rj.semesters_in_kanm && expected_grad == existing_rj.expected_grad && timestamp < existing_rj.timestamp)
-          update = true
-        end
+    if member_type != existing_rj.member_type
+      if member_type == "Returning RJ" # Returning has higher priority, else ignore
+        return true
       end
-
-
-      if update
-        puts "Incoming RJ has higher priority, hence using the data from the same"
-        existing_rj.update(rj_data)
+    else # Same member type
+      if (semesters_in_kanm > existing_rj.semesters_in_kanm) ||
+         (semesters_in_kanm == existing_rj.semesters_in_kanm && expected_grad < existing_rj.expected_grad) ||
+         (semesters_in_kanm == existing_rj.semesters_in_kanm && expected_grad == existing_rj.expected_grad && timestamp < existing_rj.timestamp)
+        return true
       end
-    else
-      RadioJockey.create!(rj_data)
     end
+
+    false
   end
 
 
