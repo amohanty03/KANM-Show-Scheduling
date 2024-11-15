@@ -67,4 +67,20 @@ RSpec.describe CalendarController, type: :controller do
       expect(response.header['Content-Disposition']).to include('Weekly_Schedule.xlsx')
     end
   end
+
+  describe 'GET #download_unassigned_rjs' do
+    before do
+      mock_user_sign_in
+      allow(ScheduleProcessor).to receive(:unassigned_rjs).and_return([])
+    end
+
+    it 'downloads the Excel file for unassigned RJs' do
+      get :download_unassigned_rjs
+
+      expect(response).to have_http_status(:success)
+      expect(response.header['Content-Type']).to eq 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      expect(response.header['Content-Disposition']).to include('attachment')
+      expect(response.header['Content-Disposition']).to include('unassigned_rjs.xlsx')
+    end
+  end
 end

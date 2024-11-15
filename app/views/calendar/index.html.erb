@@ -4,7 +4,6 @@
   <%= link_to 'Export Schedule', export_calendar_index_path(day: @selected_day), class: 'framed-button' %>
   <%= link_to "Download Unassigned RJs", download_unassigned_rjs_calendar_index_path, class: 'framed-button' %>
 </div>
-
 <div class="mt-4 ms-4">
   <%= form_with(url: calendar_path, method: :get, local: true) do %>
     <label for="day">Select a day:</label>
@@ -29,7 +28,7 @@
   <tbody>
     <% @time_slots.each_with_index do |slot, index| %>
       <% entry = @daily_schedule.find { |e| e.hour == index } %>
-      
+    
       <% if entry.present? && entry.show_name.present? %>
         <tr>
           <td><%= slot %></td> 
