@@ -1,0 +1,33 @@
+name: Request Admin Access
+description: Create a report to request for admin access to KANM
+labels: ["feature"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        > [!IMPORTANT]
+        > Before you start, read [the README](https://github.com/amohanty03/KANM-Show-Scheduling/blob/main/README.md) for initial setup.
+  - type: input
+    id: firstname
+    attributes:
+      label: First Name
+      description: Please provide your first name.
+      placeholder: Please provide your first name.
+    validations:
+      required: true
+  - type: input
+    id: lastname
+    attributes:
+      label: Last Name
+      description: Please provide your last name.
+      placeholder: Please provide your last name.
+    validations:
+      required: true
+  - type: input
+    id: email
+    attributes:
+      label: Email
+      description: Please provide your @tamu.edu email ID.
+      placeholder: Please provide your @tamu.edu email ID.
+    validations:
+      required: true
