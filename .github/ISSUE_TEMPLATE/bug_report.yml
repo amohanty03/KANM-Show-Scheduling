@@ -6,7 +6,7 @@ body:
     attributes:
       value: |
         > [!IMPORTANT]
-        > Before you start, read [the rules](https://github.com/BartoszCichecki/LenovoLegionToolkit/blob/master/CONTRIBUTING.md) for contributing.
+        > Before you start, read [the README](https://github.com/amohanty03/KANM-Show-Scheduling/blob/main/README.md) for initial setup.
   - type: textarea
     id: troubleshoot
     attributes:
