@@ -31,11 +31,13 @@
 
 # Getting Started in Local
 ## 1. Clone the project and install dependencies
-- Clone the repoistory to your local machine
-- Run `bundle config set --local without 'production' && bundle install`. 
-- Run `bundle install` to install Gem dependencies
+1. Clone the repoistory to your local machine
+2. Run `bundle config set --local without 'production' && bundle install`. 
+3. Run `bundle install` to install Gem dependencies
+
 Note: If running into issues when bundle can't install a specific dependency, it is suggested to install the package with sudo before running "bundle install" again.
 For example: sudo apt install postgresql
+
 Note: It is possible that "bundle install" will not work before setting up the Authentication Service in step 2, this is because the omniauth gems need the service configuration
 
 ## 2. Setup Google Authentication Service
@@ -57,7 +59,7 @@ Note: If you deploy your application to hosting service, you will need to add th
 4. Click "Create."
 You will receive a client ID and client secret. Save this information to a safe place as it will be used to setup your local application in the next step
 
-In the future, if it is desired for other authentication service, the instruction can be found in [this project](https://github.com/tamu-edu-students/Google-Auth-Ruby-By-JD)
+Note: In the future, if it is desired for other authentication service, the instruction can be found in [this project](https://github.com/tamu-edu-students/Google-Auth-Ruby-By-JD)
 
 ## 3. Add OAuth ID and Secret to Rails Credentials
 1. Open a terminal in the root of your cloned project
