@@ -83,7 +83,7 @@ Note: It is possible that "bundle install" will not work before setting up the A
      client_id: your_client_id_from_previous_step
      client_secret: your_client_secret_from_previous_step
 ```
-3. A `master.key` and `credentials.yml.enc` will be generated. If you could not finish "bundle install" in step 1, this is the good time to run it again and install all required dependencies
+3. A `master.key` and `credentials.yml.enc` will be generated. If it fails saying "cannot decrypt", then delete the old file. If you could not finish "bundle install" in step 1, this is the good time to run it again and install all required dependencies
 
 ### 4. Adding db:seed for user authentication
 The db is initially seeded with this project developers as admins, to add yourself, go to app->db->seeds.rb and add the following with your information
@@ -115,7 +115,7 @@ Note: Your tamu email is a required field. Role 1 is super admin which can add, 
    (Example: `heroku git:remote -a kanm-pv -r heroku-pv`). 
    The `-r` flag lets you rename the remote, so pick a unique name so that it doesn't clash with any existing deployments you may have.
 - Run: `git remote` to verify that its been added.
-- Next run: `heroku push <your-heroku-remote-name> main` (Example `heroku push heroku-pv main`). This should succeed.
+- Next run: `git push <your-heroku-remote-name> main` (Example `git push heroku-pv main`). This should succeed.
 - Next go to your Heroku app page, and open up a **bash** console there. Then run: `rails db:migrate` and `rails db:seed`.
 - Now on your Heroku app page, click the button "Open App" to view the deployed application. You should successfully see the required home page of our application.
 
