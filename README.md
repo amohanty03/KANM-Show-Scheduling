@@ -132,7 +132,7 @@ Note: Your tamu email is a required field. Role 1 is super admin which can add, 
 
 ### 3. GCP Change
 - Note the domain of the deployed app.
-- Before you try logging in, you need to add the **callback** to Google Auth. Hence the URL for this will be based on the above URL you got from the previous step, but substitute the `/login/index` with `/auth/google_oauth2/callback` (Example: https://kanm-pv-bdd730616f63.herokuapp.com/auth/google_oauth/callback`). 
+- Before you try logging in, you need to add the **callback** to Google Auth as in 2. Setup Google Authentication Service -> C. Set Up Credentials. The URL for this will be based on the above URL you got from the previous step, but substitute the `/login/index` with `/auth/google_oauth2/callback` (Example: https://kanm-pv-bdd730616f63.herokuapp.com/auth/google_oauth/callback`). 
 - Once added, you are good to go. Try logging in again and you should hopefully succeed.
 - You should be able to view the "welcome" and "calendar" pages. Check out the next section for how to get access to the "admin" pages.
 
