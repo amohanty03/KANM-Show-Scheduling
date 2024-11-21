@@ -169,10 +169,10 @@ Note: Your TAMU email is a required field. `role: 1` is super admin which can ad
     - There may be RJs who were not assigned due to unresolvable conflicts and must be resolved manually. You can export this list by clicking on `Download Unassigned RJ List`.
 
         ![UnassignedRJs](./public/images/UnassignedRJs.png)
-### 5. Logout and Manage Admins
-- After you've logged in, the top-right section of the page consists of the `Logout` and `Manage Admins`* section.
+### 5. Profile Section
+- After you've logged in, the top-right section of the page consists of the `Logout` and `Manage Admins`* options under the Profile outline.
 
-    *Note*: If you're a regular admin (role: 2), you will *NOT* see the `Manage Admins` option.
+    **Note*: If you're a regular admin (role: 2), you will *NOT* see the `Manage Admins` option.
     <p align="center">
         <img src="./public/images/LogoutManageAdmin.png" alt="LogoutManageAdmin">
     </p>
