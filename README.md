@@ -22,7 +22,6 @@
 - [Team Members](#team-members)
 - [Getting Started in Local](#getting-started-in-local)
 - [Deploying on Heroku](#deploying-on-heroku)
-- [Application Walkthough](#application-walkthrough)
 - [Testing and Coverage](#testing-and-coverage)
 - [Rubocop](#rubocop)
 
@@ -53,17 +52,17 @@ For example: sudo apt install postgresql
 Note: It is possible that "bundle install" will not work before setting up the Authentication Service in step 2, this is because the omniauth gems need the service configuration
 
 ### 2. Setup Google Authentication Service
-### a. Create a New Project in Google Developer Console
+### A. Create a New Project in Google Developer Console
 1. Go to the [Google Developer Console](https://console.developers.google.com/) after log into Google with your @tamu email
 2. Select or create a project for your application, choose TAMU.EDU under "Select a resource"
 
-### b. Set Up OAuth Consent Screen
+### B. Set Up OAuth Consent Screen
 1. In your project, go to "OAuth consent screen." under "APIs & Services"  
 2. Set the user type to "Internal" for only @tamu.edu accounts or "External" for any @gmail account, and click on "CREATE"
 3. Fill out the required information on the consent screen. You need to provide the app name, user support email, and developer contact information. Click on "SAVE AND CONTINUE"
 4. Add userinfo.email and userinfo.profile under Scopes
 
-### c. Set Up Credentials
+### C. Set Up Credentials
 1. In your project, go to "Credentials" under "APIs & Services"
 2. Select "OAuth client ID" and choose "Web application" as the application type and give your application a name.
 3. Under "Authorized redirect URIs," add the following for local setup
@@ -115,27 +114,27 @@ Note: Your tamu email is a required field. Role 1 is super admin which can add, 
    (Example: `heroku git:remote -a kanm-pv -r heroku-pv`). 
    The `-r` flag lets you rename the remote, so pick a unique name so that it doesn't clash with any existing deployments you may have.
 - Run: `git remote` to verify that its been added.
+- So before pushing to Heroku, we need to add and commit our updated `credentials.yml.enc` file. So please run:
+  ```
+    git add .`
+    git commit -m "updated credentials"
+  ```
 - Next run: `git push <your-heroku-remote-name> main` (Example `git push heroku-pv main`). This should succeed.
-- Next go to your Heroku app page, and open up a **bash** console there. Then run: `rails db:migrate` and `rails db:seed`.
-- Now on your Heroku app page, click the button "Open App" to view the deployed application. You should successfully see the required home page of our application.
+- Next run the following 3 commands:
+  ```
+    heroku config:set RAILS_MASTER_KEY=`cat config/master.key`
+    heroku run rails db:migrate`
+    heroku run rails db:seed
+  ```
+- Next go to your Heroku app page, go to Settings and click "Reveal Config Vars". You should be seeing **8** of them.
+- Now on your Heroku app page, click the button "Open App" to view the deployed application. You should successfully see the required home page of our application. Don't login just yet.
 
-### 3. Config Changes
-- When you click Settings -> Reveal Config Vars, you should be seeing 7 variables.
-- But 3 more are required to be added :
-  - `GOOGLE_CLIENT_ID` (can be obtained from your GCP project)
-  - `GOOGLE_CLIENT_SECRET` (can be obtained from your GCP project)
-  - `RAILS_MASTER_KEY` (**TBA**)
 
-### 4. GCP Changes
+### 3. GCP Change
 - Note the domain of the deployed app.
 - Before you try logging in, you need to add the **callback** to Google Auth. Hence the URL for this will be based on the above URL you got from the previous step, but substitute the `/login/index` with `/auth/google_oauth2/callback` (Example: https://kanm-pv-bdd730616f63.herokuapp.com/auth/google_oauth/callback`). 
 - Once added, you are good to go. Try logging in again and you should hopefully succeed.
 - You should be able to view the "welcome" and "calendar" pages. Check out the next section for how to get access to the "admin" pages.
-
-
-## Application Walkthrough
-
-**TBA**
 
 
 ## Testing and Coverage
