@@ -22,6 +22,7 @@
 - [Team Members](#team-members)
 - [Getting Started in Local](#getting-started-in-local)
 - [Deploying on Heroku](#deploying-on-heroku)
+- [Application Walkthrough](#application-walkthrough)
 - [Testing and Coverage](#testing-and-coverage)
 - [Rubocop](#rubocop)
 
