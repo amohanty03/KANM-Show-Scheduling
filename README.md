@@ -136,7 +136,7 @@ Note: Your TAMU email is a required field. `role: 1` is super admin which can ad
 - Once added, you are good to go. Try logging in again and you should hopefully succeed.
 - You should be able to view the "welcome" and "calendar" pages. Check out the next section for how to get access to the "admin" pages.
 
-## Application User Flow
+## Application Walkthrough
 ### 1. Welcome Page
 - This is the Welcome Page of the KANM Radio Show Scheduler. When you visit for the first or when you log out, you will land on this page.
 ![WelcomePage](./public/images/WelcomePage.png)
